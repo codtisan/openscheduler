@@ -14,7 +14,7 @@ import {
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
-import SystemLogo from '@/assets/react.svg';
+import SystemLogo from '@/assets/openscheduler.svg';
 import useIsMenuStore from '@/store/useIsMenuStore';
 
 // Menu items.

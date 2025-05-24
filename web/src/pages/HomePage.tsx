@@ -3,7 +3,7 @@ import { SidebarProvider } from '@/components/ui/sidebar';
 
 function Home() {
     return (
-        <div className="h-screen">
+        <div className="">
             <SidebarProvider>
                 <AppSidebar />
             </SidebarProvider>
