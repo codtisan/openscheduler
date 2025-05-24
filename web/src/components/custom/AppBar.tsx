@@ -12,9 +12,10 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { Button } from '../ui/button';
-import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
+import SystemLogo from '@/assets/react.svg';
+import useIsMenuStore from '@/store/useIsMenuStore';
 
 // Menu items.
 const items = [
@@ -61,25 +62,25 @@ const items = [
 ];
 
 export function AppSidebar() {
-    const [isMenu, setIsMenu] = useState<boolean>(false);
+    const { menuDisplay, setMenuDisplay } = useIsMenuStore();
 
     const handleClickMenu = () => {
-        if (isMenu) {
-            setIsMenu(false);
+        if (menuDisplay === 'full') {
+            setMenuDisplay('short');
         } else {
-            setIsMenu(true);
+            setMenuDisplay('full');
         }
     };
 
     return (
-        <Sidebar className={cn('', isMenu ? 'w-12' : 'w-32')}>
+        <Sidebar className={cn('', menuDisplay === 'full' ? 'w-32' : 'w-12')}>
             <SidebarContent className="bg-[#F3F4F9]">
                 <SidebarGroup>
-                    {!isMenu ? <SidebarGroupLabel>Open Scheduler</SidebarGroupLabel> : null}
+                    {menuDisplay === 'full' ? <SidebarGroupLabel>Open Scheduler</SidebarGroupLabel> : <img src={SystemLogo} />}
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => {
-                                if (isMenu) {
+                                if (menuDisplay === 'short') {
                                     return (
                                         <TooltipProvider>
                                             <Tooltip>
@@ -88,7 +89,6 @@ export function AppSidebar() {
                                                         <SidebarMenuButton asChild className="hover:bg-blue-300 h-12">
                                                             <a href={item.url}>
                                                                 <item.icon />
-                                                                {!isMenu && <span>{item.title}</span>}
                                                             </a>
                                                         </SidebarMenuButton>
                                                     </SidebarMenuItem>
@@ -105,7 +105,7 @@ export function AppSidebar() {
                                         <SidebarMenuButton asChild className="hover:bg-blue-300 h-12">
                                             <a href={item.url}>
                                                 <item.icon />
-                                                {!isMenu && <span>{item.title}</span>}
+                                                {menuDisplay === 'full' && <span>{item.title}</span>}
                                             </a>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
