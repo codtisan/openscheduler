@@ -1,6 +1,6 @@
-import { AppSidebar } from '@/components/custom/AppBar';
-import SearchBar from '@/components/custom/SearchBar';
-import SettingPanel from '@/components/custom/SettingPanel';
+import { AppSidebar } from '@/components/app/AppBar';
+import SearchBar from '@/components/app/setting/SearchBar';
+import SettingPanel from '@/components/app/setting/SettingPanel';
 import { SidebarProvider } from '@/components/ui/sidebar';
 
 function SettingPage() {

@@ -1,5 +1,5 @@
 import useSettingSearchStore from '@/store/useSettingSearchStore';
-import { Input } from '../ui/input';
+import { Input } from '../../ui/input';
 
 export function SearchBar() {
     const { setSearchInput } = useSettingSearchStore();

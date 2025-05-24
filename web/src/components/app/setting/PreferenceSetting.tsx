@@ -10,7 +10,7 @@ import {
     DialogTrigger,
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { Switch } from '../ui/switch';
+import { Switch } from '../../ui/switch';
 
 export function PreferenceSetting() {
     return (
