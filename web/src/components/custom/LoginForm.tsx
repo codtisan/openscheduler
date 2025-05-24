@@ -17,7 +17,7 @@ const formSchema = z.object({
     }),
 });
 
-function LoginPage() {
+function LoginForm() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -89,4 +89,4 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default LoginForm;
