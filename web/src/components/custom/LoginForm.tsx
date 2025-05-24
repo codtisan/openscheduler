@@ -41,6 +41,7 @@ function LoginForm() {
                 console.error('Login failed:', res.data.message);
             }
         } catch (error) {
+            console.log(error);
             console.error('Login error:', error);
         }
     }

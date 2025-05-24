@@ -7,8 +7,11 @@ export class HTTPRequest {
 
     constructor() {
         this.axiosInstance = axios.create({
-            baseURL: 'http://localhost:5000',
+            baseURL: 'http://localhost:8000',
             timeout: 10000,
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
     }
     public async post(path: string, body: unknown) {
