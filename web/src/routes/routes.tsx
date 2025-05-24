@@ -1,5 +1,6 @@
 import App from '@/App';
-import Home from '@/pages/Home';
+import Home from '@/pages/HomePage';
+import SettingPage from '@/pages/SettingPage';
 import { createBrowserRouter } from 'react-router';
 
 export const router = createBrowserRouter([
@@ -10,5 +11,9 @@ export const router = createBrowserRouter([
     {
         path: '/home',
         element: <Home />,
+    },
+    {
+        path: '/settings',
+        element: <SettingPage />,
     },
 ]);
