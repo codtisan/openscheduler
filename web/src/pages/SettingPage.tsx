@@ -8,7 +8,8 @@ function SettingPage() {
         <>
             <SidebarProvider>
                 <AppSidebar />
-                <div className="flex flex-col w-[90%] m-6">
+                <div className="flex flex-col w-full m-4 gap-5">
+                    <div>Setting Panel</div>
                     <SearchBar />
                     <SettingPanel />
                 </div>

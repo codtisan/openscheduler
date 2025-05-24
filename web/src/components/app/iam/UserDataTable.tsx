@@ -1,19 +1,9 @@
 'use client';
 
 import * as React from 'react';
-import {
-    ColumnDef,
-    ColumnFiltersState,
-    SortingState,
-    VisibilityState,
-    flexRender,
-    getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    useReactTable,
-} from '@tanstack/react-table';
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, ColumnFiltersState, SortingState, VisibilityState } from '@tanstack/react-table';
+import { ArrowUpDown, ChevronDown, PencilLine, Trash2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -80,9 +70,35 @@ export const columns: ColumnDef<Payment>[] = [
         },
         cell: ({ row }) => <div className="lowercase">{row.getValue('role')}</div>,
     },
+    {
+        accessorKey: 'Delete',
+        header: () => {
+            return <div>Delete</div>;
+        },
+        cell: () => (
+            <div className="lowercase">
+                <Button variant="ghost">
+                    <Trash2 className="size-6" />
+                </Button>
+            </div>
+        ),
+    },
+    {
+        accessorKey: 'Edit',
+        header: () => {
+            return <div>Edit</div>;
+        },
+        cell: () => (
+            <div className="lowercase">
+                <Button variant="ghost">
+                    <PencilLine className="size-6" />
+                </Button>
+            </div>
+        ),
+    },
 ];
 
-export function DataTableDemo() {
+export function UserDataTable() {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -118,7 +134,7 @@ export function DataTableDemo() {
                 />
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
+                        <Button variant="outline" className="ml-6 w-[8%]">
                             Columns <ChevronDown />
                         </Button>
                     </DropdownMenuTrigger>
@@ -140,6 +156,7 @@ export function DataTableDemo() {
                             })}
                     </DropdownMenuContent>
                 </DropdownMenu>
+                <Button className="ml-6 w-[10%]">Create User</Button>
             </div>
             <div className="rounded-md border">
                 <Table>
