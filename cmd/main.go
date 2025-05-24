@@ -8,7 +8,7 @@ import (
 
 func main() {
 	app := fiber.New()
-	api.NewRoutes(app)
 	api.NewMiddlewares(app)
+	api.NewRoutes(app)
 	app.Listen(":8000")
 }
