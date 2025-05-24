@@ -3,18 +3,20 @@
 import * as React from 'react';
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import type { ColumnDef, ColumnFiltersState, SortingState, VisibilityState } from '@tanstack/react-table';
-import { ArrowUpDown, ChevronDown, PencilLine, Trash2 } from 'lucide-react';
+import { ArrowUpDown, ChevronDown, Eye, PencilLine, Trash2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { data } from '@/constants/user';
-import type { Payment } from '@/interfaces/user-table';
+import { data } from '@/constants/auditlog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import type { Auditlog } from '@/interfaces/auditlog-table';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import ReactJson from 'react-json-view';
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Auditlog>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -31,45 +33,116 @@ export const columns: ColumnDef<Payment>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: 'status',
-        header: 'Status',
-        cell: ({ row }) => <div className="capitalize">{row.getValue('status')}</div>,
-    },
-    {
-        accessorKey: 'email',
+        accessorKey: 'detail',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Email
+                    Detail
+                </Button>
+            );
+        },
+        cell: () => (
+            <div className="lowercase">
+                <Button variant="ghost">
+                    <Eye className="size-6" />
+                </Button>
+            </div>
+        ),
+    },
+    {
+        accessorKey: 'userId',
+        header: 'User ID',
+        cell: ({ row }) => <div className="capitalize">{row.getValue('userId')}</div>,
+    },
+    {
+        accessorKey: 'useragent',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    User Agent
                     <ArrowUpDown />
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('email')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('useragent')}</div>,
     },
     {
-        accessorKey: 'username',
+        accessorKey: 'ip',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Username
+                    IP Address
                     <ArrowUpDown />
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('username')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('ip')}</div>,
     },
     {
-        accessorKey: 'role',
+        accessorKey: 'resource',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Role
-                    <ArrowUpDown />
+                    Resource
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('role')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('resource')}</div>,
+    },
+    {
+        accessorKey: 'method',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Method
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div className="lowercase">{row.getValue('method')}</div>,
+    },
+    {
+        accessorKey: 'api',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    API Route
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div className="lowercase">{row.getValue('api')}</div>,
+    },
+    {
+        accessorKey: 'body',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Request Body
+                </Button>
+            );
+        },
+        cell: ({ row }) => (
+            <TooltipProvider>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <div className="lowercase">{JSON.stringify(row.getValue('body')).slice(0, 20) + ' ...'}</div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <ReactJson src={row.getValue('body')} theme="ashes" />
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
+        ),
+    },
+    {
+        accessorKey: 'createdAt',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Created At
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div className="lowercase">{row.getValue('createdAt')}</div>,
     },
     {
         accessorKey: 'Delete',
@@ -99,7 +172,7 @@ export const columns: ColumnDef<Payment>[] = [
     },
 ];
 
-export function UserDataTable() {
+export function AuditLogDataTable() {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -125,19 +198,19 @@ export function UserDataTable() {
     });
 
     return (
-        <Tabs defaultValue="user" className="w-[100%] py-3">
+        <Tabs defaultValue="audit log" className="w-[100%] py-3">
             <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="user">User</TabsTrigger>
-                <TabsTrigger value="role">Role</TabsTrigger>
-                <TabsTrigger value="service account">Service Account</TabsTrigger>
+                <TabsTrigger value="audit log">Audit Log</TabsTrigger>
+                <TabsTrigger value="metrics log">Metrics Log</TabsTrigger>
+                <TabsTrigger value="response log">Response Log</TabsTrigger>
             </TabsList>
-            <TabsContent value="user">
+            <TabsContent value="audit log">
                 <div className="w-full">
                     <div className="flex items-center py-3">
                         <Input
-                            placeholder="Filter emails..."
-                            value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-                            onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
+                            placeholder="Filter resource..."
+                            value={(table.getColumn('resource')?.getFilterValue() as string) ?? ''}
+                            onChange={(event) => table.getColumn('resource')?.setFilterValue(event.target.value)}
                             className="max-w-sm"
                         />
                         <DropdownMenu>
@@ -164,7 +237,6 @@ export function UserDataTable() {
                                     })}
                             </DropdownMenuContent>
                         </DropdownMenu>
-                        <Button className="ml-6 w-[10%]">Create User</Button>
                     </div>
                     <div className="rounded-md border">
                         <Table>
