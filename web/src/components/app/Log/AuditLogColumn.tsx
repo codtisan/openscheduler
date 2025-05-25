@@ -117,7 +117,7 @@ export const columns: ColumnDef<Auditlog>[] = [
                         <div className="lowercase">{JSON.stringify(row.getValue('body')).slice(0, 20) + ' ...'}</div>
                     </TooltipTrigger>
                     <TooltipContent>
-                        <ReactJson src={row.getValue('body')} theme="ashes" />
+                        <ReactJson src={row.getValue('body')} theme="pop" name={false} />
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>

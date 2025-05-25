@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import type { Payment } from '@/interfaces/user-table';
+import type { ServiceAccountRow } from '@/interfaces/service-acount-table';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, PencilLine, Trash2 } from 'lucide-react';
 
-export const columns: ColumnDef<Payment>[] = [
+export const ServiceAccountColumns: ColumnDef<ServiceAccountRow>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -48,6 +48,13 @@ export const columns: ColumnDef<Payment>[] = [
             );
         },
         cell: ({ row }) => <div className="lowercase">{row.getValue('username')}</div>,
+    },
+    {
+        accessorKey: 'token',
+        header: () => {
+            return <div>Token</div>;
+        },
+        cell: ({ row }) => <div>{row.getValue('token')}</div>,
     },
     {
         accessorKey: 'role',

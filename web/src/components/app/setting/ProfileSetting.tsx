@@ -14,11 +14,11 @@ import { Label } from '@/components/ui/label';
 
 export function ProfileSetting() {
     return (
-        <Dialog>
+        <Dialog key="profile">
             <DialogTrigger asChild>
-                <Button className="size-[20%] text-[2rem]">Profile</Button>
+                <Button className="size-full text-4xl">Profile</Button>
             </DialogTrigger>
-            <DialogContent className="size-[60%]">
+            <DialogContent className="w-[60%]">
                 <DialogHeader>
                     <DialogTitle>Edit Profile</DialogTitle>
                     <DialogDescription>Make changes to your profile here. Click save when you're done.</DialogDescription>

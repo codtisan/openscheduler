@@ -17,10 +17,14 @@ function SettingPanel() {
     const { searchInput } = useSettingSearchStore();
 
     return (
-        <div className="flex flex-row w-[90%] h-[90%] gap-10">
+        <div className="flex flex-row gap-10 size-full ">
             {Settings.map((setting) => {
                 if (setting.title.toLowerCase().includes(searchInput)) {
-                    return setting.element;
+                    return (
+                        <div className="w-[20%] h-[30%]" key={setting.title}>
+                            {setting.element}
+                        </div>
+                    );
                 }
             })}
         </div>

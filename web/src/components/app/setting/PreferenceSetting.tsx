@@ -14,11 +14,11 @@ import { Switch } from '../../ui/switch';
 
 export function PreferenceSetting() {
     return (
-        <Dialog>
+        <Dialog key="preference">
             <DialogTrigger asChild>
-                <Button className="size-[20%] text-[2rem]">Preference</Button>
+                <Button className="size-full text-4xl">Preference</Button>
             </DialogTrigger>
-            <DialogContent className="size-[60%]">
+            <DialogContent className="w-[60%]">
                 <DialogHeader>
                     <DialogTitle>Edit Preference</DialogTitle>
                     <DialogDescription>Make changes to your preference here. Click save when you're done.</DialogDescription>
