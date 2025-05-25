@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { IUserData } from '@/interfaces/user-table';
+import { cn } from '@/lib/utils';
+import { statusToColor } from '@/services/color';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, PencilLine, Trash2 } from 'lucide-react';
 
@@ -23,7 +25,10 @@ export const UserColumns: ColumnDef<IUserData>[] = [
     {
         accessorKey: 'status',
         header: 'Status',
-        cell: ({ row }) => <div className="capitalize">{row.getValue('status')}</div>,
+        cell: ({ row }) => {
+            const statusColor = statusToColor(row.getValue('status'));
+            return <div className={cn('capitalize text-center rounded-2xl', statusColor)}>{row.getValue('status')}</div>;
+        },
     },
     {
         accessorKey: 'email',
@@ -60,6 +65,28 @@ export const UserColumns: ColumnDef<IUserData>[] = [
             );
         },
         cell: ({ row }) => <div className="lowercase">{row.getValue('role')}</div>,
+    },
+    {
+        accessorKey: 'createdAt',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Created At
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div className="lowercase">{row.getValue('createdAt')}</div>,
+    },
+    {
+        accessorKey: 'updatedAt',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Updated At
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div className="lowercase">{row.getValue('updatedAt')}</div>,
     },
     {
         accessorKey: 'Delete',

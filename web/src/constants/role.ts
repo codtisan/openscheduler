@@ -6,6 +6,7 @@ export const RoleDataSample: IRoleData[] = [
         name: 'Admin',
         status: 'success',
         createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
         logPolicy: ['read', 'write', 'delete'],
     },
     {
@@ -13,6 +14,7 @@ export const RoleDataSample: IRoleData[] = [
         name: 'Editor',
         status: 'pending',
         createdAt: '2025-05-25T09:15:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
         logPolicy: ['read', 'write'],
     },
     {
@@ -20,6 +22,7 @@ export const RoleDataSample: IRoleData[] = [
         name: 'Viewer',
         status: 'success',
         createdAt: '2025-05-25T09:30:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
         logPolicy: ['read'],
     },
     {
@@ -27,6 +30,7 @@ export const RoleDataSample: IRoleData[] = [
         name: 'Moderator',
         status: 'processing',
         createdAt: '2025-05-25T09:45:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
         logPolicy: ['read', 'write', 'moderate'],
     },
     {
@@ -34,6 +38,7 @@ export const RoleDataSample: IRoleData[] = [
         name: 'Guest',
         status: 'failed',
         createdAt: '2025-05-25T10:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
         logPolicy: [],
     },
     {
@@ -41,6 +46,7 @@ export const RoleDataSample: IRoleData[] = [
         name: 'Developer',
         status: 'success',
         createdAt: '2025-05-25T10:15:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
         logPolicy: ['read', 'write', 'deploy'],
     },
     {
@@ -48,6 +54,7 @@ export const RoleDataSample: IRoleData[] = [
         name: 'Analyst',
         status: 'pending',
         createdAt: '2025-05-25T10:30:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
         logPolicy: ['read', 'analyze'],
     },
     {
@@ -55,6 +62,7 @@ export const RoleDataSample: IRoleData[] = [
         name: 'Manager',
         status: 'success',
         createdAt: '2025-05-25T10:45:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
         logPolicy: ['read', 'write', 'approve'],
     },
     {
@@ -62,6 +70,7 @@ export const RoleDataSample: IRoleData[] = [
         name: 'Support',
         status: 'processing',
         createdAt: '2025-05-25T11:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
         logPolicy: ['read', 'support'],
     },
     {
@@ -69,6 +78,7 @@ export const RoleDataSample: IRoleData[] = [
         name: 'Tester',
         status: 'failed',
         createdAt: '2025-05-25T11:15:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
         logPolicy: ['read', 'test'],
     },
 ];

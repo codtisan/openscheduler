@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import type { IRoleData } from '@/interfaces/role-table';
+import type { IAlertData } from '@/interfaces/alert/alert-table';
 import { cn } from '@/lib/utils';
 import { statusToColor } from '@/services/color';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, PencilLine, Trash2 } from 'lucide-react';
 
-export const RoleColumns: ColumnDef<IRoleData>[] = [
+export const AlertColumns: ColumnDef<IAlertData>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -31,6 +31,22 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
         },
     },
     {
+        accessorKey: 'statusCode',
+        header: 'Status Code',
+        cell: ({ row }) => <div>{row.getValue('statusCode')}</div>,
+    },
+    {
+        accessorKey: 'type',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Type
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div className="capitalize">{row.getValue('type')}</div>,
+    },
+    {
         accessorKey: 'name',
         header: ({ column }) => {
             return (
@@ -40,20 +56,18 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('name')}</div>,
+        cell: ({ row }) => <div className="capitalize">{row.getValue('name')}</div>,
     },
     {
-        accessorKey: 'logPolicy',
-        header: 'Log Policy',
-        cell: ({ row }) => {
+        accessorKey: 'description',
+        header: ({ column }) => {
             return (
-                <div className="flex flex-col">
-                    {(row.getValue('logPolicy') as string[]).map((item: string) => (
-                        <span key={item}>{item}</span>
-                    ))}
-                </div>
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Description
+                </Button>
             );
         },
+        cell: ({ row }) => <div className="capitalize">{row.getValue('description')}</div>,
     },
     {
         accessorKey: 'createdAt',
@@ -65,17 +79,6 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
             );
         },
         cell: ({ row }) => <div className="lowercase">{row.getValue('createdAt')}</div>,
-    },
-    {
-        accessorKey: 'updatedAt',
-        header: ({ column }) => {
-            return (
-                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Updated At
-                </Button>
-            );
-        },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('updatedAt')}</div>,
     },
     {
         accessorKey: 'Delete',

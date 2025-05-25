@@ -6,4 +6,5 @@ export type IServiceAccountData = {
     token: string;
     role: string;
     createdAt: string;
+    updatedAt: string;
 };

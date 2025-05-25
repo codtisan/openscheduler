@@ -7,6 +7,8 @@ export const UserDataSample: IUserData[] = [
         email: 'ken99@example.com',
         username: 'ken',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: '3u1reuv4',
@@ -14,6 +16,8 @@ export const UserDataSample: IUserData[] = [
         email: 'Abe45@example.com',
         username: 'abe',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: 'derv1ws0',
@@ -21,6 +25,8 @@ export const UserDataSample: IUserData[] = [
         email: 'Monserrat44@example.com',
         username: 'mon',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: 'm5gr84i9',
@@ -28,6 +34,8 @@ export const UserDataSample: IUserData[] = [
         email: 'ken99@example.com',
         username: 'ken',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: '3u1reuv4',
@@ -35,6 +43,8 @@ export const UserDataSample: IUserData[] = [
         email: 'Abe45@example.com',
         username: 'abe',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: 'derv1ws0',
@@ -42,6 +52,8 @@ export const UserDataSample: IUserData[] = [
         email: 'Monserrat44@example.com',
         username: 'mon',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: 'm5gr84i9',
@@ -49,6 +61,8 @@ export const UserDataSample: IUserData[] = [
         email: 'ken99@example.com',
         username: 'ken',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: '3u1reuv4',
@@ -56,6 +70,8 @@ export const UserDataSample: IUserData[] = [
         email: 'Abe45@example.com',
         username: 'abe',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: 'derv1ws0',
@@ -63,6 +79,8 @@ export const UserDataSample: IUserData[] = [
         email: 'Monserrat44@example.com',
         username: 'mon',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: 'm5gr84i9',
@@ -70,6 +88,8 @@ export const UserDataSample: IUserData[] = [
         email: 'ken99@example.com',
         username: 'ken',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: '3u1reuv4',
@@ -77,6 +97,8 @@ export const UserDataSample: IUserData[] = [
         email: 'Abe45@example.com',
         username: 'abe',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: 'derv1ws0',
@@ -84,6 +106,8 @@ export const UserDataSample: IUserData[] = [
         email: 'Monserrat44@example.com',
         username: 'mon',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: 'm5gr84i9',
@@ -91,6 +115,8 @@ export const UserDataSample: IUserData[] = [
         email: 'ken99@example.com',
         username: 'ken',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: '3u1reuv4',
@@ -98,6 +124,8 @@ export const UserDataSample: IUserData[] = [
         email: 'Abe45@example.com',
         username: 'abe',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
     {
         id: 'derv1ws0',
@@ -105,5 +133,7 @@ export const UserDataSample: IUserData[] = [
         email: 'Monserrat44@example.com',
         username: 'mon',
         role: 'admin',
+        createdAt: '2025-05-25T09:00:00Z',
+        updatedAt: '2025-05-25T09:15:00Z',
     },
 ];

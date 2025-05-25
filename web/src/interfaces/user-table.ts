@@ -4,4 +4,6 @@ export type IUserData = {
     email: string;
     username: string;
     role: string;
+    createdAt: string;
+    updatedAt: string;
 };

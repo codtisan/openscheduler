@@ -1,4 +1,5 @@
 import App from '@/App';
+import AlertPage from '@/pages/AlertPage';
 import Home from '@/pages/HomePage';
 import IAMPage from '@/pages/IAMPage';
 import LogPage from '@/pages/LogPage';
@@ -25,5 +26,9 @@ export const router = createBrowserRouter([
     {
         path: '/log',
         element: <LogPage />,
+    },
+    {
+        path: '/alert',
+        element: <AlertPage />,
     },
 ]);
