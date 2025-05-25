@@ -6,6 +6,9 @@ import { ServiceAccountDataSample } from '@/constants/service-account';
 import { ServiceAccountColumns } from './ServiceAccountColumn';
 import { RoleDataSample } from '@/constants/role';
 import { RoleColumns } from './RoleColumn';
+import CreateUserSection from './CreateUser';
+import CreateRoleSection from './CreateRole';
+import CreateServiceAccountSection from './CreateServiceAccount';
 
 export function IAMDataTable() {
     return (
@@ -16,13 +19,29 @@ export function IAMDataTable() {
                 <TabsTrigger value="service account">Service Account</TabsTrigger>
             </TabsList>
             <TabsContent value="user">
-                <DataTableBase tableData={UserDataSample} tableColumns={UserColumns} filteredColumnName="username" />
+                <DataTableBase
+                    tableData={UserDataSample}
+                    tableColumns={UserColumns}
+                    filteredColumnName="username"
+                    createRecordElement={<CreateUserSection />}
+                />
             </TabsContent>
             <TabsContent value="service account">
-                <DataTableBase tableData={ServiceAccountDataSample} tableColumns={ServiceAccountColumns} filteredColumnName="username" />
+                <DataTableBase
+                    tableData={ServiceAccountDataSample}
+                    tableColumns={ServiceAccountColumns}
+                    filteredColumnName="username"
+                    createRecordElement={<CreateServiceAccountSection />}
+                />
             </TabsContent>
             <TabsContent value="role">
-                <DataTableBase tableData={RoleDataSample} tableColumns={RoleColumns} filteredColumnName="name" maxRowPerPage={8} />
+                <DataTableBase
+                    tableData={RoleDataSample}
+                    tableColumns={RoleColumns}
+                    filteredColumnName="name"
+                    maxRowPerPage={8}
+                    createRecordElement={<CreateRoleSection />}
+                />
             </TabsContent>
         </Tabs>
     );

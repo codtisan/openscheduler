@@ -38,7 +38,7 @@ const items = [
         icon: Workflow,
     },
     {
-        title: 'Log',
+        title: 'Log View',
         url: '/log',
         icon: Search,
     },

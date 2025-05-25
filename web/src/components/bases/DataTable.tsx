@@ -12,9 +12,10 @@ interface DataTableBaseProps<T> {
     tableColumns: ColumnDef<T, unknown>[];
     filteredColumnName: string;
     maxRowPerPage?: number;
+    createRecordElement?: React.ReactNode | null;
 }
 
-export function DataTableBase<T>({ tableData, tableColumns, filteredColumnName, maxRowPerPage = 10 }: DataTableBaseProps<T>) {
+export function DataTableBase<T>({ tableData, tableColumns, filteredColumnName, maxRowPerPage = 10, createRecordElement }: DataTableBaseProps<T>) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -77,6 +78,7 @@ export function DataTableBase<T>({ tableData, tableColumns, filteredColumnName, 
                             })}
                     </DropdownMenuContent>
                 </DropdownMenu>
+                {createRecordElement}
             </div>
             <div className="rounded-md border">
                 <Table>
