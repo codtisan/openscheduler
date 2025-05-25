@@ -6,7 +6,6 @@ import {
     SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
@@ -16,6 +15,8 @@ import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import SystemLogo from '@/assets/openscheduler.svg';
 import useIsMenuStore from '@/store/useIsMenuStore';
+import { useNavigate } from 'react-router';
+import { ColourfulText } from '../ui/colourful-text';
 
 // Menu items.
 const items = [
@@ -63,6 +64,7 @@ const items = [
 
 export function AppSidebar() {
     const { menuDisplay, setMenuDisplay } = useIsMenuStore();
+    const navigate = useNavigate();
 
     const handleClickMenu = () => {
         if (menuDisplay === 'full') {
@@ -72,11 +74,24 @@ export function AppSidebar() {
         }
     };
 
+    const handleClickSystemLogo = () => {
+        navigate('/home');
+    };
+
     return (
         <Sidebar className={cn('', menuDisplay === 'full' ? 'w-32' : 'w-12')}>
             <SidebarContent className="bg-[#F3F4F9]">
                 <SidebarGroup>
-                    {menuDisplay === 'full' ? <SidebarGroupLabel>Open Scheduler</SidebarGroupLabel> : <img src={SystemLogo} />}
+                    {menuDisplay === 'full' ? (
+                        <>
+                            <img src={SystemLogo} onClick={handleClickSystemLogo} />
+                            <h1 className="text-[99%]">
+                                <ColourfulText text="Open Scheduler" />
+                            </h1>
+                        </>
+                    ) : (
+                        <img src={SystemLogo} />
+                    )}
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => {
