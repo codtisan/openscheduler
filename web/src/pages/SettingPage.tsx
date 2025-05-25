@@ -1,5 +1,5 @@
 import { AppSidebar } from '@/components/app/AppBar';
-import SearchBar from '@/components/app/setting/SearchBar';
+import SearchBar from '@/components/bases/SearchBar';
 import SettingPanel from '@/components/app/setting/SettingPanel';
 import { SidebarProvider } from '@/components/ui/sidebar';
 
