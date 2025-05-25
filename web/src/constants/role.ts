@@ -1,0 +1,74 @@
+import type { IRoleData } from '@/interfaces/role-table';
+
+export const RoleDataSample: IRoleData[] = [
+    {
+        id: 'role1',
+        name: 'Admin',
+        status: 'success',
+        createdAt: '2025-05-25T09:00:00Z',
+        logPolicy: ['read', 'write', 'delete'],
+    },
+    {
+        id: 'role2',
+        name: 'Editor',
+        status: 'pending',
+        createdAt: '2025-05-25T09:15:00Z',
+        logPolicy: ['read', 'write'],
+    },
+    {
+        id: 'role3',
+        name: 'Viewer',
+        status: 'success',
+        createdAt: '2025-05-25T09:30:00Z',
+        logPolicy: ['read'],
+    },
+    {
+        id: 'role4',
+        name: 'Moderator',
+        status: 'processing',
+        createdAt: '2025-05-25T09:45:00Z',
+        logPolicy: ['read', 'write', 'moderate'],
+    },
+    {
+        id: 'role5',
+        name: 'Guest',
+        status: 'failed',
+        createdAt: '2025-05-25T10:00:00Z',
+        logPolicy: [],
+    },
+    {
+        id: 'role6',
+        name: 'Developer',
+        status: 'success',
+        createdAt: '2025-05-25T10:15:00Z',
+        logPolicy: ['read', 'write', 'deploy'],
+    },
+    {
+        id: 'role7',
+        name: 'Analyst',
+        status: 'pending',
+        createdAt: '2025-05-25T10:30:00Z',
+        logPolicy: ['read', 'analyze'],
+    },
+    {
+        id: 'role8',
+        name: 'Manager',
+        status: 'success',
+        createdAt: '2025-05-25T10:45:00Z',
+        logPolicy: ['read', 'write', 'approve'],
+    },
+    {
+        id: 'role9',
+        name: 'Support',
+        status: 'processing',
+        createdAt: '2025-05-25T11:00:00Z',
+        logPolicy: ['read', 'support'],
+    },
+    {
+        id: 'role10',
+        name: 'Tester',
+        status: 'failed',
+        createdAt: '2025-05-25T11:15:00Z',
+        logPolicy: ['read', 'test'],
+    },
+];

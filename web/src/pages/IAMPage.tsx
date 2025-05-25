@@ -1,5 +1,5 @@
 import { AppSidebar } from '@/components/app/AppBar';
-import { UserDataTable } from '@/components/app/iam/UserDataTable';
+import { IAMDataTable } from '@/components/app/iam/IAMDataTable';
 import { SidebarProvider } from '@/components/ui/sidebar';
 
 function IAMPage() {
@@ -9,7 +9,7 @@ function IAMPage() {
                 <AppSidebar />
                 <div className="w-full m-4">
                     <div>Identity and Access Management</div>
-                    <UserDataTable />
+                    <IAMDataTable />
                 </div>
             </SidebarProvider>
         </>

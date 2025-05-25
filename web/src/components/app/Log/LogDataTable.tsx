@@ -1,0 +1,29 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { DataTableBase } from '@/components/bases/DataTable';
+import { AuditLogColumns } from './AuditLogColumn';
+import { AuditLogDataSample } from '@/constants/auditlog';
+import { MetricsLogDataSample } from '@/constants/metricslog';
+import { ResponseLogDataSample } from '@/constants/responselog';
+import { MetricsLogColumns } from './MetricsLogColumn';
+import { ResponseLogColumns } from './ResponseLogColumn';
+
+export function AuditLogDataTable() {
+    return (
+        <Tabs defaultValue="audit log" className="w-[100%] py-3">
+            <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="audit log">Audit Log</TabsTrigger>
+                <TabsTrigger value="metrics log">Metrics Log</TabsTrigger>
+                <TabsTrigger value="response log">Response Log</TabsTrigger>
+            </TabsList>
+            <TabsContent value="audit log">
+                <DataTableBase tableData={AuditLogDataSample} tableColumns={AuditLogColumns} filteredColumnName="resource" />
+            </TabsContent>
+            <TabsContent value="metrics log">
+                <DataTableBase tableData={MetricsLogDataSample} tableColumns={MetricsLogColumns} filteredColumnName="ramUsage" />
+            </TabsContent>
+            <TabsContent value="response log">
+                <DataTableBase tableData={ResponseLogDataSample} tableColumns={ResponseLogColumns} filteredColumnName="resource" />
+            </TabsContent>
+        </Tabs>
+    );
+}

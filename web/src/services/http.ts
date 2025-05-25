@@ -22,6 +22,14 @@ export class HTTPRequest {
         const res = await this.axiosInstance.get(path);
         return res.data;
     }
+    public async delete(path: string) {
+        const res = await this.axiosInstance.delete(path);
+        return res.data;
+    }
+    public async put(path: string, body: unknown) {
+        const res = await this.axiosInstance.put(path, body);
+        return res.data;
+    }
 }
 
 export const BackendServices = new HTTPRequest();

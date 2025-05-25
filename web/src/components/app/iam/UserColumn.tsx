@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import type { Payment } from '@/interfaces/user-table';
+import type { IUserData } from '@/interfaces/user-table';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, PencilLine, Trash2 } from 'lucide-react';
 
-export const UserColumns: ColumnDef<Payment>[] = [
+export const UserColumns: ColumnDef<IUserData>[] = [
     {
         id: 'select',
         header: ({ table }) => (

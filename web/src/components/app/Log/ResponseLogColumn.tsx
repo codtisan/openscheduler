@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import type { IAuditlogData } from '@/interfaces/log/auditlog-table';
+import type { IResponseLogData } from '@/interfaces/log/responselog-table';
 import type { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, Eye, PencilLine, Trash2 } from 'lucide-react';
+import { Eye, PencilLine, Trash2 } from 'lucide-react';
 import ReactJson from 'react-json-view';
 
-export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
+export const ResponseLogColumns: ColumnDef<IResponseLogData>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -40,33 +40,9 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
         ),
     },
     {
-        accessorKey: 'userId',
-        header: 'User ID',
-        cell: ({ row }) => <div className="capitalize">{row.getValue('userId')}</div>,
-    },
-    {
-        accessorKey: 'useragent',
-        header: ({ column }) => {
-            return (
-                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    User Agent
-                    <ArrowUpDown />
-                </Button>
-            );
-        },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('useragent')}</div>,
-    },
-    {
-        accessorKey: 'ip',
-        header: ({ column }) => {
-            return (
-                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    IP Address
-                    <ArrowUpDown />
-                </Button>
-            );
-        },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('ip')}</div>,
+        accessorKey: 'auditlogId',
+        header: 'Audit Log ID',
+        cell: ({ row }) => <div className="capitalize">{row.getValue('auditlogId')}</div>,
     },
     {
         accessorKey: 'resource',
@@ -102,11 +78,22 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
         cell: ({ row }) => <div className="lowercase">{row.getValue('api')}</div>,
     },
     {
-        accessorKey: 'body',
+        accessorKey: 'latency',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Request Body
+                    Latency
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div className="lowercase">{row.getValue('latency')}</div>,
+    },
+    {
+        accessorKey: 'payload',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Payload
                 </Button>
             );
         },
@@ -114,10 +101,10 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger asChild>
-                        <div className="lowercase">{JSON.stringify(row.getValue('body')).slice(0, 20) + ' ...'}</div>
+                        <div className="lowercase">{JSON.stringify(row.getValue('payload')).slice(0, 20)}</div>
                     </TooltipTrigger>
                     <TooltipContent>
-                        <ReactJson src={row.getValue('body')} theme="pop" name={false} />
+                        <ReactJson src={row.getValue('payload')} theme="pop" name={false} />
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>

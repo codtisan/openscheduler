@@ -1,4 +1,4 @@
-export type Payment = {
+export type IUserData = {
     id: string;
     status: 'pending' | 'processing' | 'success' | 'failed';
     email: string;

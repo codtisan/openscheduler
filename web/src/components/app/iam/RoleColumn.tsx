@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import type { IServiceAccountData } from '@/interfaces/service-acount-table';
+import type { IRoleData } from '@/interfaces/role-table';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, PencilLine, Trash2 } from 'lucide-react';
 
-export const ServiceAccountColumns: ColumnDef<IServiceAccountData>[] = [
+export const RoleColumns: ColumnDef<IRoleData>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -26,47 +26,40 @@ export const ServiceAccountColumns: ColumnDef<IServiceAccountData>[] = [
         cell: ({ row }) => <div className="capitalize">{row.getValue('status')}</div>,
     },
     {
-        accessorKey: 'email',
+        accessorKey: 'name',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Email
+                    Name
                     <ArrowUpDown />
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('email')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('name')}</div>,
     },
     {
-        accessorKey: 'username',
+        accessorKey: 'logPolicy',
+        header: 'Log Policy',
+        cell: ({ row }) => {
+            return (
+                <div className="flex flex-col">
+                    {(row.getValue('logPolicy') as string[]).map((item: string) => (
+                        <span key={item}>{item}</span>
+                    ))}
+                </div>
+            );
+        },
+    },
+    {
+        accessorKey: 'createdAt',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Username
-                    <ArrowUpDown />
+                    Created At
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('username')}</div>,
-    },
-    {
-        accessorKey: 'token',
-        header: () => {
-            return <div>Token</div>;
-        },
-        cell: ({ row }) => <div>{row.getValue('token')}</div>,
-    },
-    {
-        accessorKey: 'role',
-        header: ({ column }) => {
-            return (
-                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Role
-                    <ArrowUpDown />
-                </Button>
-            );
-        },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('role')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('createdAt')}</div>,
     },
     {
         accessorKey: 'Delete',

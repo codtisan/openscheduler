@@ -1,6 +1,6 @@
-import type { Auditlog } from '@/interfaces/auditlog-table';
+import type { IAuditlogData } from '@/interfaces/log/auditlog-table';
 
-export const data: Auditlog[] = [
+export const AuditLogDataSample: IAuditlogData[] = [
     {
         id: 'log1',
         userId: 'user123',

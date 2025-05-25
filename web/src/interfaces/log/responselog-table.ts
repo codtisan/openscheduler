@@ -1,11 +1,10 @@
-export type Auditlog = {
+export type IResponseLogData = {
     id: string;
-    userId: string;
-    useragent: string;
-    ip: string;
+    auditlogId: string;
     resource: string;
     method: 'GET' | 'POST' | 'PUT' | 'DELETE';
     api: string;
-    body: object;
+    latency: number;
+    payload: object;
     createdAt: string;
 };

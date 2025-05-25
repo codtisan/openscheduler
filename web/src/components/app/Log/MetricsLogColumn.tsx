@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import type { IServiceAccountData } from '@/interfaces/service-acount-table';
+import type { IMetricsLogData } from '@/interfaces/log/metricslog-table';
 import type { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, PencilLine, Trash2 } from 'lucide-react';
+import { ArrowUpDown, Eye, PencilLine, Trash2 } from 'lucide-react';
 
-export const ServiceAccountColumns: ColumnDef<IServiceAccountData>[] = [
+export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -21,52 +21,72 @@ export const ServiceAccountColumns: ColumnDef<IServiceAccountData>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: 'status',
-        header: 'Status',
-        cell: ({ row }) => <div className="capitalize">{row.getValue('status')}</div>,
-    },
-    {
-        accessorKey: 'email',
+        accessorKey: 'detail',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Email
+                    Detail
+                </Button>
+            );
+        },
+        cell: () => (
+            <div className="lowercase">
+                <Button variant="ghost">
+                    <Eye className="size-6" />
+                </Button>
+            </div>
+        ),
+    },
+    {
+        accessorKey: 'cpuUsage',
+        header: 'CPU Usage',
+        cell: ({ row }) => <div className="capitalize">{row.getValue('cpuUsage')}</div>,
+    },
+    {
+        accessorKey: 'ramUsage',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    RAM Usage
                     <ArrowUpDown />
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('email')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('ramUsage')}</div>,
     },
     {
-        accessorKey: 'username',
+        accessorKey: 'diskAvailable',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Username
+                    Available Disk Space
                     <ArrowUpDown />
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('username')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('diskAvailable')}</div>,
     },
     {
-        accessorKey: 'token',
-        header: () => {
-            return <div>Token</div>;
-        },
-        cell: ({ row }) => <div>{row.getValue('token')}</div>,
-    },
-    {
-        accessorKey: 'role',
+        accessorKey: 'netBandwidth',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Role
-                    <ArrowUpDown />
+                    Network Bandwidth
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('role')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('netBandwidth')}</div>,
+    },
+    {
+        accessorKey: 'createdAt',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Created At
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div className="lowercase">{row.getValue('createdAt')}</div>,
     },
     {
         accessorKey: 'Delete',

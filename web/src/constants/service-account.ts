@@ -1,6 +1,6 @@
-import type { ServiceAccountRow } from '@/interfaces/service-acount-table';
+import type { IServiceAccountData } from '@/interfaces/service-acount-table';
 
-export const ServiceAccounts: ServiceAccountRow[] = [
+export const ServiceAccountDataSample: IServiceAccountData[] = [
     {
         id: 'sa1',
         status: 'success',

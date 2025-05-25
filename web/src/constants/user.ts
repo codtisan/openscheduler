@@ -1,6 +1,6 @@
-import type { Payment } from '@/interfaces/user-table';
+import type { IUserData } from '@/interfaces/user-table';
 
-export const data: Payment[] = [
+export const UserDataSample: IUserData[] = [
     {
         id: 'm5gr84i9',
         status: 'success',

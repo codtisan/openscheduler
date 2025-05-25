@@ -1,4 +1,4 @@
-export type ServiceAccountRow = {
+export type IServiceAccountData = {
     id: string;
     status: 'pending' | 'processing' | 'success' | 'failed';
     email: string;
