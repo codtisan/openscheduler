@@ -27,7 +27,11 @@ export const UserColumns: ColumnDef<IUserData>[] = [
         header: 'Status',
         cell: ({ row }) => {
             const statusColor = statusToColor(row.getValue('status'));
-            return <div className={cn('capitalize text-center rounded-2xl', statusColor)}>{row.getValue('status')}</div>;
+            return (
+                <div className={cn('capitalize text-center rounded-2xl h-[2rem] flex items-center justify-center', statusColor)}>
+                    {row.getValue('status')}
+                </div>
+            );
         },
     },
     {
