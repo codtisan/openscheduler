@@ -25,11 +25,11 @@ function CreateRoleSection() {
                         <Input id="name" className="col-span-3" />
                     </div>
 
-                    {IAMPolicies.map((iamComponent: IIAMPolicy) => {
+                    {Object.values(IAMPolicies).map((iamComponent: IIAMPolicy) => {
                         return (
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="log policy" className="text-right">
-                                    {iamComponent.component}
+                                    {iamComponent.name}
                                 </Label>
                                 <div className="flex flex-row gap-4">
                                     {iamComponent.policies.map((policy: string) => {

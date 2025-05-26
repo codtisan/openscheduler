@@ -1,8 +1,9 @@
+import { DeleteAlertDialog } from '@/components/bases/DeleteAlert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { IMetricsLogData } from '@/interfaces/log/metricslog-table';
 import type { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, Eye, PencilLine, Trash2 } from 'lucide-react';
+import { ArrowUpDown, Eye } from 'lucide-react';
 
 export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
     {
@@ -95,22 +96,7 @@ export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
         },
         cell: () => (
             <div className="lowercase">
-                <Button variant="ghost">
-                    <Trash2 className="size-6" />
-                </Button>
-            </div>
-        ),
-    },
-    {
-        accessorKey: 'Edit',
-        header: () => {
-            return <div>Edit</div>;
-        },
-        cell: () => (
-            <div className="lowercase">
-                <Button variant="ghost">
-                    <PencilLine className="size-6" />
-                </Button>
+                <DeleteAlertDialog />
             </div>
         ),
     },

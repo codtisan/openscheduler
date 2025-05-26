@@ -7,7 +7,7 @@ export const RoleDataSample: IRoleData[] = [
         status: 'success',
         createdAt: '2025-05-25T09:00:00Z',
         updatedAt: '2025-05-25T09:15:00Z',
-        logPolicy: ['read', 'write', 'delete'],
+        logPolicy: ['read', 'write', 'delete', 'deploy'],
     },
     {
         id: 'role2',

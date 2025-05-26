@@ -2,8 +2,15 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import React from 'react';
+import KeyGeneration from './KeyGeneration';
 
 function CreateServiceAccountSection() {
+    const [isKeyGeneration, setIsKeyGeneration] = React.useState(false);
+
+    if (isKeyGeneration) {
+        return <KeyGeneration isOpen={isKeyGeneration} setIsOpen={setIsKeyGeneration} />;
+    }
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -31,7 +38,9 @@ function CreateServiceAccountSection() {
                 </div>
                 <DialogFooter>
                     <Button variant="ghost">Cancel</Button>
-                    <Button type="submit">Create</Button>
+                    <Button type="submit" onClick={() => setIsKeyGeneration(true)}>
+                        Create
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

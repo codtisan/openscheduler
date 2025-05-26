@@ -1,9 +1,10 @@
+import { DeleteAlertDialog } from '@/components/bases/DeleteAlert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import type { IAuditlogData } from '@/interfaces/log/auditlog-table';
 import type { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, Eye, PencilLine, Trash2 } from 'lucide-react';
+import { ArrowUpDown, Eye } from 'lucide-react';
 import ReactJson from 'react-json-view';
 
 export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
@@ -141,22 +142,7 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
         },
         cell: () => (
             <div className="lowercase">
-                <Button variant="ghost">
-                    <Trash2 className="size-6" />
-                </Button>
-            </div>
-        ),
-    },
-    {
-        accessorKey: 'Edit',
-        header: () => {
-            return <div>Edit</div>;
-        },
-        cell: () => (
-            <div className="lowercase">
-                <Button variant="ghost">
-                    <PencilLine className="size-6" />
-                </Button>
+                <DeleteAlertDialog />
             </div>
         ),
     },

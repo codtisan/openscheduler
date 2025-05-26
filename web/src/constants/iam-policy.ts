@@ -1,27 +1,26 @@
 export type IIAMPolicy = {
-    component: string;
+    name: string;
     policies: string[];
 };
-
-export const IAMPolicies: IIAMPolicy[] = [
-    {
-        component: 'Dashboard',
+export const IAMPolicies = {
+    dashboardPolicy: {
+        name: 'Dashboard',
         policies: ['Read', 'Write', 'Delete', 'Edit'],
     },
-    {
-        component: 'Log View',
+    logViewPolicy: {
+        name: 'Log View',
         policies: ['Read', 'Write', 'Delete', 'Edit'],
     },
-    {
-        component: 'Workflow',
+    workflowPolicy: {
+        name: 'Workflow',
         policies: ['Read', 'Write', 'Delete', 'Edit'],
     },
-    {
-        component: 'Alert',
+    alertPolicy: {
+        name: 'Alert',
         policies: ['Read', 'Write', 'Delete', 'Edit'],
     },
-    {
-        component: 'Task',
+    taskPolicy: {
+        name: 'Task',
         policies: ['Read', 'Write', 'Delete', 'Edit'],
     },
-];
+};

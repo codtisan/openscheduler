@@ -1,10 +1,11 @@
+import { DeleteAlertDialog } from '@/components/bases/DeleteAlert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { IAlertData } from '@/interfaces/alert/alert-table';
 import { cn } from '@/lib/utils';
 import { statusToColor } from '@/services/color';
 import type { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, PencilLine, Trash2 } from 'lucide-react';
+import { ArrowUpDown } from 'lucide-react';
 
 export const AlertColumns: ColumnDef<IAlertData>[] = [
     {
@@ -91,22 +92,7 @@ export const AlertColumns: ColumnDef<IAlertData>[] = [
         },
         cell: () => (
             <div className="lowercase">
-                <Button variant="ghost">
-                    <Trash2 className="size-6" />
-                </Button>
-            </div>
-        ),
-    },
-    {
-        accessorKey: 'Edit',
-        header: () => {
-            return <div>Edit</div>;
-        },
-        cell: () => (
-            <div className="lowercase">
-                <Button variant="ghost">
-                    <PencilLine className="size-6" />
-                </Button>
+                <DeleteAlertDialog />
             </div>
         ),
     },

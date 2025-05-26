@@ -2,15 +2,13 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import SystemLogo from '@/assets/openscheduler.svg';
-import { BackendServices } from '@/services/http';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
-import { getCookie, setCookie } from '@/services/cookie';
+import { UseLoginSubmit } from '@/hooks/use-login';
 
-const formSchema = z.object({
+export const formSchema = z.object({
     username: z.string().min(2, {
         message: 'Username must be at least 2 characters.',
     }),
@@ -32,25 +30,11 @@ function LoginForm() {
         },
     });
     const navigate = useNavigate();
-    const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
 
-    if (isLoginSuccess) {
-        navigate('/home');
-    }
-
-    async function onSubmit(loginInfo: z.infer<typeof formSchema>) {
-        try {
-            const res = await BackendServices.post('/user/login', loginInfo);
-            if (res.status === 200) {
-                if (!getCookie('access_token')) {
-                    setCookie('access_token', res.data.access_token);
-                }
-                setIsLoginSuccess(true);
-            } else {
-                console.error('Login failed:', res.data.message);
-            }
-        } catch (error) {
-            console.error('Login error:', error);
+    async function handleLoginSubmit(loginInfo: z.infer<typeof formSchema>) {
+        const res = await UseLoginSubmit(loginInfo);
+        if (res) {
+            navigate('/home');
         }
     }
 
@@ -58,7 +42,7 @@ function LoginForm() {
         <div className="flex justify-center h-screen">
             <div className="pt-30">
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <form onSubmit={form.handleSubmit(handleLoginSubmit)} className="space-y-8">
                         <div className="flex flex-col justify-center items-center gap-8">
                             <img src={SystemLogo} width="100rem" height="100rem"></img>
                             <FormLabel className="text-3xl">Login</FormLabel>
