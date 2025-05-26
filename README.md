@@ -26,10 +26,6 @@ A modern, efficient workflow scheduling system named Open Scheduler, built with 
 - **Backend**:
   - [Golang](https://go.dev/) - Programming language for robust and efficient backend services.
   - [Fiber](https://gofiber.io/) - Express-inspired web framework for Go, optimized for performance.
-- **Database** (optional, specify your database if applicable, e.g., PostgreSQL, MongoDB):
-  - Currently supports [add your database here] for persistent storage.
-- **Other Tools**:
-  - [Add any additional tools or libraries here, e.g., Docker, Redis, etc.]
 
 ## Installation
 
@@ -83,16 +79,6 @@ A modern, efficient workflow scheduling system named Open Scheduler, built with 
 
 6. **Optional: Set up the database**:
    - [Add database setup instructions here, e.g., running migrations, seeding data.]
-
-## Usage
-1. Open your browser and navigate to `http://localhost:5173` to access the Open Scheduler frontend.
-2. Use the interface to create and manage workflows.
-3. The backend API exposes endpoints for workflow management. Example endpoints:
-   - `GET /api/workflows` - List all workflows.
-   - `POST /api/workflows` - Create a new workflow.
-   - `PUT /api/workflows/:id` - Update a workflow.
-   - `DELETE /api/workflows/:id` - Delete a workflow.
-   - Refer to the [API documentation](#api-documentation) for full details.
 
 ### API Documentation
 - [Add details or link to API documentation, e.g., Swagger or Postman collection.]
