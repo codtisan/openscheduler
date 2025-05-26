@@ -6,6 +6,8 @@ import { MetricsLogDataSample } from '@/constants/metricslog';
 import { ResponseLogDataSample } from '@/constants/responselog';
 import { MetricsLogColumns } from './MetricsLogColumn';
 import { ResponseLogColumns } from './ResponseLogColumn';
+import { LogDataDownloadMenu } from './LogDataDownload';
+import type { IAuditlogData } from '@/interfaces/log/auditlog-table';
 
 export function AuditLogDataTable() {
     return (
@@ -16,7 +18,12 @@ export function AuditLogDataTable() {
                 <TabsTrigger value="response log">Response Log</TabsTrigger>
             </TabsList>
             <TabsContent value="audit log">
-                <DataTableBase tableData={AuditLogDataSample} tableColumns={AuditLogColumns} filteredColumnName="resource" />
+                <DataTableBase
+                    tableData={AuditLogDataSample}
+                    tableColumns={AuditLogColumns}
+                    filteredColumnName="resource"
+                    createRecordElement={<LogDataDownloadMenu<IAuditlogData> tableRows={AuditLogDataSample} />}
+                />
             </TabsContent>
             <TabsContent value="metrics log">
                 <DataTableBase tableData={MetricsLogDataSample} tableColumns={MetricsLogColumns} filteredColumnName="ramUsage" />
