@@ -6,6 +6,8 @@ import type { IAuditlogData } from '@/interfaces/log/auditlog-table';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, Eye } from 'lucide-react';
 import ReactJson from 'react-json-view';
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
+import { Label } from '@/components/ui/label';
 
 export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
     {
@@ -32,13 +34,33 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
                 </Button>
             );
         },
-        cell: () => (
-            <div className="lowercase">
-                <Button variant="ghost">
-                    <Eye className="size-6" />
-                </Button>
-            </div>
-        ),
+        cell: ({ row }) => {
+            return (
+                <Drawer direction="right">
+                    <DrawerTrigger asChild>
+                        <Button variant="ghost">
+                            <Eye className="size-6" />
+                        </Button>
+                    </DrawerTrigger>
+                    <DrawerContent>
+                        <div className="mx-auto w-full max-w-sm">
+                            <DrawerHeader>
+                                <DrawerTitle>Detail</DrawerTitle>
+                            </DrawerHeader>
+                            <div className="ml-4 flex flex-col gap-6">
+                                <Label>Request Body</Label>
+                                <ReactJson src={row.getValue('body')} theme="pop" />
+                            </div>
+                            <DrawerFooter className="pt-6">
+                                <DrawerClose asChild>
+                                    <Button variant="outline">Cancel</Button>
+                                </DrawerClose>
+                            </DrawerFooter>
+                        </div>
+                    </DrawerContent>
+                </Drawer>
+            );
+        },
     },
     {
         accessorKey: 'userId',
