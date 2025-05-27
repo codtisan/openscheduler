@@ -9,7 +9,7 @@ import { ArrowUpDown, PencilLine } from 'lucide-react';
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { IAMPolicies, type IIAMPolicy } from '@/constants/iam-policy';
+import { IAMPolicies, type Policy } from '@/constants/iam-policy';
 
 export const RoleColumns: ColumnDef<IRoleData>[] = [
     {
@@ -173,7 +173,7 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
                                     <Input value={row.getValue('name')} />
                                 </div>
                                 {Object.keys(IAMPolicies).map((iamPolicy: string) => {
-                                    const resource: IIAMPolicy = IAMPolicies[iamPolicy as keyof typeof IAMPolicies];
+                                    const resource: Policy = IAMPolicies[iamPolicy as keyof typeof IAMPolicies];
                                     return (
                                         <div className="flex flex-row gap-2 max-w-[80%] items-center">
                                             <Label>{resource.name}:</Label>
