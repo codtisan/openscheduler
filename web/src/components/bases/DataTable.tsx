@@ -80,7 +80,7 @@ export function DataTableBase<T>({ tableData, tableColumns, filteredColumnName, 
                 </DropdownMenu>
                 {createRecordElement}
             </div>
-            <div className="rounded-md border">
+            <div className="rounded-md border w-[89vw]">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
