@@ -1,9 +1,11 @@
 import { DeleteAlertDialog } from '@/components/bases/DeleteAlert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 import type { IMetricsLogData } from '@/interfaces/log/metricslog-table';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, Eye } from 'lucide-react';
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 
 export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
     {
@@ -30,12 +32,44 @@ export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
                 </Button>
             );
         },
-        cell: () => (
-            <div className="lowercase">
-                <Button variant="ghost">
-                    <Eye className="size-6" />
-                </Button>
-            </div>
+        cell: ({ row }) => (
+            <Drawer direction="right">
+                <DrawerTrigger asChild>
+                    <Button variant="ghost">
+                        <Eye className="size-6" />
+                    </Button>
+                </DrawerTrigger>
+                <DrawerContent>
+                    <div className="mx-auto w-full max-w-sm">
+                        <DrawerHeader>
+                            <DrawerTitle>Detail</DrawerTitle>
+                        </DrawerHeader>
+                        <div className="ml-4 flex flex-col gap-6">
+                            <div className="flex flex-row gap-3">
+                                <Label>CPU Usage</Label>
+                                <Label>{row.getValue('cpuUsage')}</Label>
+                            </div>
+                            <div className="flex flex-row gap-3">
+                                <Label>RAM Usage</Label>
+                                <Label>{row.getValue('ramUsage')}</Label>
+                            </div>
+                            <div className="flex flex-row gap-3">
+                                <Label>Disk Available</Label>
+                                <Label>{row.getValue('diskAvailable')}</Label>
+                            </div>
+                            <div className="flex flex-row gap-3">
+                                <Label>Network Bandwidth</Label>
+                                <Label>{row.getValue('netBandwidth')}</Label>
+                            </div>
+                        </div>
+                        <DrawerFooter className="pt-6">
+                            <DrawerClose asChild>
+                                <Button variant="outline">Cancel</Button>
+                            </DrawerClose>
+                        </DrawerFooter>
+                    </div>
+                </DrawerContent>
+            </Drawer>
         ),
     },
     {

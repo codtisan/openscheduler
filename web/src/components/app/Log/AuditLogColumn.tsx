@@ -48,8 +48,30 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
                                 <DrawerTitle>Detail</DrawerTitle>
                             </DrawerHeader>
                             <div className="ml-4 flex flex-col gap-6">
-                                <Label>Request Body</Label>
-                                <ReactJson src={row.getValue('body')} theme="pop" />
+                                <div className="flex flex-row gap-3">
+                                    <Label>User Agent</Label>
+                                    <Label>{row.getValue('useragent')}</Label>
+                                </div>
+                                <div className="flex flex-row gap-3">
+                                    <Label>IP Address</Label>
+                                    <Label>{row.getValue('ip')}</Label>
+                                </div>
+                                <div className="flex flex-row gap-3">
+                                    <Label>Resource</Label>
+                                    <Label>{row.getValue('resource')}</Label>
+                                </div>
+                                <div className="flex flex-row gap-3">
+                                    <Label>Method</Label>
+                                    <Label>{row.getValue('method')}</Label>
+                                </div>
+                                <div className="flex flex-row gap-3">
+                                    <Label>API Route</Label>
+                                    <Label>{row.getValue('api')}</Label>
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <Label>Request Body</Label>
+                                    <ReactJson src={row.getValue('body')} theme="pop" />
+                                </div>
                             </div>
                             <DrawerFooter className="pt-6">
                                 <DrawerClose asChild>
