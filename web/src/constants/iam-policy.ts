@@ -1,8 +1,17 @@
-export type IIAMPolicy = {
+export type Policy = {
     name: string;
     policies: string[];
 };
-export const IAMPolicies = {
+
+interface IAMPolicies {
+    dashboardPolicy: Policy;
+    logViewPolicy: Policy;
+    workflowPolicy: Policy;
+    alertPolicy: Policy;
+    taskPolicy: Policy;
+}
+
+export const IAMPolicies: IAMPolicies = {
     dashboardPolicy: {
         name: 'Dashboard',
         policies: ['Read', 'Write', 'Delete', 'Edit'],

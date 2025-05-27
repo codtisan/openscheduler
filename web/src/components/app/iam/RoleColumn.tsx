@@ -9,7 +9,7 @@ import { ArrowUpDown, PencilLine } from 'lucide-react';
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { IAMPolicies } from '@/constants/iam-policy';
+import { IAMPolicies, type IIAMPolicy } from '@/constants/iam-policy';
 
 export const RoleColumns: ColumnDef<IRoleData>[] = [
     {
@@ -54,6 +54,58 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
     {
         accessorKey: 'logPolicy',
         header: 'Log Policy',
+        cell: ({ row }) => {
+            return (
+                <div className="flex flex-col">
+                    {(row.getValue('logPolicy') as string[]).map((item: string) => (
+                        <span key={item}>{item}</span>
+                    ))}
+                </div>
+            );
+        },
+    },
+    {
+        accessorKey: 'dashboardPolicy',
+        header: 'Dashboard Policy',
+        cell: ({ row }) => {
+            return (
+                <div className="flex flex-col">
+                    {(row.getValue('logPolicy') as string[]).map((item: string) => (
+                        <span key={item}>{item}</span>
+                    ))}
+                </div>
+            );
+        },
+    },
+    {
+        accessorKey: 'workflowPolicy',
+        header: 'Workflow Policy',
+        cell: ({ row }) => {
+            return (
+                <div className="flex flex-col">
+                    {(row.getValue('logPolicy') as string[]).map((item: string) => (
+                        <span key={item}>{item}</span>
+                    ))}
+                </div>
+            );
+        },
+    },
+    {
+        accessorKey: 'alertPolicy',
+        header: 'Alert Policy',
+        cell: ({ row }) => {
+            return (
+                <div className="flex flex-col">
+                    {(row.getValue('logPolicy') as string[]).map((item: string) => (
+                        <span key={item}>{item}</span>
+                    ))}
+                </div>
+            );
+        },
+    },
+    {
+        accessorKey: 'taskPolicy',
+        header: 'Task Policy',
         cell: ({ row }) => {
             return (
                 <div className="flex flex-col">
@@ -115,23 +167,28 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
                             <DrawerHeader>
                                 <DrawerTitle>Edit User</DrawerTitle>
                             </DrawerHeader>
-                            <div className="ml-4 flex flex-col gap-6">
+                            <div className="ml-4 flex flex-col gap-8">
                                 <div className="flex flex-row gap-5 max-w-[80%] items-center">
                                     <Label>Name</Label>
                                     <Input value={row.getValue('name')} />
                                 </div>
-                                <div className="flex flex-row gap-2 max-w-[80%] items-center">
-                                    <Label>Log Policy</Label>
-                                    {IAMPolicies.logViewPolicy.policies.map((policy) => {
-                                        const hasPolicy = (row.getValue('logPolicy') as string[]).includes(policy.toLowerCase());
-                                        return (
-                                            <div className="flex flex-row items-center gap-2">
-                                                <Label>{policy}</Label>
-                                                <Checkbox checked={hasPolicy} />
-                                            </div>
-                                        );
-                                    })}
-                                </div>
+                                {Object.keys(IAMPolicies).map((iamPolicy: string) => {
+                                    const resource: IIAMPolicy = IAMPolicies[iamPolicy as keyof typeof IAMPolicies];
+                                    return (
+                                        <div className="flex flex-row gap-2 max-w-[80%] items-center">
+                                            <Label>{resource.name}:</Label>
+                                            {resource.policies.map((policy: string) => {
+                                                const hasPolicy = (row.getValue('logPolicy') as string[]).includes(policy.toLowerCase());
+                                                return (
+                                                    <div className="flex flex-row items-center gap-2">
+                                                        <Label>{policy}</Label>
+                                                        <Checkbox checked={hasPolicy} />
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    );
+                                })}
                             </div>
                             <DrawerFooter className="pt-6">
                                 <Button>Submit</Button>
