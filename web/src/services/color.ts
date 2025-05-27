@@ -4,6 +4,10 @@ export const statusToColor = (status: 'success' | 'failed' | 'timeout' | 'proces
             return 'bg-green-300';
         case 'failed':
             return 'bg-red-300';
+        case 'in use':
+            return 'bg-green-300';
+        case 'not in use':
+            return 'bg-red-300';
         case 'timeout':
             return 'bg-yellow-300';
         case 'processing':

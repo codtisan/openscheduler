@@ -14,6 +14,8 @@ import { cn } from '@/lib/utils';
 import SystemLogo from '@/assets/openscheduler.svg';
 import { useNavigate } from 'react-router';
 import { ColourfulText } from '../ui/colourful-text';
+import { Badge } from '../ui/badge';
+import { AlertDataSample } from '@/constants/alert';
 
 // Menu items.
 const items = [
@@ -61,7 +63,7 @@ const items = [
 
 export function AppSidebar() {
     const navigate = useNavigate();
-
+    const totalAlert = AlertDataSample.filter((alertData) => alertData.status === 'Failed').length;
     const handleClickSystemLogo = () => {
         navigate('/home');
     };
@@ -86,6 +88,7 @@ export function AppSidebar() {
                                             <a href={item.url}>
                                                 <item.icon />
                                                 <span>{item.title}</span>
+                                                {item.title === 'Alert' && <Badge className="bg-red-400 rounded-2xl">{totalAlert}</Badge>}
                                             </a>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>

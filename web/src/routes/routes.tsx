@@ -4,6 +4,7 @@ import Home from '@/pages/HomePage';
 import IAMPage from '@/pages/IAMPage';
 import LogPage from '@/pages/LogPage';
 import SettingPage from '@/pages/SettingPage';
+import TaskPage from '@/pages/TaskPage';
 import { createBrowserRouter } from 'react-router';
 
 export const router = createBrowserRouter([
@@ -30,5 +31,9 @@ export const router = createBrowserRouter([
     {
         path: '/alert',
         element: <AlertPage />,
+    },
+    {
+        path: '/task',
+        element: <TaskPage />,
     },
 ]);
