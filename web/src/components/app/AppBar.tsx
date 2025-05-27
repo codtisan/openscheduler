@@ -72,7 +72,7 @@ export function AppSidebar() {
                 <SidebarGroup>
                     <>
                         <img src={SystemLogo} onClick={handleClickSystemLogo} />
-                        <h1 className="text-[99%]">
+                        <h1 className="text-[99%] pb-4">
                             <ColourfulText text="Open Scheduler" />
                         </h1>
                     </>
