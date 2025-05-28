@@ -1,6 +1,6 @@
 export interface ITaskRecord {
     id: string;
-    status: 'In Use' | 'Not In Use';
+    status: 'Online' | 'Offline';
     name: string;
     description: string;
     target: string;

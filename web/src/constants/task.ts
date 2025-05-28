@@ -3,7 +3,7 @@ import type { ITaskRecord } from '@/interfaces/task/task-table';
 export const TaskRecordSample: ITaskRecord[] = [
     {
         id: 'task001',
-        status: 'In Use',
+        status: 'Online',
         name: 'Daily Backup',
         description: 'Automated daily backup of the database',
         target: 'https://api.example.com/database/backup',
@@ -14,7 +14,7 @@ export const TaskRecordSample: ITaskRecord[] = [
     },
     {
         id: 'task002',
-        status: 'Not In Use',
+        status: 'Offline',
         name: 'User Sync',
         description: 'Synchronize user data with external API',
         target: 'https://api.user-service.com/sync',
@@ -25,7 +25,7 @@ export const TaskRecordSample: ITaskRecord[] = [
     },
     {
         id: 'task003',
-        status: 'In Use',
+        status: 'Online',
         name: 'Log Cleanup',
         description: 'Remove logs older than 30 days',
         target: 'https://logs.example.com/cleanup',
@@ -36,7 +36,7 @@ export const TaskRecordSample: ITaskRecord[] = [
     },
     {
         id: 'task004',
-        status: 'In Use',
+        status: 'Online',
         name: 'Cache Refresh',
         description: 'Refresh application cache',
         target: 'https://cache.example.com/refresh',
@@ -47,7 +47,7 @@ export const TaskRecordSample: ITaskRecord[] = [
     },
     {
         id: 'task005',
-        status: 'Not In Use',
+        status: 'Offline',
         name: 'Report Generation',
         description: 'Generate monthly performance report',
         target: 'https://reports.example.com/generate',
@@ -58,7 +58,7 @@ export const TaskRecordSample: ITaskRecord[] = [
     },
     {
         id: 'task006',
-        status: 'In Use',
+        status: 'Online',
         name: 'Health Check',
         description: 'Perform system health checks',
         target: 'https://monitor.example.com/health',
@@ -69,7 +69,7 @@ export const TaskRecordSample: ITaskRecord[] = [
     },
     {
         id: 'task007',
-        status: 'Not In Use',
+        status: 'Offline',
         name: 'Data Migration',
         description: 'Migrate data to new storage',
         target: 'https://storage.example.com/migrate',
@@ -80,7 +80,7 @@ export const TaskRecordSample: ITaskRecord[] = [
     },
     {
         id: 'task008',
-        status: 'In Use',
+        status: 'Online',
         name: 'Index Optimization',
         description: 'Optimize database indexes',
         target: 'https://db.example.com/optimize',
@@ -91,7 +91,7 @@ export const TaskRecordSample: ITaskRecord[] = [
     },
     {
         id: 'task009',
-        status: 'In Use',
+        status: 'Online',
         name: 'Email Notifications',
         description: 'Send user notification emails',
         target: 'https://email.example.com/notify',
@@ -102,7 +102,7 @@ export const TaskRecordSample: ITaskRecord[] = [
     },
     {
         id: 'task010',
-        status: 'Not In Use',
+        status: 'Offline',
         name: 'Audit Log',
         description: 'Generate audit logs for compliance',
         target: 'https://audit.example.com/logs',

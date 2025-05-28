@@ -1,4 +1,3 @@
-import { DeleteAlertDialog } from '@/components/bases/DeleteAlert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
@@ -6,6 +5,8 @@ import { statusToColor } from '@/services/color';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import type { ITaskRecord } from '@/interfaces/task/task-table';
+import { Label } from '@/components/ui/label';
+import { DataTableActions } from '@/components/bases/DataTableActions';
 
 export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
     {
@@ -29,7 +30,7 @@ export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
         cell: ({ row }) => {
             const statusColor = statusToColor(row.getValue('status'));
             return (
-                <div className={cn('capitalize text-center rounded-2xl h-[2rem] flex items-center justify-center', statusColor)}>
+                <div className={cn('capitalize text-center rounded-2xl h-[2rem] w-20 flex items-center justify-center', statusColor)}>
                     {row.getValue('status')}
                 </div>
             );
@@ -70,7 +71,7 @@ export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
     },
     {
         accessorKey: 'numOfRetry',
-        header: 'Number of Retry',
+        header: 'Retry',
         cell: ({ row }) => {
             return <div className="flex flex-col">{row.getValue('numOfRetry')}</div>;
         },
@@ -98,23 +99,14 @@ export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
         cell: ({ row }) => <div className="lowercase">{row.getValue('updatedAt')}</div>,
     },
     {
-        accessorKey: 'Delete',
+        accessorKey: 'actions',
         header: () => {
-            return <div>Delete</div>;
+            return <Label>Actions</Label>;
         },
         cell: () => (
-            <div className="lowercase">
-                <DeleteAlertDialog />
+            <div className="lowercase flex flex-row gap-2">
+                <DataTableActions />
             </div>
         ),
-    },
-    {
-        accessorKey: 'Edit',
-        header: () => {
-            return <div>Edit</div>;
-        },
-        cell: () => {
-            return <div>asd</div>;
-        },
     },
 ];
