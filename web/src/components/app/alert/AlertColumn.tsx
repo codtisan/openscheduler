@@ -1,4 +1,3 @@
-import { DeleteAlertDialog } from '@/components/bases/DeleteAlert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { IAlertData } from '@/interfaces/alert/alert-table';
@@ -8,6 +7,7 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, Eye } from 'lucide-react';
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { Label } from '@/components/ui/label';
+import { DataTableDeleteButton } from '@/components/bases/DataTableActions';
 
 export const AlertColumns: ColumnDef<IAlertData>[] = [
     {
@@ -145,7 +145,7 @@ export const AlertColumns: ColumnDef<IAlertData>[] = [
         },
         cell: () => (
             <div className="lowercase">
-                <DeleteAlertDialog />
+                <DataTableDeleteButton />
             </div>
         ),
     },

@@ -1,4 +1,3 @@
-import { DeleteAlertDialog } from '@/components/bases/DeleteAlert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -8,6 +7,7 @@ import { ArrowUpDown, Eye } from 'lucide-react';
 import ReactJson from 'react-json-view';
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { Label } from '@/components/ui/label';
+import { DataTableDeleteButton } from '@/components/bases/DataTableActions';
 
 export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
     {
@@ -186,7 +186,7 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
         },
         cell: () => (
             <div className="lowercase">
-                <DeleteAlertDialog />
+                <DataTableDeleteButton />
             </div>
         ),
     },

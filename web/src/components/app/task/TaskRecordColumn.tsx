@@ -103,9 +103,9 @@ export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
         header: () => {
             return <Label>Actions</Label>;
         },
-        cell: () => (
+        cell: ({ row }) => (
             <div className="lowercase flex flex-row gap-2">
-                <DataTableOperations />
+                <DataTableOperations rowData={row} />
             </div>
         ),
     },

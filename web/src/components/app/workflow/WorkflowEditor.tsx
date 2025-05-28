@@ -4,7 +4,7 @@ import '@xyflow/react/dist/style.css';
 const nodes = [
     {
         id: '1',
-        position: { x: 0, y: 0 },
+        position: { x: 50, y: 60 },
         data: { label: 'Hello' },
     },
 ];

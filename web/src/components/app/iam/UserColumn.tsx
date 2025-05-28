@@ -1,14 +1,12 @@
-import { DeleteAlertDialog } from '@/components/bases/DeleteAlert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { IUserData } from '@/interfaces/user-table';
 import { cn } from '@/lib/utils';
 import { statusToColor } from '@/services/color';
 import type { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, PencilLine } from 'lucide-react';
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { ArrowUpDown } from 'lucide-react';
+import { DataTableActions } from '@/components/bases/DataTableActions';
+import { EditUserSection } from './EditUser';
 
 export const UserColumns: ColumnDef<IUserData>[] = [
     {
@@ -97,58 +95,14 @@ export const UserColumns: ColumnDef<IUserData>[] = [
         cell: ({ row }) => <div className="lowercase">{row.getValue('updatedAt')}</div>,
     },
     {
-        accessorKey: 'Delete',
+        accessorKey: 'Actions',
         header: () => {
-            return <div>Delete</div>;
+            return <div>Actions</div>;
         },
-        cell: () => (
+        cell: ({ row }) => (
             <div className="lowercase">
-                <DeleteAlertDialog />
+                <DataTableActions EditPage={<EditUserSection rowData={row} />} headerName="User" />
             </div>
         ),
-    },
-    {
-        accessorKey: 'Edit',
-        header: () => {
-            return <div>Edit</div>;
-        },
-        cell: ({ row }) => {
-            return (
-                <Drawer direction="right">
-                    <DrawerTrigger asChild>
-                        <Button variant="ghost">
-                            <PencilLine className="size-6" />
-                        </Button>
-                    </DrawerTrigger>
-                    <DrawerContent>
-                        <div className="mx-auto w-full max-w-sm">
-                            <DrawerHeader>
-                                <DrawerTitle>Edit User</DrawerTitle>
-                            </DrawerHeader>
-                            <div className="ml-4 flex flex-col gap-6">
-                                <div className="flex flex-row gap-5 max-w-[80%] items-center">
-                                    <Label>Email</Label>
-                                    <Input value={row.getValue('email')} />
-                                </div>
-                                <div className="flex flex-row gap-5 max-w-[80%] items-center">
-                                    <Label>Username</Label>
-                                    <Input value={row.getValue('username')} />
-                                </div>
-                                <div className="flex flex-row gap-5 max-w-[80%] items-center">
-                                    <Label>Role</Label>
-                                    <Input value={row.getValue('role')} />
-                                </div>
-                            </div>
-                            <DrawerFooter className="pt-6">
-                                <Button>Submit</Button>
-                                <DrawerClose asChild>
-                                    <Button variant="outline">Cancel</Button>
-                                </DrawerClose>
-                            </DrawerFooter>
-                        </div>
-                    </DrawerContent>
-                </Drawer>
-            );
-        },
     },
 ];

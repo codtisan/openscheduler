@@ -1,8 +1,16 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from '../ui/button';
-import { Pencil, Power, RotateCcw, StopCircle, Trash } from 'lucide-react';
+import { Power, RotateCcw, StopCircle } from 'lucide-react';
+import { DataTableDeleteButton, DataTableEditButton } from './DataTableActions';
+import { EditTaskSection } from '../app/task/EditTaskSection';
+import type { ITaskRecord } from '@/interfaces/task/task-table';
+import type { Row } from '@tanstack/react-table';
 
-export const DataTableOperations = () => {
+export interface EditTaskProps {
+    rowData: Row<ITaskRecord>;
+}
+
+export const DataTableOperations = ({ rowData }: EditTaskProps) => {
     return (
         <TooltipProvider>
             <Tooltip>
@@ -35,26 +43,8 @@ export const DataTableOperations = () => {
                     <p>Restart</p>
                 </TooltipContent>
             </Tooltip>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button className="rounded-4xl">
-                        <Trash />
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p>Delete</p>
-                </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button className="rounded-4xl bg-purple-500">
-                        <Pencil />
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p>Edit</p>
-                </TooltipContent>
-            </Tooltip>
+            <DataTableDeleteButton />
+            <DataTableEditButton EditPage={<EditTaskSection rowData={rowData} />} headerName="Task" />
         </TooltipProvider>
     );
 };

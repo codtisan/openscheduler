@@ -1,15 +1,12 @@
-import { DeleteAlertDialog } from '@/components/bases/DeleteAlert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { IRoleData } from '@/interfaces/role-table';
 import { cn } from '@/lib/utils';
 import { statusToColor } from '@/services/color';
 import type { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, PencilLine } from 'lucide-react';
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { IAMPolicies, type Policy } from '@/constants/iam-policy';
+import { ArrowUpDown } from 'lucide-react';
+import { DataTableActions } from '@/components/bases/DataTableActions';
+import { EditRoleSection } from './EditRole';
 
 export const RoleColumns: ColumnDef<IRoleData>[] = [
     {
@@ -139,67 +136,14 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
         cell: ({ row }) => <div className="lowercase">{row.getValue('updatedAt')}</div>,
     },
     {
-        accessorKey: 'Delete',
+        accessorKey: 'Actions',
         header: () => {
-            return <div>Delete</div>;
+            return <div>Actions</div>;
         },
-        cell: () => (
+        cell: ({ row }) => (
             <div className="lowercase">
-                <DeleteAlertDialog />
+                <DataTableActions EditPage={<EditRoleSection rowData={row} />} headerName="Role" />
             </div>
         ),
-    },
-    {
-        accessorKey: 'Edit',
-        header: () => {
-            return <div>Edit</div>;
-        },
-        cell: ({ row }) => {
-            return (
-                <Drawer direction="right">
-                    <DrawerTrigger asChild>
-                        <Button variant="ghost">
-                            <PencilLine className="size-6" />
-                        </Button>
-                    </DrawerTrigger>
-                    <DrawerContent className="min-w-[28vw]">
-                        <div className="w-full">
-                            <DrawerHeader>
-                                <DrawerTitle>Edit User</DrawerTitle>
-                            </DrawerHeader>
-                            <div className="ml-4 flex flex-col gap-8">
-                                <div className="flex flex-row gap-5 max-w-[80%] items-center">
-                                    <Label>Name</Label>
-                                    <Input value={row.getValue('name')} />
-                                </div>
-                                {Object.keys(IAMPolicies).map((iamPolicy: string) => {
-                                    const resource: Policy = IAMPolicies[iamPolicy as keyof typeof IAMPolicies];
-                                    return (
-                                        <div className="flex flex-row gap-2 max-w-[80%] items-center">
-                                            <Label>{resource.name}:</Label>
-                                            {resource.policies.map((policy: string) => {
-                                                const hasPolicy = (row.getValue('logPolicy') as string[]).includes(policy.toLowerCase());
-                                                return (
-                                                    <div className="flex flex-row items-center gap-2">
-                                                        <Label>{policy}</Label>
-                                                        <Checkbox checked={hasPolicy} />
-                                                    </div>
-                                                );
-                                            })}
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                            <DrawerFooter className="pt-6">
-                                <Button>Submit</Button>
-                                <DrawerClose asChild>
-                                    <Button variant="outline">Cancel</Button>
-                                </DrawerClose>
-                            </DrawerFooter>
-                        </div>
-                    </DrawerContent>
-                </Drawer>
-            );
-        },
     },
 ];
