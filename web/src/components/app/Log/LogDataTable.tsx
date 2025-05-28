@@ -14,7 +14,7 @@ import type { IResponseLogData } from '@/interfaces/log/responselog-table';
 export function AuditLogDataTable() {
     return (
         <Tabs defaultValue="audit log" className="w-[100%] py-3">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-[50%] grid-cols-3">
                 <TabsTrigger value="audit log">Audit Log</TabsTrigger>
                 <TabsTrigger value="metrics log">Metrics Log</TabsTrigger>
                 <TabsTrigger value="response log">Response Log</TabsTrigger>

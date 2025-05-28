@@ -13,7 +13,7 @@ import CreateServiceAccountSection from './CreateServiceAccount';
 export function IAMDataTable() {
     return (
         <Tabs defaultValue="user" className="w-[100%] py-3">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-[50%] grid-cols-3">
                 <TabsTrigger value="user">User</TabsTrigger>
                 <TabsTrigger value="role">Role</TabsTrigger>
                 <TabsTrigger value="service account">Service Account</TabsTrigger>
