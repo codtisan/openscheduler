@@ -9,14 +9,24 @@ import { RoleColumns } from './RoleColumn';
 import CreateUserSection from './CreateUser';
 import CreateRoleSection from './CreateRole';
 import CreateServiceAccountSection from './CreateServiceAccount';
+import { Fingerprint, UserRoundPen, Users } from 'lucide-react';
 
 export function IAMDataTable() {
     return (
         <Tabs defaultValue="user" className="w-[100%] py-3">
             <TabsList className="grid w-[50%] grid-cols-3">
-                <TabsTrigger value="user">User</TabsTrigger>
-                <TabsTrigger value="role">Role</TabsTrigger>
-                <TabsTrigger value="service account">Service Account</TabsTrigger>
+                <TabsTrigger value="user">
+                    <Users />
+                    User
+                </TabsTrigger>
+                <TabsTrigger value="role">
+                    <UserRoundPen />
+                    Role
+                </TabsTrigger>
+                <TabsTrigger value="service account">
+                    <Fingerprint />
+                    Service Account
+                </TabsTrigger>
             </TabsList>
             <TabsContent value="user">
                 <DataTableBase
