@@ -5,7 +5,9 @@ import type { IAlertData } from '@/interfaces/alert/alert-table';
 import { cn } from '@/lib/utils';
 import { statusToColor } from '@/services/color';
 import type { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown } from 'lucide-react';
+import { ArrowUpDown, Eye } from 'lucide-react';
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
+import { Label } from '@/components/ui/label';
 
 export const AlertColumns: ColumnDef<IAlertData>[] = [
     {
@@ -32,6 +34,57 @@ export const AlertColumns: ColumnDef<IAlertData>[] = [
                 <div className={cn('capitalize text-center rounded-2xl h-[2rem] flex items-center justify-center', statusColor)}>
                     {row.getValue('status')}
                 </div>
+            );
+        },
+    },
+    {
+        accessorKey: 'detail',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Detail
+                </Button>
+            );
+        },
+        cell: ({ row }) => {
+            return (
+                <Drawer direction="right">
+                    <DrawerTrigger asChild>
+                        <Button variant="ghost">
+                            <Eye className="size-6" />
+                        </Button>
+                    </DrawerTrigger>
+                    <DrawerContent>
+                        <div className="mx-auto w-full max-w-sm">
+                            <DrawerHeader>
+                                <DrawerTitle>Detail</DrawerTitle>
+                            </DrawerHeader>
+                            <div className="ml-4 flex flex-col gap-6">
+                                <div className="flex flex-row gap-3">
+                                    <Label>Status Code</Label>
+                                    <Label>{row.getValue('statusCode')}</Label>
+                                </div>
+                                <div className="flex flex-row gap-3">
+                                    <Label>Type</Label>
+                                    <Label>{row.getValue('type')}</Label>
+                                </div>
+                                <div className="flex flex-row gap-3">
+                                    <Label>Name</Label>
+                                    <Label>{row.getValue('name')}</Label>
+                                </div>
+                                <div className="flex flex-row gap-3">
+                                    <Label>Description</Label>
+                                    <Label>{row.getValue('description')}</Label>
+                                </div>
+                            </div>
+                            <DrawerFooter className="pt-6">
+                                <DrawerClose asChild>
+                                    <Button variant="outline">Cancel</Button>
+                                </DrawerClose>
+                            </DrawerFooter>
+                        </div>
+                    </DrawerContent>
+                </Drawer>
             );
         },
     },
