@@ -1,5 +1,7 @@
 export const TaskType = {
     HTTP: 'HTTP',
     SHELL: 'Shell Script',
-    REMOTESHELL: 'Remote Shell',
+    REMOTE_SHELL: 'Remote Shell',
 };
+
+export const HTTPMethods = ['GET', 'POST', 'PUT', 'DELETE'];

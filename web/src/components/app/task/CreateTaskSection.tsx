@@ -4,7 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { TaskType } from '@/constants/task-type';
+import { HTTPMethods, TaskType } from '@/constants/task-type';
 import Editor from '@monaco-editor/react';
 import React from 'react';
 
@@ -21,7 +21,7 @@ function CreateTaskSection() {
                     Create Task
                 </Button>
             </DialogTrigger>
-            <DialogContent className="min-w-[30vw] h-[100vh]">
+            <DialogContent className="min-w-[30vw]">
                 <DialogHeader>
                     <DialogTitle>Create Task</DialogTitle>
                 </DialogHeader>
@@ -38,11 +38,11 @@ function CreateTaskSection() {
                         </Label>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="outline" className="w-40">
+                                <Button variant="outline" className="w-50">
                                     Select a type
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-40">
+                            <DropdownMenuContent className="w-50">
                                 {Object.values(TaskType).map((taskType: string) => {
                                     return (
                                         <DropdownMenuItem key={taskType} onClick={() => handleSelectedType(taskType)}>
@@ -53,11 +53,11 @@ function CreateTaskSection() {
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
+                    <div className="flex flex-col gap-3">
                         <Label htmlFor="description" className="text-right">
                             Description
                         </Label>
-                        <Textarea placeholder="Put your description here" className="w-90 h-40" />
+                        <Textarea placeholder="Put your description here" className="h-40" />
                     </div>
                     {selectedType === 'HTTP' ? (
                         <>
@@ -79,12 +79,37 @@ function CreateTaskSection() {
                                 </Label>
                                 <Input id="target" className="col-span-3" type="number" />
                             </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="method" className="text-right">
+                                    Method
+                                </Label>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="outline" className="w-50">
+                                            Select a method
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent className="w-50">
+                                        {HTTPMethods.map((method: string) => {
+                                            return <DropdownMenuItem key={method}>{method}</DropdownMenuItem>;
+                                        })}
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="timeout" className="text-right">
+                                    Timeout
+                                </Label>
+                                <Input id="timeout" className="col-span-3" type="number" />
+                            </div>
                         </>
                     ) : selectedType === null ? null : (
                         <>
-                            {' '}
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Editor height="20vh" width="28vw" language="shell" defaultValue="" theme="vs-dark" />
+                            <div className="flex flex-col gap-3 h-full">
+                                <Label htmlFor="shell" className="text-right">
+                                    Shell
+                                </Label>
+                                <Editor height="30vh" language="shell" defaultValue="" theme="vs-dark" />
                             </div>
                         </>
                     )}
