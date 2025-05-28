@@ -1,5 +1,5 @@
 import { AppSidebar } from '@/components/app/AppBar';
-import SettingPanel from '@/components/app/setting/SettingPanel';
+import { ProjectDataTable } from '@/components/app/project/ProjectDataTable';
 import { SidebarProvider } from '@/components/ui/sidebar';
 
 function ProjectPage() {
@@ -9,7 +9,7 @@ function ProjectPage() {
                 <AppSidebar />
                 <div className="flex flex-col w-full m-4 gap-5">
                     <div>Project Panel</div>
-                    <SettingPanel />
+                    <ProjectDataTable />
                 </div>
             </SidebarProvider>
         </>

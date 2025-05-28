@@ -3,6 +3,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AlertDataSample } from '@/constants/alert';
 import { AlertColumns } from './AlertColumn';
 import { TriangleAlert } from 'lucide-react';
+import { LogDataDownloadMenu } from '../Log/LogDataDownload';
+import type { IAlertData } from '@/interfaces/alert/alert-table';
 
 export function AlertDataTable() {
     return (
@@ -14,7 +16,12 @@ export function AlertDataTable() {
                 </TabsTrigger>
             </TabsList>
             <TabsContent value="alert">
-                <DataTableBase tableData={AlertDataSample} tableColumns={AlertColumns} filteredColumnName="name" />
+                <DataTableBase
+                    tableData={AlertDataSample}
+                    tableColumns={AlertColumns}
+                    filteredColumnName="name"
+                    createRecordElement={<LogDataDownloadMenu<IAlertData> tableRows={AlertDataSample} />}
+                />
             </TabsContent>
         </Tabs>
     );

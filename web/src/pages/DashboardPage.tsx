@@ -1,5 +1,5 @@
 import { AppSidebar } from '@/components/app/AppBar';
-import { TaskRecordTable } from '@/components/app/task/TaskRecordTable';
+import { Dashboard } from '@/components/app/dashboard/Dashboard';
 import { SidebarProvider } from '@/components/ui/sidebar';
 
 function DashboardPage() {
@@ -9,7 +9,7 @@ function DashboardPage() {
                 <AppSidebar />
                 <div className="w-full m-4">
                     <div>Dashboard</div>
-                    <TaskRecordTable />
+                    <Dashboard />
                 </div>
             </SidebarProvider>
         </>

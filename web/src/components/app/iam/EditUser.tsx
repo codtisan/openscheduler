@@ -3,11 +3,11 @@ import { Label } from '@/components/ui/label';
 import type { IUserData } from '@/interfaces/user-table';
 import type { Row } from '@tanstack/react-table';
 
-export interface EditServiceAccountProps {
+export interface EditUserProps {
     rowData: Row<IUserData>;
 }
 
-export const EditUserSection = ({ rowData }: EditServiceAccountProps) => {
+export const EditUserSection = ({ rowData }: EditUserProps) => {
     return (
         <div className="ml-4 flex flex-col gap-6">
             <div className="flex flex-row gap-5 max-w-[80%] items-center">
