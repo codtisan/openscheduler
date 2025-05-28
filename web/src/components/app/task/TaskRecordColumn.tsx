@@ -6,7 +6,7 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import type { ITaskRecord } from '@/interfaces/task/task-table';
 import { Label } from '@/components/ui/label';
-import { DataTableActions } from '@/components/bases/DataTableActions';
+import { DataTableOperations } from '@/components/bases/DataTableOperations';
 
 export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
     {
@@ -105,7 +105,7 @@ export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
         },
         cell: () => (
             <div className="lowercase flex flex-row gap-2">
-                <DataTableActions />
+                <DataTableOperations />
             </div>
         ),
     },
