@@ -84,7 +84,7 @@ function CreateTaskSection() {
                         <>
                             {' '}
                             <div className="grid grid-cols-4 items-center gap-4">
-                                <Editor height="20vh" width="28vw" defaultLanguage="bash" defaultValue="" theme="vs-dark" />
+                                <Editor height="20vh" width="28vw" language="shell" defaultValue="" theme="vs-dark" />
                             </div>
                         </>
                     )}
