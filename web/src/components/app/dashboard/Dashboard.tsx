@@ -219,15 +219,15 @@ export const Dashboard = () => {
             <div className="size-full mt-2 flex gap-6 flex-col">
                 <div className="flex gap-6 flex-col">
                     <div className="flex flex-row gap-6">
-                        <Card className="w-[33%] text-center text-2xl">
+                        <Card className="w-[33%] text-center text-2xl font-bold">
                             <CardHeader>Average latency</CardHeader>
                             <CardContent>300 ms</CardContent>
                         </Card>
-                        <Card className="w-[33%] text-center text-2xl">
+                        <Card className="w-[33%] text-center text-2xl font-bold">
                             <CardHeader>Total Failed Tasks</CardHeader>
                             <CardContent>300</CardContent>
                         </Card>
-                        <Card className="w-[33%] text-center text-2xl">
+                        <Card className="w-[33%] text-center text-2xl font-bold">
                             <CardHeader>Total Requests</CardHeader>
                             <CardContent>300</CardContent>
                         </Card>

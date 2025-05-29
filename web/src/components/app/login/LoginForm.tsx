@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
 import { UseLoginSubmit } from '@/hooks/use-login';
+import { ColourfulText } from '@/components/ui/colourful-text';
 
 export const formSchema = z.object({
     username: z.string().min(2, {
@@ -44,7 +45,12 @@ function LoginForm() {
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(handleLoginSubmit)} className="space-y-8">
                         <div className="flex flex-col justify-center items-center gap-8">
-                            <img src={SystemLogo} width="100rem" height="100rem"></img>
+                            <div className="flex flex-row items-center">
+                                <img src={SystemLogo} width="100rem" height="100rem"></img>
+                                <h1 className="text-3xl">
+                                    <ColourfulText text="Open Scheduler" />
+                                </h1>
+                            </div>
                             <FormLabel className="text-3xl">Login</FormLabel>
                         </div>
                         <FormField
