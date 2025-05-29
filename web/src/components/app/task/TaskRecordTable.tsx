@@ -18,7 +18,7 @@ export function TaskRecordTable() {
                 <DataTableBase
                     tableData={TaskRecordSample}
                     tableColumns={TaskRecordColumns}
-                    filteredColumnName="task"
+                    filteredColumnName="name"
                     createRecordElement={<CreateTaskSection />}
                 />
             </TabsContent>
