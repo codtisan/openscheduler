@@ -4,7 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { HTTPMethods, TaskType } from '@/constants/task-type';
+import { HTTPMethods, HTTPStatusCode, TaskType } from '@/constants/task-type';
 import Editor from '@monaco-editor/react';
 import React from 'react';
 
@@ -57,9 +57,9 @@ function CreateTaskSection() {
                         <Label htmlFor="description" className="text-right">
                             Description
                         </Label>
-                        <Textarea placeholder="Put your description here" className="h-40" />
+                        <Textarea placeholder="Put your description here" className="h-24" />
                     </div>
-                    {selectedType === 'HTTP' ? (
+                    {selectedType === 'HTTP' || selectedType === 'Python' ? (
                         <>
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="target" className="text-right">
@@ -67,41 +67,79 @@ function CreateTaskSection() {
                                 </Label>
                                 <Input id="target" className="col-span-3" />
                             </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="interval" className="text-right">
-                                    Interval
-                                </Label>
-                                <Input id="target" className="col-span-3" type="number" />
+                            <div className="flex flex-row gap-10">
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="interval" className="text-right">
+                                        Interval
+                                    </Label>
+                                    <Input id="target" className="col-span-3" type="number" />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <Label htmlFor="retry" className="text-right">
+                                        Retry
+                                    </Label>
+                                    <Input id="target" className="col-span-3" type="number" />
+                                </div>
                             </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="retry" className="text-right">
-                                    Retry
-                                </Label>
-                                <Input id="target" className="col-span-3" type="number" />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="method" className="text-right">
-                                    Method
-                                </Label>
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                        <Button variant="outline" className="w-50">
-                                            Select a method
-                                        </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent className="w-50">
-                                        {HTTPMethods.map((method: string) => {
-                                            return <DropdownMenuItem key={method}>{method}</DropdownMenuItem>;
-                                        })}
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                            </div>
+                            {selectedType === 'HTTP' && (
+                                <div className="flex flex-row gap-10">
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="method" className="text-right">
+                                            Method
+                                        </Label>
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button variant="outline" className="w-40">
+                                                    Select a method
+                                                </Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent className="w-40">
+                                                {HTTPMethods.map((method: string) => {
+                                                    return <DropdownMenuItem key={method}>{method}</DropdownMenuItem>;
+                                                })}
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="check" className="text-right">
+                                            Check
+                                        </Label>
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button variant="outline" className="w-40">
+                                                    Select a condition
+                                                </Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent className="w-40">
+                                                {HTTPStatusCode.map((method: number) => {
+                                                    return <DropdownMenuItem key={method}>{method}</DropdownMenuItem>;
+                                                })}
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </div>
+                                </div>
+                            )}
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="timeout" className="text-right">
                                     Timeout
                                 </Label>
                                 <Input id="timeout" className="col-span-3" type="number" />
                             </div>
+                            {selectedType === 'HTTP' ? (
+                                <div className="flex flex-col gap-3 h-full">
+                                    <Label htmlFor="json" className="text-right">
+                                        Request Body
+                                    </Label>
+                                    <Editor height="20vh" language="json" theme="vs-dark" />
+                                </div>
+                            ) : (
+                                <div className="flex flex-col gap-3 h-full">
+                                    <Label htmlFor="json" className="text-right">
+                                        Request Body
+                                    </Label>
+                                    <Editor height="20vh" language="python" theme="vs-dark" />
+                                </div>
+                            )}
                         </>
                     ) : selectedType === null ? null : (
                         <>
