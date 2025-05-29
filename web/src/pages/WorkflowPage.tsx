@@ -1,5 +1,5 @@
 import { AppSidebar } from '@/components/app/AppBar';
-import { WorkflowEditor } from '@/components/app/workflow/WorkflowEditor';
+import { Workflow } from '@/components/app/workflow/Workflow';
 import { SidebarProvider } from '@/components/ui/sidebar';
 
 function WorkflowPage() {
@@ -9,7 +9,7 @@ function WorkflowPage() {
                 <AppSidebar />
                 <div className="w-full m-4">
                     <div>Workflow</div>
-                    <WorkflowEditor />
+                    <Workflow />
                 </div>
             </SidebarProvider>
         </>

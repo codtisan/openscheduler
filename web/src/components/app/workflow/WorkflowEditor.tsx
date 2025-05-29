@@ -11,7 +11,7 @@ const nodes = [
 
 export const WorkflowEditor = () => {
     return (
-        <div className="h-[98%] w-full">
+        <div className="h-[86vh] w-full">
             <ReactFlow className="border" nodes={nodes}>
                 <Background />
                 <Controls />
