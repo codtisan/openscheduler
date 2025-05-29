@@ -7,6 +7,7 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import { DataTableActions } from '@/components/bases/DataTableActions';
 import { EditRoleSection } from './EditRole';
+import { convertDate } from '@/utils/time';
 
 export const RoleColumns: ColumnDef<IRoleData>[] = [
     {
@@ -122,7 +123,10 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('createdAt')}</div>,
+        cell: ({ row }) => {
+            const formattedTime: string = convertDate(row.getValue('createdAt'));
+            return <div className="lowercase">{formattedTime}</div>;
+        },
     },
     {
         accessorKey: 'updatedAt',
@@ -133,7 +137,10 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('updatedAt')}</div>,
+        cell: ({ row }) => {
+            const formattedTime: string = convertDate(row.getValue('updatedAt'));
+            return <div className="lowercase">{formattedTime}</div>;
+        },
     },
     {
         accessorKey: 'Actions',

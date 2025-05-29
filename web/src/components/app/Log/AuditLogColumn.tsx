@@ -8,6 +8,7 @@ import ReactJson from 'react-json-view';
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { Label } from '@/components/ui/label';
 import { DataTableDeleteButton } from '@/components/bases/DataTableActions';
+import { convertDate } from '@/utils/time';
 
 export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
     {
@@ -177,7 +178,10 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('createdAt')}</div>,
+        cell: ({ row }) => {
+            const formattedTime: string = convertDate(row.getValue('createdAt'));
+            return <div className="lowercase">{formattedTime}</div>;
+        },
     },
     {
         accessorKey: 'Delete',

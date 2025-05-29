@@ -7,6 +7,7 @@ import { ArrowUpDown } from 'lucide-react';
 import { DataTableActions } from '@/components/bases/DataTableActions';
 import type { IProjectData } from '@/interfaces/project-table';
 import { EditProjectSection } from './EditProject';
+import { convertDate } from '@/utils/time';
 
 export const ProjectColumns: ColumnDef<IProjectData>[] = [
     {
@@ -69,7 +70,10 @@ export const ProjectColumns: ColumnDef<IProjectData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('createdAt')}</div>,
+        cell: ({ row }) => {
+            const formattedTime: string = convertDate(row.getValue('createdAt'));
+            return <div className="lowercase">{formattedTime}</div>;
+        },
     },
     {
         accessorKey: 'updatedAt',
@@ -80,7 +84,10 @@ export const ProjectColumns: ColumnDef<IProjectData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('updatedAt')}</div>,
+        cell: ({ row }) => {
+            const formattedTime: string = convertDate(row.getValue('updatedAt'));
+            return <div className="lowercase">{formattedTime}</div>;
+        },
     },
     {
         accessorKey: 'Actions',

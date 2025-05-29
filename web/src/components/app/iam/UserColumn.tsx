@@ -7,6 +7,7 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import { DataTableActions } from '@/components/bases/DataTableActions';
 import { EditUserSection } from './EditUser';
+import { convertDate } from '@/utils/time';
 
 export const UserColumns: ColumnDef<IUserData>[] = [
     {
@@ -81,7 +82,10 @@ export const UserColumns: ColumnDef<IUserData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('createdAt')}</div>,
+        cell: ({ row }) => {
+            const formattedTime: string = convertDate(row.getValue('createdAt'));
+            return <div className="lowercase">{formattedTime}</div>;
+        },
     },
     {
         accessorKey: 'updatedAt',
@@ -92,7 +96,10 @@ export const UserColumns: ColumnDef<IUserData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('updatedAt')}</div>,
+        cell: ({ row }) => {
+            const formattedTime: string = convertDate(row.getValue('updatedAt'));
+            return <div className="lowercase">{formattedTime}</div>;
+        },
     },
     {
         accessorKey: 'Actions',

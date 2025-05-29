@@ -6,6 +6,7 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, Eye } from 'lucide-react';
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { DataTableDeleteButton } from '@/components/bases/DataTableActions';
+import { convertDate } from '@/utils/time';
 
 export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
     {
@@ -121,7 +122,10 @@ export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('createdAt')}</div>,
+        cell: ({ row }) => {
+            const formattedTime: string = convertDate(row.getValue('createdAt'));
+            return <div className="lowercase">{formattedTime}</div>;
+        },
     },
     {
         accessorKey: 'Delete',

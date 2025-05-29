@@ -7,6 +7,7 @@ import { ArrowUpDown } from 'lucide-react';
 import type { ITaskRecord } from '@/interfaces/task/task-table';
 import { Label } from '@/components/ui/label';
 import { DataTableOperations } from '@/components/bases/DataTableOperations';
+import { convertDate } from '@/utils/time';
 
 export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
     {
@@ -85,7 +86,10 @@ export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('createdAt')}</div>,
+        cell: ({ row }) => {
+            const formattedTime: string = convertDate(row.getValue('createdAt'));
+            return <div className="lowercase">{formattedTime}</div>;
+        },
     },
     {
         accessorKey: 'updatedAt',
@@ -96,7 +100,10 @@ export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('updatedAt')}</div>,
+        cell: ({ row }) => {
+            const formattedTime: string = convertDate(row.getValue('updatedAt'));
+            return <div className="lowercase">{formattedTime}</div>;
+        },
     },
     {
         accessorKey: 'actions',
