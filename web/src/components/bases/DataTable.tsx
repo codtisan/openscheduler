@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { DatePickerWithRange } from './DatePicker';
 
 interface DataTableBaseProps<T> {
     tableData: T[];
@@ -78,6 +79,9 @@ export function DataTableBase<T>({ tableData, tableColumns, filteredColumnName, 
                             })}
                     </DropdownMenuContent>
                 </DropdownMenu>
+                <div className="ml-4">
+                    <DatePickerWithRange />
+                </div>
                 {createRecordElement}
             </div>
             <div className="rounded-md border w-[89vw]">

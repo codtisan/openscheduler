@@ -7,7 +7,7 @@ import { CreateProjectSection } from './CreateProject';
 
 export function ProjectDataTable() {
     return (
-        <Tabs defaultValue="project" className="w-[100%] py-3">
+        <Tabs defaultValue="project" className="w-[100%]">
             <TabsList className="grid w-[50%] grid-cols-3">
                 <TabsTrigger value="project">
                     <Users />

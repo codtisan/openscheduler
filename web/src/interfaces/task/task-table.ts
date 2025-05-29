@@ -1,6 +1,6 @@
 export interface ITaskRecord {
     id: string;
-    status: 'Online' | 'Offline';
+    status: 'Running' | 'Stopped' | 'Created' | 'Deleting' | 'Restarting';
     name: string;
     description: string;
     target: string;
