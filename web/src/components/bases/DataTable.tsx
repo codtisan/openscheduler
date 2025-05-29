@@ -56,7 +56,7 @@ export function DataTableBase<T>({ tableData, tableColumns, filteredColumnName, 
                 />
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-4">
+                        <Button variant="outline" className="ml-4 w-[10%]">
                             Columns <ChevronDown />
                         </Button>
                     </DropdownMenuTrigger>
