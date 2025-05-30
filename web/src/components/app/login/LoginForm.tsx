@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router';
 import { z } from 'zod';
 import { UseLoginSubmit } from '@/hooks/use-login';
 import { ColourfulText } from '@/components/ui/colourful-text';
+import { toast } from 'sonner';
+import { Toaster } from '@/components/ui/sonner';
 
 export const formSchema = z.object({
     username: z.string().min(2, {
@@ -36,12 +38,19 @@ function LoginForm() {
         const res = await UseLoginSubmit(loginInfo);
         if (res) {
             navigate('/home');
+        } else {
+            console.log('failed');
+            toast('Login Failed', {
+                description: 'Wrong Input',
+                richColors: true,
+            });
         }
     }
 
     return (
         <div className="flex justify-center h-screen">
             <div className="pt-30">
+                <Toaster />
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(handleLoginSubmit)} className="space-y-8">
                         <div className="flex flex-col justify-center items-center gap-8">
