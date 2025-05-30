@@ -78,6 +78,11 @@ func CreateRole(roleInfo models.RoleCreateRequest) error {
 		Alert:     roleInfo.Alert,
 		Workflow:  roleInfo.Workflow,
 		Task:      roleInfo.Task,
+		BaseSchema: schema.BaseSchema{
+			CreatedAt: time.Now(),
+			UpdatedAt: time.Now(),
+			ID:        bson.NewObjectID(),
+		},
 	}
 	databases.SystemDB.Collection("role", nil).InsertOne(ctx, roleRecord, nil)
 	return nil
