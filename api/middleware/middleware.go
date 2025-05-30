@@ -1,4 +1,4 @@
-package api
+package middleware
 
 import (
 	"github.com/gofiber/fiber/v3"
@@ -13,4 +13,5 @@ func NewMiddlewares(app *fiber.App) {
 		AllowMethods: []string{"GET", "POST", "PUT", "DELETE"},
 		AllowHeaders: []string{"Origin", "Content-Type", "Accept", "Authorization"},
 	}))
+	app.Use(auditlogMiddleware)
 }

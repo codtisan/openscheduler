@@ -12,4 +12,5 @@ func NewRoutes(app *fiber.App) {
 	app.Post("/user/login", controller.UserLoginAPI)
 	app.Post("/user/create", controller.UserCreateAPI)
 	app.Post("/serviceaccount/create", controller.ServiceAccountCreateAPI)
+	app.Post("/role/create", controller.RoleCreateAPI)
 }
