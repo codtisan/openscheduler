@@ -1,6 +1,9 @@
 package schema
 
 type UserSchema struct {
-	Email    string
-	Password string
+	BaseSchema
+	Email    string `bson:"email"`
+	Username string `bson:"username"`
+	Password string `bson:"password"`
+	Role     string `bson:"role"`
 }

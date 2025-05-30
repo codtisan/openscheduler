@@ -1,8 +1,10 @@
 package controller
 
 import (
+	"log"
 	"open-scheduler/internal/models"
-	"time"
+	"open-scheduler/internal/services"
+	"open-scheduler/pkg/utils"
 
 	"github.com/gofiber/fiber/v3"
 )
@@ -15,14 +17,26 @@ func UserLoginAPI(c fiber.Ctx) error {
 		})
 	}
 
+	userRecord, err := services.CheckUserLogin(payload)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	jwtToken, err := utils.GenerateJWT(userRecord.Username, userRecord.ID)
+	if err != nil {
+		log.Fatal("Failed to generate token")
+	}
+
 	response := models.UserLoginResponse{
-		BaseModel: models.BaseModel{
-			Status:    200,
-			Message:   "User login successfully",
-			Timestamp: time.Now(),
-		},
 		Data: models.UserLoginPayloadResponse{
-			AccessToken: "asadsdasasddasadasdasdas",
+			AccessToken: jwtToken,
+		},
+		BaseModel: models.BaseModel{
+			Status:     "success",
+			StatusCode: 200,
+			Message:    "User login successfully",
 		},
 	}
 	return c.Status(200).JSON(response)

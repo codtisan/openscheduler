@@ -1,9 +1,7 @@
 package models
 
-import "time"
-
 type BaseModel struct {
-	Status    int       `json:"status"`
-	Message   string    `json:"message"`
-	Timestamp time.Time `json:"timestamp"`
+	Status     string `json:"status"`
+	StatusCode int32  `json:"status_code"`
+	Message    string `json:"message"`
 }

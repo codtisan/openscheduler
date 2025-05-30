@@ -6,7 +6,7 @@ import type { z } from 'zod';
 export const UseLoginSubmit = async (loginInfo: z.infer<typeof formSchema>) => {
     try {
         const res = await BackendServices.post('/user/login', loginInfo);
-        if (res.status === 200) {
+        if (res.status === 'success') {
             if (!getCookie('access_token')) {
                 setCookie('access_token', res.data.access_token);
             }
