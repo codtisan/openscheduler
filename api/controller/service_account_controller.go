@@ -48,7 +48,7 @@ func ServiceAccountDeleteAPI(c fiber.Ctx) error {
 		BaseModel: models.BaseModel{
 			Status:     "success",
 			StatusCode: 200,
-			Message:    "Service account created successfully",
+			Message:    "Service account deleted successfully",
 		},
 	}
 	return c.Status(200).JSON(response)
@@ -79,7 +79,7 @@ func ServiceAccountUpdateAPI(c fiber.Ctx) error {
 		BaseModel: models.BaseModel{
 			Status:     "success",
 			StatusCode: 200,
-			Message:    "User updated successfully",
+			Message:    "Service account updated successfully",
 		},
 	}
 	return c.Status(200).JSON(response)

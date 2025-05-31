@@ -20,4 +20,7 @@ func NewRoutes(app *fiber.App) {
 
 	app.Post("/role/create", controller.RoleCreateAPI)
 	app.Delete("role/:role_id", controller.RoleDeleteAPI)
+
+	app.Post("project/create", controller.ProjectCreateAPI)
+	app.Delete("project/:project_id", controller.ProjectDeleteAPI)
 }

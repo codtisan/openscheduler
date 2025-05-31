@@ -26,3 +26,23 @@ func ProjectCreateAPI(c fiber.Ctx) error {
 	}
 	return c.Status(200).JSON(response)
 }
+
+func ProjectDeleteAPI(c fiber.Ctx) error {
+	projectID := c.Params("project_id")
+	if projectID == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Missing required fields",
+		})
+	}
+
+	services.DeleteProject(projectID)
+
+	response := models.ProjectDeleteResponse{
+		BaseModel: models.BaseModel{
+			Status:     "success",
+			StatusCode: 200,
+			Message:    "Project deleted successfully",
+		},
+	}
+	return c.Status(200).JSON(response)
+}

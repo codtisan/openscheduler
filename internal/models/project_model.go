@@ -8,3 +8,7 @@ type ProjectCreateRequest struct {
 type ProjectCreateResponse struct {
 	BaseModel
 }
+
+type ProjectDeleteResponse struct {
+	BaseModel
+}
