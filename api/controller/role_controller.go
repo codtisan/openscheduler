@@ -3,17 +3,15 @@ package controller
 import (
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/services"
+	"open-scheduler/pkg/handler"
 
 	"github.com/gofiber/fiber/v3"
 )
 
 func RoleCreateAPI(c fiber.Ctx) error {
 	var payload models.RoleCreateRequest
-	if err := c.Bind().Body(&payload); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
 	services.CreateRole(payload)
 
@@ -30,9 +28,7 @@ func RoleCreateAPI(c fiber.Ctx) error {
 func RoleDeleteAPI(c fiber.Ctx) error {
 	roleID := c.Params("role_id")
 	if roleID == "" {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Missing required fields",
-		})
+		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
 	}
 
 	services.DeleteRole(roleID)

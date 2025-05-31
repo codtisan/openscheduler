@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"log"
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/services"
+	"open-scheduler/pkg/handler"
 	"open-scheduler/pkg/utils"
 
 	"github.com/gofiber/fiber/v3"
@@ -11,23 +11,14 @@ import (
 
 func UserLoginAPI(c fiber.Ctx) error {
 	var payload models.UserLoginRequest
-	if err := c.Bind().Body(&payload); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
 	userRecord, err := services.CheckUserLogin(payload)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
 	jwtToken, err := utils.GenerateJWT(userRecord.Username, userRecord.ID)
-	if err != nil {
-		log.Fatal("Failed to generate token")
-	}
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
 	response := models.UserLoginResponse{
 		Data: models.UserLoginPayloadResponse{
@@ -44,18 +35,12 @@ func UserLoginAPI(c fiber.Ctx) error {
 
 func UserCreateAPI(c fiber.Ctx) error {
 	var payload models.UserCreateRequest
-	if err := c.Bind().Body(&payload); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
-	err := services.CreateUser(payload)
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	err = services.CreateUser(payload)
+	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
+
 	response := models.UserCreateResponse{
 		BaseModel: models.BaseModel{
 			Status:     "success",
@@ -69,17 +54,11 @@ func UserCreateAPI(c fiber.Ctx) error {
 func UserDeleteAPI(c fiber.Ctx) error {
 	userID := c.Params("user_id")
 	if userID == "" {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Missing required fields",
-		})
+		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
 	}
 
 	err := services.DeleteUser(userID)
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
 
 	services.DeleteUser(userID)
 	response := models.UserDeleteResponse{
@@ -95,23 +74,14 @@ func UserDeleteAPI(c fiber.Ctx) error {
 func UserUpdateAPI(c fiber.Ctx) error {
 	userID := c.Params("user_id")
 	if userID == "" {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Missing required fields",
-		})
+		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
 	}
 	var payload models.UserUpdateRequest
-	if err := c.Bind().Body(&payload); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
-	err := services.UpdateUser(userID, payload)
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	err = services.UpdateUser(userID, payload)
+	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
 
 	response := models.UserUpdateResponse{
 		BaseModel: models.BaseModel{

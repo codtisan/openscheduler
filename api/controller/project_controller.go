@@ -3,17 +3,15 @@ package controller
 import (
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/services"
+	"open-scheduler/pkg/handler"
 
 	"github.com/gofiber/fiber/v3"
 )
 
 func ProjectCreateAPI(c fiber.Ctx) error {
 	var payload models.ProjectCreateRequest
-	if err := c.Bind().Body(&payload); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
 	services.CreateProject(payload)
 
@@ -30,9 +28,7 @@ func ProjectCreateAPI(c fiber.Ctx) error {
 func ProjectDeleteAPI(c fiber.Ctx) error {
 	projectID := c.Params("project_id")
 	if projectID == "" {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Missing required fields",
-		})
+		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
 	}
 
 	services.DeleteProject(projectID)

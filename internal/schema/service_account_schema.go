@@ -1,9 +1,10 @@
 package schema
 
-type UserSchema struct {
+type ServiceAccountSchema struct {
 	BaseSchema `bson:",inline"`
 	Email      string `bson:"email"`
 	Username   string `bson:"username"`
-	Password   string `bson:"password"`
+	PrivateKey string `bson:"private_key"`
+	PublicKey  string `bson:"public_key"`
 	Role       string `bson:"role"`
 }

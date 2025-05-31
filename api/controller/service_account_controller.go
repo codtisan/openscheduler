@@ -3,24 +3,18 @@ package controller
 import (
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/services"
+	"open-scheduler/pkg/handler"
 
 	"github.com/gofiber/fiber/v3"
 )
 
 func ServiceAccountCreateAPI(c fiber.Ctx) error {
 	var payload models.ServiceAccountCreateRequest
-	if err := c.Bind().Body(&payload); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
 	privateKey, publicKey, err := services.CreateServiceAccount(payload)
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
 
 	response := models.ServiceAccountCreateResponse{
 		BaseModel: models.BaseModel{
@@ -39,9 +33,7 @@ func ServiceAccountCreateAPI(c fiber.Ctx) error {
 func ServiceAccountDeleteAPI(c fiber.Ctx) error {
 	serviceAccountID := c.Params("account_id")
 	if serviceAccountID == "" {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Missing required fields",
-		})
+		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
 	}
 
 	response := models.ServiceAccountDeleteResponse{
@@ -57,23 +49,14 @@ func ServiceAccountDeleteAPI(c fiber.Ctx) error {
 func ServiceAccountUpdateAPI(c fiber.Ctx) error {
 	serviceAccountID := c.Params("account_id")
 	if serviceAccountID == "" {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Missing required fields",
-		})
+		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
 	}
 	var payload models.ServiceAccountUpdateRequest
-	if err := c.Bind().Body(&payload); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
-	err := services.UpdateServiceAccount(serviceAccountID, payload)
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
+	err = services.UpdateServiceAccount(serviceAccountID, payload)
+	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
 
 	response := models.ServiceAccountUpdateResponse{
 		BaseModel: models.BaseModel{
