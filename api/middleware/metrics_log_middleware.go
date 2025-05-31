@@ -31,8 +31,9 @@ func metricslogMiddleware(c fiber.Ctx) error {
 	metricsLog := schema.MetricsLogSchema{
 		CPUUsage:      averageCPUPercent,
 		RAMUsage:      vmStat.UsedPercent,
-		Disk:          float64(diskStat.Free) / 1073741824.0,
-		NetBandwidth:  float64(netStat[0].BytesRecv),
+		Disk:          diskStat.UsedPercent,
+		NetReceived:   float64(netStat[0].BytesRecv),
+		NetSent:       float64(netStat[0].BytesSent),
 		LogBaseSchema: databases.DefaultLogBaseSchema,
 	}
 	databases.LogDB.Collection("metrics_log").InsertOne(ctx, metricsLog)

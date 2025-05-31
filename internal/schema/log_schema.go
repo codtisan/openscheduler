@@ -28,5 +28,6 @@ type MetricsLogSchema struct {
 	CPUUsage      float64 `bson:"cpu_usage"`
 	RAMUsage      float64 `bson:"ram_usage"`
 	Disk          float64 `bson:"disk"`
-	NetBandwidth  float64 `bson:"net_bandwidth"`
+	NetReceived   float64 `bson:"net_received"`
+	NetSent       float64 `bson:"net_sent"`
 }
