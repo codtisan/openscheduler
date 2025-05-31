@@ -6,9 +6,6 @@ import (
 	"open-scheduler/internal/schema"
 	"open-scheduler/pkg/databases"
 	"open-scheduler/pkg/utils"
-	"time"
-
-	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func CreateServiceAccount(serviceAccountInfo models.ServiceAccountCreateRequest) (string, string, error) {
@@ -22,11 +19,7 @@ func CreateServiceAccount(serviceAccountInfo models.ServiceAccountCreateRequest)
 		Email:      serviceAccountInfo.Email,
 		PrivateKey: privateKey,
 		PublicKey:  publicKey,
-		BaseSchema: schema.BaseSchema{
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
-			ID:        bson.NewObjectID(),
-		},
+		BaseSchema: databases.DefaultBaseSchema,
 	}
 	databases.SystemDB.Collection("service_account", nil).InsertOne(ctx, serviceAccountRecord, nil)
 	return privateKey, publicKey, nil

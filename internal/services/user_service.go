@@ -6,7 +6,6 @@ import (
 	"open-scheduler/internal/schema"
 	"open-scheduler/pkg/databases"
 	"open-scheduler/pkg/utils"
-	"time"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
@@ -35,14 +34,10 @@ func CreateUser(userInfo models.UserCreateRequest) error {
 		return err
 	}
 	userRecord := schema.UserSchema{
-		Username: userInfo.Username,
-		Email:    userInfo.Email,
-		Password: hashedPassword,
-		BaseSchema: schema.BaseSchema{
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
-			ID:        bson.NewObjectID(),
-		},
+		Username:   userInfo.Username,
+		Email:      userInfo.Email,
+		Password:   hashedPassword,
+		BaseSchema: databases.DefaultBaseSchema,
 	}
 	databases.SystemDB.Collection("user", nil).InsertOne(ctx, userRecord, nil)
 	return nil
