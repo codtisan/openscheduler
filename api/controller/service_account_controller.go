@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"errors"
 	"open-scheduler/internal/config"
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/services"
@@ -11,13 +12,17 @@ import (
 
 func ServiceAccountCreateAPI(c fiber.Ctx) error {
 	var payload models.ServiceAccountCreateRequest
-	err := c.Bind().Body(&payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
-	err = config.Validator.Struct(payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	if err := c.Bind().Body(&payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
+	if err := config.Validator.Struct(payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
 
 	privateKey, publicKey, err := services.CreateServiceAccount(payload)
-	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
+	if err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusInternalServerError)
+	}
 
 	response := models.ServiceAccountCreateResponse{
 		BaseModel: models.BaseModel{
@@ -36,7 +41,7 @@ func ServiceAccountCreateAPI(c fiber.Ctx) error {
 func ServiceAccountDeleteAPI(c fiber.Ctx) error {
 	serviceAccountID := c.Params("account_id")
 	if serviceAccountID == "" {
-		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
+		return handler.SendHTTPError(c, errors.New("Missing required fields"), fiber.StatusBadRequest)
 	}
 
 	response := models.ServiceAccountDeleteResponse{
@@ -52,16 +57,19 @@ func ServiceAccountDeleteAPI(c fiber.Ctx) error {
 func ServiceAccountUpdateAPI(c fiber.Ctx) error {
 	serviceAccountID := c.Params("account_id")
 	if serviceAccountID == "" {
-		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
+		return handler.SendHTTPError(c, errors.New("Missing required fields"), fiber.StatusBadRequest)
 	}
 	var payload models.ServiceAccountUpdateRequest
-	err := c.Bind().Body(&payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
-	err = config.Validator.Struct(payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	if err := c.Bind().Body(&payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
+	if err := config.Validator.Struct(payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
 
-	err = services.UpdateServiceAccount(serviceAccountID, payload)
-	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
+	if err := services.UpdateServiceAccount(serviceAccountID, payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusInternalServerError)
+	}
 
 	response := models.ServiceAccountUpdateResponse{
 		BaseModel: models.BaseModel{

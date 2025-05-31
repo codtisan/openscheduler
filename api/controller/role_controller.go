@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"errors"
 	"open-scheduler/internal/config"
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/services"
@@ -11,10 +12,12 @@ import (
 
 func RoleCreateAPI(c fiber.Ctx) error {
 	var payload models.RoleCreateRequest
-	err := c.Bind().Body(&payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
-	err = config.Validator.Struct(payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	if err := c.Bind().Body(&payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
+	if err := config.Validator.Struct(payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
 
 	services.CreateRole(payload)
 
@@ -31,7 +34,7 @@ func RoleCreateAPI(c fiber.Ctx) error {
 func RoleDeleteAPI(c fiber.Ctx) error {
 	roleID := c.Params("role_id")
 	if roleID == "" {
-		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
+		return handler.SendHTTPError(c, errors.New("Missing required fields"), fiber.StatusBadRequest)
 	}
 
 	services.DeleteRole(roleID)

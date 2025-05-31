@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"errors"
 	"open-scheduler/internal/config"
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/services"
@@ -12,17 +13,22 @@ import (
 
 func UserLoginAPI(c fiber.Ctx) error {
 	var payload models.UserLoginRequest
-	err := c.Bind().Body(&payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	if err := c.Bind().Body(&payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
 
-	err = config.Validator.Struct(payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	if err := config.Validator.Struct(payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
 
 	userRecord, err := services.CheckUserLogin(payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
-
+	if err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusInternalServerError)
+	}
 	jwtToken, err := utils.GenerateJWT(userRecord.Username, userRecord.ID)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	if err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusInternalServerError)
+	}
 
 	response := models.UserLoginResponse{
 		Data: models.UserLoginPayloadResponse{
@@ -39,14 +45,18 @@ func UserLoginAPI(c fiber.Ctx) error {
 
 func UserCreateAPI(c fiber.Ctx) error {
 	var payload models.UserCreateRequest
-	err := c.Bind().Body(&payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	if err := c.Bind().Body(&payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
 
-	err = config.Validator.Struct(payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	if err := config.Validator.Struct(payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
 
-	err = services.CreateUser(payload)
-	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
+	if err := services.CreateUser(payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusInternalServerError)
+
+	}
 
 	response := models.UserCreateResponse{
 		BaseModel: models.BaseModel{
@@ -61,11 +71,12 @@ func UserCreateAPI(c fiber.Ctx) error {
 func UserDeleteAPI(c fiber.Ctx) error {
 	userID := c.Params("user_id")
 	if userID == "" {
-		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
+		return handler.SendHTTPError(c, errors.New("Missing required fields"), fiber.StatusBadRequest)
 	}
 
-	err := services.DeleteUser(userID)
-	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
+	if err := services.DeleteUser(userID); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusInternalServerError)
+	}
 
 	services.DeleteUser(userID)
 	response := models.UserDeleteResponse{
@@ -81,16 +92,20 @@ func UserDeleteAPI(c fiber.Ctx) error {
 func UserUpdateAPI(c fiber.Ctx) error {
 	userID := c.Params("user_id")
 	if userID == "" {
-		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
+		return handler.SendHTTPError(c, errors.New("Missing required fields"), fiber.StatusBadRequest)
 	}
 	var payload models.UserUpdateRequest
-	err := c.Bind().Body(&payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
-	err = config.Validator.Struct(payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	if err := c.Bind().Body(&payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
 
-	err = services.UpdateUser(userID, payload)
-	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
+	if err := config.Validator.Struct(payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
+
+	if err := services.UpdateUser(userID, payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusInternalServerError)
+	}
 
 	response := models.UserUpdateResponse{
 		BaseModel: models.BaseModel{

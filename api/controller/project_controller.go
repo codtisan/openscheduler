@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"errors"
 	"open-scheduler/internal/config"
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/services"
@@ -11,10 +12,13 @@ import (
 
 func ProjectCreateAPI(c fiber.Ctx) error {
 	var payload models.ProjectCreateRequest
-	err := c.Bind().Body(&payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
-	err = config.Validator.Struct(payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	if err := c.Bind().Body(&payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
+	if err := config.Validator.Struct(payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
+
 	services.CreateProject(payload)
 
 	response := models.ProjectCreateResponse{
@@ -30,7 +34,7 @@ func ProjectCreateAPI(c fiber.Ctx) error {
 func ProjectDeleteAPI(c fiber.Ctx) error {
 	projectID := c.Params("project_id")
 	if projectID == "" {
-		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
+		return handler.SendHTTPError(c, errors.New("Missing required fields"), fiber.StatusBadRequest)
 	}
 
 	services.DeleteProject(projectID)
@@ -48,16 +52,19 @@ func ProjectDeleteAPI(c fiber.Ctx) error {
 func ProjectUpdateAPI(c fiber.Ctx) error {
 	projectID := c.Params("project_id")
 	if projectID == "" {
-		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
+		return handler.SendHTTPError(c, errors.New("Missing required fields"), fiber.StatusBadRequest)
 	}
 	var payload models.ProjectUpdateRequest
-	err := c.Bind().Body(&payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
-	err = config.Validator.Struct(payload)
-	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	if err := c.Bind().Body(&payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
+	if err := config.Validator.Struct(payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
 
-	err = services.UpdateProject(projectID, payload)
-	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
+	if err := services.UpdateProject(projectID, payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusInternalServerError)
+	}
 
 	response := models.ProjectUpdateResponse{
 		BaseModel: models.BaseModel{

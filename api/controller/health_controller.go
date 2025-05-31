@@ -17,8 +17,9 @@ func HealthCheckAPI(c fiber.Ctx) error {
 
 func HealthCheckDBAPI(c fiber.Ctx) error {
 	ctx := context.TODO()
-	err := databases.MongoClient.Ping(ctx, nil)
-	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
+	if err := databases.MongoClient.Ping(ctx, nil); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusInternalServerError)
+	}
 	return c.JSON(fiber.Map{
 		"status":  200,
 		"message": "OK!",
