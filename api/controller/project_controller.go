@@ -56,7 +56,7 @@ func ProjectUpdateAPI(c fiber.Ctx) error {
 	err = config.Validator.Struct(payload)
 	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
-	err = services.UpdateUser(userID, payload)
+	err = services.UpdateProject(projectID, payload)
 	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
 
 	response := models.ProjectUpdateResponse{
