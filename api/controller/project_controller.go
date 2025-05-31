@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"open-scheduler/internal/config"
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/services"
 	"open-scheduler/pkg/handler"
@@ -12,7 +13,8 @@ func ProjectCreateAPI(c fiber.Ctx) error {
 	var payload models.ProjectCreateRequest
 	err := c.Bind().Body(&payload)
 	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
-
+	err = config.Validator.Struct(payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 	services.CreateProject(payload)
 
 	response := models.ProjectCreateResponse{

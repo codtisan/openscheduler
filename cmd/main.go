@@ -11,6 +11,7 @@ import (
 
 func main() {
 	config.LoadConfig()
+	config.InitValidator()
 	databases.InitMongo()
 	app := fiber.New()
 	middleware.NewMiddlewares(app)

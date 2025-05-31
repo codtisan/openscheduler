@@ -1,9 +1,9 @@
 package models
 
 type ServiceAccountCreateRequest struct {
-	Email    string `json:"email"`
-	Username string `json:"username"`
-	Role     string `json:"role"`
+	Email    string `json:"email" validate:"required,email"`
+	Username string `json:"username" validate:"required"`
+	Role     string `json:"role" validate:"required"`
 }
 
 type ServiceAccountPayloadResponse struct {
@@ -21,9 +21,9 @@ type ServiceAccountDeleteResponse struct {
 }
 
 type ServiceAccountUpdateRequest struct {
-	Email    string `json:"email"`
-	Username string `json:"username"`
-	Role     string `json:"role"`
+	Email    string `json:"email" validate:"required,email"`
+	Username string `json:"username" validate:"required"`
+	Role     string `json:"role" validate:"required"`
 }
 
 type ServiceAccountUpdateResponse struct {

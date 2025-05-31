@@ -1,12 +1,12 @@
 package models
 
 type RoleCreateRequest struct {
-	Name      string   `json:"name"`
-	Dashboard []string `json:"dashboard"`
-	Log       []string `json:"log"`
-	Workflow  []string `json:"workflow"`
-	Alert     []string `json:"alert"`
-	Task      []string `json:"task"`
+	Name      string   `json:"name" validate:"required"`
+	Dashboard []string `json:"dashboard" validate:"required"`
+	Log       []string `json:"log" validate:"required"`
+	Workflow  []string `json:"workflow" validate:"required"`
+	Alert     []string `json:"alert" validate:"required"`
+	Task      []string `json:"task" validate:"required"`
 }
 
 type RoleCreateResponse struct {

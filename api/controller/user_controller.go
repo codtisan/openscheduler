@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"open-scheduler/internal/config"
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/services"
 	"open-scheduler/pkg/handler"
@@ -12,6 +13,9 @@ import (
 func UserLoginAPI(c fiber.Ctx) error {
 	var payload models.UserLoginRequest
 	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+
+	err = config.Validator.Struct(payload)
 	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
 	userRecord, err := services.CheckUserLogin(payload)
@@ -36,6 +40,9 @@ func UserLoginAPI(c fiber.Ctx) error {
 func UserCreateAPI(c fiber.Ctx) error {
 	var payload models.UserCreateRequest
 	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+
+	err = config.Validator.Struct(payload)
 	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
 	err = services.CreateUser(payload)
@@ -78,6 +85,8 @@ func UserUpdateAPI(c fiber.Ctx) error {
 	}
 	var payload models.UserUpdateRequest
 	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	err = config.Validator.Struct(payload)
 	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
 	err = services.UpdateUser(userID, payload)

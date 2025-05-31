@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"open-scheduler/internal/config"
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/services"
 	"open-scheduler/pkg/handler"
@@ -11,6 +12,8 @@ import (
 func ServiceAccountCreateAPI(c fiber.Ctx) error {
 	var payload models.ServiceAccountCreateRequest
 	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	err = config.Validator.Struct(payload)
 	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
 	privateKey, publicKey, err := services.CreateServiceAccount(payload)
@@ -53,6 +56,8 @@ func ServiceAccountUpdateAPI(c fiber.Ctx) error {
 	}
 	var payload models.ServiceAccountUpdateRequest
 	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	err = config.Validator.Struct(payload)
 	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
 
 	err = services.UpdateServiceAccount(serviceAccountID, payload)
