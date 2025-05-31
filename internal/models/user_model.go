@@ -15,7 +15,7 @@ type UserLoginResponse struct {
 }
 
 type UserCreateRequest struct {
-	Email    string `json:"email" validate:"required.email"`
+	Email    string `json:"email" validate:"required,email"`
 	Username string `json:"username" validate:"required"`
 	Password string `json:"password" validate:"required,min=8"`
 	Role     string `json:"role" validate:"required"`
