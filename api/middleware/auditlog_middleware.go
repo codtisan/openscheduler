@@ -27,14 +27,14 @@ func auditlogMiddleware(c fiber.Ctx) error {
 	resource := strings.Split(strings.TrimPrefix(c.Path(), "/"), "/")
 	auditlogID := bson.NewObjectID()
 	auditlog := schema.AuditLogSchema{
-		UserID:      "asdda",
-		UserAgent:   c.Get("User-Agent"),
-		IP:          c.IP(),
-		Route:       c.Path(),
-		Resource:    resource[0],
-		RequestBody: requestBody,
-		Method:      c.Method(),
-		BaseSchema:  databases.DefaultBaseSchema,
+		UserID:        "asdda",
+		UserAgent:     c.Get("User-Agent"),
+		IP:            c.IP(),
+		Route:         c.Path(),
+		Resource:      resource[0],
+		RequestBody:   requestBody,
+		Method:        c.Method(),
+		LogBaseSchema: databases.DefaultLogBaseSchema,
 	}
 	databases.LogDB.Collection("audit_log").InsertOne(ctx, auditlog)
 	err := c.Next()
@@ -48,13 +48,13 @@ func auditlogMiddleware(c fiber.Ctx) error {
 		responseBody = make(map[string]any)
 	}
 	responselog := schema.ResponseLogSchema{
-		AuditlogID: auditlogID,
-		Resource:   resource[0],
-		Route:      c.Path(),
-		Method:     c.Method(),
-		Latency:    int32(time.Since(startTime)),
-		Payload:    responseBody,
-		BaseSchema: databases.DefaultBaseSchema,
+		AuditlogID:    auditlogID,
+		Resource:      resource[0],
+		Route:         c.Path(),
+		Method:        c.Method(),
+		Latency:       int32(time.Since(startTime)),
+		Payload:       responseBody,
+		LogBaseSchema: databases.DefaultLogBaseSchema,
 	}
 	databases.LogDB.Collection("response_log").InsertOne(ctx, responselog)
 	return err

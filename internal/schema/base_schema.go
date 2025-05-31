@@ -11,3 +11,8 @@ type BaseSchema struct {
 	CreatedAt time.Time     `bson:"created_at"`
 	UpdatedAt time.Time     `bson:"updated_at"`
 }
+
+type LogBaseSchema struct {
+	ID        bson.ObjectID `bson:"_id"`
+	CreatedAt time.Time     `bson:"created_at"`
+}

@@ -2,13 +2,14 @@ package utils
 
 import (
 	"fmt"
+	"open-scheduler/internal/config"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-var secretKey = []byte("my-secret-key")
+var secretKey = []byte(config.SystemConfig.Server.Secret)
 
 type Claims struct {
 	Username string `json:"username"`

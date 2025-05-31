@@ -11,7 +11,7 @@ import (
 
 func main() {
 	config.LoadConfig()
-	databases.Init()
+	databases.InitMongo()
 	app := fiber.New()
 	middleware.NewMiddlewares(app)
 	api.NewRoutes(app)
