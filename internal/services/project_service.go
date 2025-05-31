@@ -32,3 +32,22 @@ func DeleteProject(projectID string) error {
 	databases.SystemDB.Collection("project", nil).DeleteOne(ctx, deleteFilter, nil)
 	return nil
 }
+
+func UpdateProject(projectID string, newProjectInfo models.ProjectUpdateRequest) error {
+	ctx := context.TODO()
+	objectID, err := bson.ObjectIDFromHex(projectID)
+	if err != nil {
+		return err
+	}
+	updateFilter := bson.M{
+		"_id": objectID,
+	}
+	update := bson.M{
+		"$set": bson.M{
+			"name":        newProjectInfo.Name,
+			"description": newProjectInfo.Description,
+		},
+	}
+	databases.SystemDB.Collection("user", nil).UpdateOne(ctx, updateFilter, update)
+	return nil
+}

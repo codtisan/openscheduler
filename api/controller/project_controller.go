@@ -44,3 +44,27 @@ func ProjectDeleteAPI(c fiber.Ctx) error {
 	}
 	return c.Status(200).JSON(response)
 }
+
+func ProjectUpdateAPI(c fiber.Ctx) error {
+	projectID := c.Params("project_id")
+	if projectID == "" {
+		handler.SendHTTPError(c, fiber.StatusBadRequest, "Missing required fields")
+	}
+	var payload models.ProjectUpdateRequest
+	err := c.Bind().Body(&payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+	err = config.Validator.Struct(payload)
+	handler.CheckHTTPError(c, err, fiber.StatusBadRequest)
+
+	err = services.UpdateUser(userID, payload)
+	handler.CheckHTTPError(c, err, fiber.StatusInternalServerError)
+
+	response := models.ProjectUpdateResponse{
+		BaseModel: models.BaseModel{
+			Status:     "success",
+			StatusCode: 200,
+			Message:    "Project updated successfully",
+		},
+	}
+	return c.Status(200).JSON(response)
+}
