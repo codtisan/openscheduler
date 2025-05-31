@@ -24,31 +24,6 @@ type UserCreateResponse struct {
 	BaseModel
 }
 
-type ServiceAccountCreateRequest struct {
-	Email    string `json:"email"`
-	Username string `json:"username"`
-	Role     string `json:"role"`
-}
-
-type ServiceAccountPayloadResponse struct {
-	PrivateKey string `json:"private_key"`
-	PublicKey  string `json:"public_key"`
-}
-
-type ServiceAccountCreateResponse struct {
-	BaseModel
-	Data ServiceAccountPayloadResponse `json:"data"`
-}
-
-type RoleCreateRequest struct {
-	Name      string   `json:"name"`
-	Dashboard []string `json:"dashboard"`
-	Log       []string `json:"log"`
-	Workflow  []string `json:"workflow"`
-	Alert     []string `json:"alert"`
-	Task      []string `json:"task"`
-}
-
-type RoleCreateResponse struct {
+type UserDeleteResponse struct {
 	BaseModel
 }

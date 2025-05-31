@@ -1,0 +1,10 @@
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    volumes:
+      - ./database/data:/data/db
+      - ./mongod.conf:/etc/mongo/mongod.conf
+    ports:
+      - "27017:27017"

@@ -14,4 +14,5 @@ func NewMiddlewares(app *fiber.App) {
 		AllowHeaders: []string{"Origin", "Content-Type", "Accept", "Authorization"},
 	}))
 	app.Use(auditlogMiddleware)
+	app.Use(metricslogMiddleware)
 }

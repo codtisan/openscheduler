@@ -2,6 +2,7 @@
 version =
 port =
 env =
+secret =
 
 [mongo]
 uri =

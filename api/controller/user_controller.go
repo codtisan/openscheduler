@@ -66,50 +66,27 @@ func UserCreateAPI(c fiber.Ctx) error {
 	return c.Status(200).JSON(response)
 }
 
-func ServiceAccountCreateAPI(c fiber.Ctx) error {
-	var payload models.ServiceAccountCreateRequest
-	if err := c.Bind().Body(&payload); err != nil {
+func UserDeleteAPI(c fiber.Ctx) error {
+	userID := c.Params("user_id")
+	if userID == "" {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": err.Error(),
+			"error": "Missing required fields",
 		})
 	}
 
-	privateKey, publicKey, err := services.CreateServiceAccount(payload)
+	err := services.DeleteUser(userID)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": err.Error(),
 		})
 	}
 
-	response := models.ServiceAccountCreateResponse{
+	services.DeleteUser(userID)
+	response := models.UserDeleteResponse{
 		BaseModel: models.BaseModel{
 			Status:     "success",
 			StatusCode: 200,
-			Message:    "Service account created successfully",
-		},
-		Data: models.ServiceAccountPayloadResponse{
-			PrivateKey: privateKey,
-			PublicKey:  publicKey,
-		},
-	}
-	return c.Status(200).JSON(response)
-}
-
-func RoleCreateAPI(c fiber.Ctx) error {
-	var payload models.RoleCreateRequest
-	if err := c.Bind().Body(&payload); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": err.Error(),
-		})
-	}
-
-	services.CreateRole(payload)
-
-	response := models.RoleCreateResponse{
-		BaseModel: models.BaseModel{
-			Status:     "success",
-			StatusCode: 200,
-			Message:    "Role created successfully",
+			Message:    "User deleted successfully",
 		},
 	}
 	return c.Status(200).JSON(response)

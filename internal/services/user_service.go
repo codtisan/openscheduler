@@ -48,42 +48,15 @@ func CreateUser(userInfo models.UserCreateRequest) error {
 	return nil
 }
 
-func CreateServiceAccount(serviceAccountInfo models.ServiceAccountCreateRequest) (string, string, error) {
+func DeleteUser(userID string) error {
 	ctx := context.TODO()
-	privateKey, publicKey, err := utils.GenerateRSAKeyPair()
+	objectID, err := bson.ObjectIDFromHex(userID)
 	if err != nil {
-		return "", "", err
+		return err
 	}
-	serviceAccountRecord := schema.ServiceAccountSchema{
-		Username:   serviceAccountInfo.Username,
-		Email:      serviceAccountInfo.Email,
-		PrivateKey: privateKey,
-		PublicKey:  publicKey,
-		BaseSchema: schema.BaseSchema{
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
-			ID:        bson.NewObjectID(),
-		},
+	deleteFilter := bson.M{
+		"_id": objectID,
 	}
-	databases.SystemDB.Collection("service_account", nil).InsertOne(ctx, serviceAccountRecord, nil)
-	return privateKey, publicKey, nil
-}
-
-func CreateRole(roleInfo models.RoleCreateRequest) error {
-	ctx := context.TODO()
-	roleRecord := schema.RoleSchema{
-		Name:      roleInfo.Name,
-		Dashboard: roleInfo.Dashboard,
-		Log:       roleInfo.Log,
-		Alert:     roleInfo.Alert,
-		Workflow:  roleInfo.Workflow,
-		Task:      roleInfo.Task,
-		BaseSchema: schema.BaseSchema{
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
-			ID:        bson.NewObjectID(),
-		},
-	}
-	databases.SystemDB.Collection("role", nil).InsertOne(ctx, roleRecord, nil)
+	databases.SystemDB.Collection("user", nil).DeleteOne(ctx, deleteFilter, nil)
 	return nil
 }
