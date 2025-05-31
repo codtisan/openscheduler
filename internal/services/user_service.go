@@ -37,6 +37,7 @@ func CreateUser(userInfo models.UserCreateRequest) error {
 		Username:   userInfo.Username,
 		Email:      userInfo.Email,
 		Password:   hashedPassword,
+		Role:       userInfo.Role,
 		BaseSchema: databases.DefaultBaseSchema,
 	}
 	databases.SystemDB.Collection("user", nil).InsertOne(ctx, userRecord, nil)
@@ -65,6 +66,14 @@ func UpdateUser(userID string, newUserInfo models.UserUpdateRequest) error {
 	updateFilter := bson.M{
 		"_id": objectID,
 	}
-	databases.SystemDB.Collection("user", nil).UpdateOne(ctx, updateFilter, newUserInfo)
+	update := bson.M{
+		"$set": bson.M{
+			"email":    newUserInfo.Email,
+			"username": newUserInfo.Username,
+			"password": newUserInfo.Password,
+			"role":     newUserInfo.Role,
+		},
+	}
+	databases.SystemDB.Collection("user", nil).UpdateOne(ctx, updateFilter, update)
 	return nil
 }

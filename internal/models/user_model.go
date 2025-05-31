@@ -18,6 +18,7 @@ type UserCreateRequest struct {
 	Email    string `json:"email"`
 	Username string `json:"username"`
 	Password string `json:"password"`
+	Role     string `json:"role"`
 }
 
 type UserCreateResponse struct {
@@ -32,6 +33,7 @@ type UserUpdateRequest struct {
 	Email    string `json:"email"`
 	Username string `json:"username"`
 	Password string `json:"password"`
+	Role     string `json:"role"`
 }
 
 type UserUpdateResponse struct {

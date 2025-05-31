@@ -12,3 +12,7 @@ type RoleCreateRequest struct {
 type RoleCreateResponse struct {
 	BaseModel
 }
+
+type RoleDeleteResponse struct {
+	BaseModel
+}

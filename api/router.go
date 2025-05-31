@@ -15,6 +15,9 @@ func NewRoutes(app *fiber.App) {
 	app.Put("/user/:user_id", controller.UserUpdateAPI)
 
 	app.Post("/serviceaccount/create", controller.ServiceAccountCreateAPI)
-	app.Post("/role/create", controller.RoleCreateAPI)
+	app.Delete("/serviceaccount/:account_id", controller.ServiceAccountDeleteAPI)
+	app.Put("/serviceaccount/:account_id", controller.ServiceAccountDeleteAPI)
 
+	app.Post("/role/create", controller.RoleCreateAPI)
+	app.Delete("role/:role_id", controller.RoleDeleteAPI)
 }
