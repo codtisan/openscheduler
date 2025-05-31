@@ -8,6 +8,7 @@ func CheckHTTPError(c fiber.Ctx, err error, statusCode int) error {
 			"error": err.Error(),
 		})
 	}
+	return nil
 }
 
 func SendHTTPError(c fiber.Ctx, statusCode int, message string) error {
