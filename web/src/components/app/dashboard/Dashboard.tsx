@@ -233,15 +233,15 @@ export const Dashboard = () => {
                         </Card>
                     </div>
                     <div className="flex flex-row gap-6">
-                        <Card className="w-[33%] text-center text-2xl">
+                        <Card className="w-[33%] text-center text-2xl font-bold">
                             <CardHeader>Average CPU Usage</CardHeader>
                             <CardContent>50 %</CardContent>
                         </Card>
-                        <Card className="w-[33%] text-center text-2xl">
+                        <Card className="w-[33%] text-center text-2xl font-bold">
                             <CardHeader>Average Memory Usage</CardHeader>
                             <CardContent>60 %</CardContent>
                         </Card>
-                        <Card className="w-[33%] text-center text-2xl">
+                        <Card className="w-[33%] text-center text-2xl font-bold">
                             <CardHeader>Uptime Percentage</CardHeader>
                             <CardContent>98 %</CardContent>
                         </Card>
