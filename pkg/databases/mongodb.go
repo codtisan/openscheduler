@@ -2,6 +2,7 @@ package databases
 
 import (
 	"context"
+	"open-scheduler/internal/config"
 	"open-scheduler/internal/schema"
 	"time"
 
@@ -25,7 +26,7 @@ var DefaultBaseSchema = schema.BaseSchema{
 }
 
 func Init() {
-	client, _ := mongo.Connect(options.Client().ApplyURI("mongodb://localhost:27017"))
+	client, _ := mongo.Connect(options.Client().ApplyURI(config.SystemConfig.Mongo.URI))
 	err := client.Ping(ctx, nil)
 	if err != nil {
 		log.Fatal(err)

@@ -10,7 +10,7 @@ import (
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
-	"go.mongodb.org/mongo-driver/v2/bson"
+	"github.com/shirou/gopsutil/net"
 	"golang.org/x/net/context"
 )
 
@@ -22,16 +22,18 @@ func metricslogMiddleware(c fiber.Ctx) error {
 	if err != nil {
 		log.Fatal(err)
 	}
+	netStat, err := net.IOCounters(true)
+	var totalCPUPercent float64
+	for _, num := range cpuPercent {
+		totalCPUPercent += num
+	}
+	averageCPUPercent := totalCPUPercent / float64(len(cpuPercent))
 	metricsLog := schema.MetricsLogSchema{
-		CPUUsage:     cpuPercent[0],
+		CPUUsage:     averageCPUPercent,
 		RAMUsage:     vmStat.UsedPercent,
-		Disk:         float64(diskStat.Free),
-		NetBandwidth: 1,
-		BaseSchema: schema.BaseSchema{
-			ID:        bson.NewObjectID(),
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
-		},
+		Disk:         float64(diskStat.Free) / 1073741824.0,
+		NetBandwidth: float64(netStat[0].BytesRecv),
+		BaseSchema:   databases.DefaultBaseSchema,
 	}
 	databases.LogDB.Collection("metrics_log").InsertOne(ctx, metricsLog)
 	c.Next()

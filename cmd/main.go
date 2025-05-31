@@ -3,12 +3,14 @@ package main
 import (
 	"open-scheduler/api"
 	"open-scheduler/api/middleware"
+	"open-scheduler/internal/config"
 	"open-scheduler/pkg/databases"
 
 	"github.com/gofiber/fiber/v3"
 )
 
 func main() {
+	config.LoadConfig()
 	databases.Init()
 	app := fiber.New()
 	middleware.NewMiddlewares(app)

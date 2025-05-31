@@ -34,11 +34,7 @@ func auditlogMiddleware(c fiber.Ctx) error {
 		Resource:    resource[0],
 		RequestBody: requestBody,
 		Method:      c.Method(),
-		BaseSchema: schema.BaseSchema{
-			ID:        auditlogID,
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
-		},
+		BaseSchema:  databases.DefaultBaseSchema,
 	}
 	databases.LogDB.Collection("audit_log").InsertOne(ctx, auditlog)
 	err := c.Next()
@@ -58,11 +54,7 @@ func auditlogMiddleware(c fiber.Ctx) error {
 		Method:     c.Method(),
 		Latency:    int32(time.Since(startTime)),
 		Payload:    responseBody,
-		BaseSchema: schema.BaseSchema{
-			ID:        auditlogID,
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
-		},
+		BaseSchema: databases.DefaultBaseSchema,
 	}
 	databases.LogDB.Collection("response_log").InsertOne(ctx, responselog)
 	return err

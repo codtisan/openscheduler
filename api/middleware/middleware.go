@@ -15,5 +15,5 @@ func NewMiddlewares(app *fiber.App) {
 	}))
 	app.Use(auditlogMiddleware)
 	app.Use(metricslogMiddleware)
-	app.Use(autheticationMiddleware)
+	// app.Use(autheticationMiddleware)
 }

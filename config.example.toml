@@ -1,4 +1,4 @@
-[backend]
+[server]
 version =
 port =
 env =
