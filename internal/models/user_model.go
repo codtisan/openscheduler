@@ -27,3 +27,13 @@ type UserCreateResponse struct {
 type UserDeleteResponse struct {
 	BaseModel
 }
+
+type UserUpdateRequest struct {
+	Email    string `json:"email"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type UserUpdateResponse struct {
+	BaseModel
+}

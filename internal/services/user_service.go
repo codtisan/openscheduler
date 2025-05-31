@@ -55,3 +55,16 @@ func DeleteUser(userID string) error {
 	databases.SystemDB.Collection("user", nil).DeleteOne(ctx, deleteFilter, nil)
 	return nil
 }
+
+func UpdateUser(userID string, newUserInfo models.UserUpdateRequest) error {
+	ctx := context.TODO()
+	objectID, err := bson.ObjectIDFromHex(userID)
+	if err != nil {
+		return err
+	}
+	updateFilter := bson.M{
+		"_id": objectID,
+	}
+	databases.SystemDB.Collection("user", nil).UpdateOne(ctx, updateFilter, newUserInfo)
+	return nil
+}

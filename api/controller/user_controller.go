@@ -91,3 +91,34 @@ func UserDeleteAPI(c fiber.Ctx) error {
 	}
 	return c.Status(200).JSON(response)
 }
+
+func UserUpdateAPI(c fiber.Ctx) error {
+	userID := c.Params("user_id")
+	if userID == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Missing required fields",
+		})
+	}
+	var payload models.UserUpdateRequest
+	if err := c.Bind().Body(&payload); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	err := services.UpdateUser(userID, payload)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	response := models.UserUpdateResponse{
+		BaseModel: models.BaseModel{
+			Status:     "success",
+			StatusCode: 200,
+			Message:    "User updated successfully",
+		},
+	}
+	return c.Status(200).JSON(response)
+}
