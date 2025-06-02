@@ -3,8 +3,18 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogT
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { UseCreateServiceAccount } from '@/hooks/use-create-project';
+import { useState } from 'react';
 
 export const CreateProjectSection = () => {
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+
+    const handleCreateSubmit = () => {
+        const res = UseCreateServiceAccount({ name: name, description: description });
+        console.log(res);
+    };
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -21,18 +31,20 @@ export const CreateProjectSection = () => {
                         <Label htmlFor="name" className="text-right">
                             Name
                         </Label>
-                        <Input id="name" className="col-span-3" />
+                        <Input id="name" className="col-span-3" onChange={(e) => setName(e.target.value)} />
                     </div>
                     <div className="flex flex-col gap-3">
                         <Label htmlFor="description" className="text-right">
                             Description
                         </Label>
-                        <Textarea placeholder="Put your description here" className="h-40" />
+                        <Textarea placeholder="Put your description here" className="h-40" onChange={(e) => setDescription(e.target.value)} />
                     </div>
                 </div>
                 <DialogFooter>
                     <Button variant="ghost">Cancel</Button>
-                    <Button type="submit">Create</Button>
+                    <Button type="submit" onClick={handleCreateSubmit}>
+                        Create
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
