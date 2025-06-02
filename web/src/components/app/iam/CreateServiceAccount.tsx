@@ -6,6 +6,9 @@ import React, { useState } from 'react';
 import KeyGeneration from './KeyGeneration';
 import { CreateServiceAccount } from '@/hooks/use-create-service-account';
 import type { CreateServiceAccountOptions } from '@/hooks/use-create-service-account';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import type { IRoleData } from '@/interfaces/role-table';
+import { RoleDataSample } from '@/constants/role';
 function CreateServiceAccountSection() {
     const [createOptions, setCreateOptions] = useState<CreateServiceAccountOptions>({
         email: '',
@@ -68,15 +71,18 @@ function CreateServiceAccountSection() {
                         <Label htmlFor="role" className="text-right">
                             Role
                         </Label>
-                        <Input
-                            id="role"
-                            className="col-span-3"
-                            onChange={(e) =>
-                                setCreateOptions((previousOptions) => {
-                                    return { ...previousOptions, role: e.target.value };
-                                })
-                            }
-                        />
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline" className="w-50">
+                                    Select a role
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-50">
+                                {RoleDataSample.map((roleData: IRoleData) => {
+                                    return <DropdownMenuItem>{roleData.name}</DropdownMenuItem>;
+                                })}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </div>
                 <DialogFooter>
