@@ -1,14 +1,12 @@
 package scheduler
 
 import (
-	"fmt"
-	"os/exec"
 	"time"
 
 	"github.com/go-co-op/gocron/v2"
 )
 
-func AddShellJob(interval int64, task func()) {
+func AddPythonJob(interval int64, task func()) {
 	_, err := Scheduler.NewJob(
 		gocron.DurationJob(
 			time.Second*time.Duration(interval),
@@ -22,12 +20,7 @@ func AddShellJob(interval int64, task func()) {
 	}
 }
 
-func CreateShellJob(interval int64, shellScript string) {
+func CreatePythonJob(interval int64, shellScript string) {
 	AddShellJob(interval, func() {
-		res, err := exec.Command(shellScript).Output()
-		if err != nil {
-			panic(err)
-		}
-		fmt.Println(res)
 	})
 }

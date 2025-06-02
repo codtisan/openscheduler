@@ -1,7 +1,7 @@
 package scheduler
 
 import (
-	"fmt"
+	"errors"
 	"io"
 	"net/http"
 	"time"
@@ -25,34 +25,35 @@ func AddHTTPJob(interval int, task func()) {
 
 func CreateHTTPJob(interval int, targetUrl string, retry int, timeout int, method string, check int, body io.Reader) {
 	AddHTTPJob(interval, func() {
-		switch method {
-		case "Get":
-			res, err := http.Get(targetUrl)
-			if err != nil {
-				panic(err)
+		for i := 0; i < retry; i++ {
+			err := SendHTTPRequest(targetUrl, timeout, method, check, body)
+			if err == nil {
+				break
 			}
-			if res.StatusCode != check {
-
-			}
-		case "Post":
-			res, err := http.Post(targetUrl, "application/json", body)
-			if err != nil {
-				panic(err)
-			}
-			if res.StatusCode != check {
-			}
-		case "Delete":
-			res, err := http.NewRequest(http.MethodDelete, targetUrl, body)
-			if err != nil {
-				panic(err)
-			}
-			fmt.Println(res)
-		case "Put":
-			res, err := http.NewRequest(http.MethodPut, targetUrl, body)
-			if err != nil {
-				panic(err)
-			}
-			fmt.Println(res)
+			time.Sleep(time.Second)
 		}
 	})
+}
+
+func SendHTTPRequest(targetUrl string, timeout int, method string, check int, body io.Reader) error {
+	client := http.Client{Timeout: time.Duration(timeout)}
+	switch method {
+	case "Get":
+		res, err := client.Get(targetUrl)
+		if err != nil {
+			return err
+		}
+		if res.StatusCode != check {
+			return errors.New("Failed to call the api")
+		}
+	case "Post":
+		res, err := client.Post(targetUrl, "application/json", body)
+		if err != nil {
+			return err
+		}
+		if res.StatusCode != check {
+			return errors.New("Failed to call the api")
+		}
+	}
+	return errors.New("Method not allowed")
 }
