@@ -16,9 +16,7 @@ import { useNavigate } from 'react-router';
 import { ColourfulText } from '../ui/colourful-text';
 import { Badge } from '../ui/badge';
 import { AlertDataSample } from '@/constants/alert';
-import { Avatar, AvatarImage } from '../ui/avatar';
 
-// Menu items.
 const items = [
     {
         title: 'Dashboard',
@@ -96,11 +94,6 @@ export function AppSidebar() {
                                 );
                             })}
                         </SidebarMenu>
-                        <div className="flex items-center justify-center pt-36">
-                            <Avatar className="size-20">
-                                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                            </Avatar>
-                        </div>
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
