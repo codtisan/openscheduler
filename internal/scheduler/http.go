@@ -7,32 +7,30 @@ import (
 	"time"
 
 	"github.com/go-co-op/gocron/v2"
+	"github.com/google/uuid"
 )
 
-func AddHTTPJob(interval int, task func()) {
-	_, err := Scheduler.NewJob(
+func AddHTTPJob(interval int, targetUrl string, retry int, timeout int, method string, check int, body io.Reader) (uuid.UUID, error) {
+	j, err := Scheduler.NewJob(
 		gocron.DurationJob(
 			time.Second*time.Duration(interval),
 		),
 		gocron.NewTask(
-			task,
+			func() {
+				for i := 0; i < retry; i++ {
+					err := SendHTTPRequest(targetUrl, timeout, method, check, body)
+					if err == nil {
+						break
+					}
+					time.Sleep(time.Second)
+				}
+			},
 		),
 	)
 	if err != nil {
-		panic(err)
+		return uuid.UUID{}, err
 	}
-}
-
-func CreateHTTPJob(interval int, targetUrl string, retry int, timeout int, method string, check int, body io.Reader) {
-	AddHTTPJob(interval, func() {
-		for i := 0; i < retry; i++ {
-			err := SendHTTPRequest(targetUrl, timeout, method, check, body)
-			if err == nil {
-				break
-			}
-			time.Sleep(time.Second)
-		}
-	})
+	return j.ID(), nil
 }
 
 func SendHTTPRequest(targetUrl string, timeout int, method string, check int, body io.Reader) error {
