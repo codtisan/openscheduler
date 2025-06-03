@@ -55,12 +55,16 @@ export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
                                 <Label>{row.getValue('ramUsage')}</Label>
                             </div>
                             <div className="flex flex-row gap-3">
-                                <Label>Disk Available</Label>
-                                <Label>{row.getValue('diskAvailable')}</Label>
+                                <Label>Disk Usage</Label>
+                                <Label>{row.getValue('diskUsage')}</Label>
                             </div>
                             <div className="flex flex-row gap-3">
-                                <Label>Network Bandwidth</Label>
-                                <Label>{row.getValue('netBandwidth')}</Label>
+                                <Label>Network Received</Label>
+                                <Label>{row.getValue('netReceived')}</Label>
+                            </div>
+                            <div className="flex flex-row gap-3">
+                                <Label>Network Sent</Label>
+                                <Label>{row.getValue('netSent')}</Label>
                             </div>
                         </div>
                         <DrawerFooter className="pt-6">
@@ -91,27 +95,38 @@ export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
         cell: ({ row }) => <div className="lowercase">{row.getValue('ramUsage')}</div>,
     },
     {
-        accessorKey: 'diskAvailable',
+        accessorKey: 'diskUsage',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Available Disk Space
+                    Disk Usage
                     <ArrowUpDown />
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('diskAvailable')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('diskUsage')}</div>,
     },
     {
-        accessorKey: 'netBandwidth',
+        accessorKey: 'netReceived',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Network Bandwidth
+                    Network Received
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('netBandwidth')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('netReceived')}</div>,
+    },
+    {
+        accessorKey: 'netSent',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Network Sent
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div className="lowercase">{row.getValue('netSent')}</div>,
     },
     {
         accessorKey: 'createdAt',

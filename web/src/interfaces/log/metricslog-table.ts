@@ -2,7 +2,8 @@ export type IMetricsLogData = {
     id: string;
     cpuUsage: number;
     ramUsage: number;
-    diskAvailable: number;
-    netBandwidth: number;
+    diskUsage: number;
+    netReceived: number;
+    netSent: number;
     createdAt: string;
 };
