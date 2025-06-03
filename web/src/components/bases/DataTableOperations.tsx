@@ -11,38 +11,46 @@ export interface EditTaskProps {
 }
 
 export const DataTableOperations = ({ rowData }: EditTaskProps) => {
+    const rowStatus = rowData.getValue('status');
     return (
         <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button className="rounded-4xl bg-green-500">
-                        <Power />
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p>Run</p>
-                </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button className="rounded-4xl bg-red-500">
-                        <StopCircle />
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p>Stop</p>
-                </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button className="rounded-4xl bg-blue-500">
-                        <RotateCcw />
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p>Restart</p>
-                </TooltipContent>
-            </Tooltip>
+            {(rowStatus === 'Created' || rowStatus === 'Stopped') && (
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button className="rounded-4xl bg-green-500">
+                            <Power />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p>Run</p>
+                    </TooltipContent>
+                </Tooltip>
+            )}
+            {(rowStatus === 'Running' || rowStatus === 'Restarting') && (
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button className="rounded-4xl bg-red-500">
+                            <StopCircle />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p>Stop</p>
+                    </TooltipContent>
+                </Tooltip>
+            )}
+            {rowStatus === 'Running' ||
+                (rowStatus === 'Stopped' && (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button className="rounded-4xl bg-blue-500">
+                                <RotateCcw />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p>Restart</p>
+                        </TooltipContent>
+                    </Tooltip>
+                ))}
             <DataTableDeleteButton />
             <DataTableEditButton EditPage={<EditTaskSection rowData={rowData} />} headerName="Task" />
         </TooltipProvider>
