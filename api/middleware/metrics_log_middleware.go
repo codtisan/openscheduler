@@ -34,7 +34,7 @@ func metricslogMiddleware(c fiber.Ctx) error {
 		Disk:          diskStat.UsedPercent,
 		NetReceived:   float64(netStat[0].BytesRecv),
 		NetSent:       float64(netStat[0].BytesSent),
-		LogBaseSchema: databases.DefaultLogBaseSchema,
+		LogBaseSchema: databases.CreateDefaultLogBaseSchema(),
 	}
 	databases.LogDB.Collection("metrics_log").InsertOne(ctx, metricsLog)
 	c.Next()

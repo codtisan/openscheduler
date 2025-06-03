@@ -38,7 +38,7 @@ func CreateUser(userInfo models.UserCreateRequest) error {
 		Email:      userInfo.Email,
 		Password:   hashedPassword,
 		Role:       userInfo.Role,
-		BaseSchema: databases.DefaultBaseSchema,
+		BaseSchema: databases.CreateDefaultBaseSchema(),
 	}
 	databases.SystemDB.Collection("user", nil).InsertOne(ctx, userRecord, nil)
 	return nil

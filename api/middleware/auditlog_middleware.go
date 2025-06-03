@@ -34,7 +34,7 @@ func auditlogMiddleware(c fiber.Ctx) error {
 		Resource:      resource[0],
 		RequestBody:   requestBody,
 		Method:        c.Method(),
-		LogBaseSchema: databases.DefaultLogBaseSchema,
+		LogBaseSchema: databases.CreateDefaultLogBaseSchema(),
 	}
 	databases.LogDB.Collection("audit_log").InsertOne(ctx, auditlog)
 	err := c.Next()
@@ -54,7 +54,7 @@ func auditlogMiddleware(c fiber.Ctx) error {
 		Method:        c.Method(),
 		Latency:       int32(time.Since(startTime)),
 		Payload:       responseBody,
-		LogBaseSchema: databases.DefaultLogBaseSchema,
+		LogBaseSchema: databases.CreateDefaultLogBaseSchema(),
 	}
 	databases.LogDB.Collection("response_log").InsertOne(ctx, responselog)
 	return err

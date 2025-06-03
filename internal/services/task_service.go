@@ -24,7 +24,7 @@ func CreateHTTPTask(taskInfo models.CreateHTTPJobRequest) error {
 		Check:       taskInfo.Check,
 		Timeout:     taskInfo.Timeout,
 		Body:        taskInfo.Body,
-		BaseSchema:  databases.DefaultBaseSchema,
+		BaseSchema:  databases.CreateDefaultBaseSchema(),
 	}
 	databases.SystemDB.Collection("http_task", nil).InsertOne(ctx, taskRecord, nil)
 	return nil

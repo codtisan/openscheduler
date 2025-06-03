@@ -1,7 +1,7 @@
 package schema
 
 type ProjectSchema struct {
-	BaseSchema
+	BaseSchema  `bson:",inline"`
 	Name        string
 	Description string
 }

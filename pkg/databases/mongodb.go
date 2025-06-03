@@ -18,17 +18,6 @@ var (
 	ctx         = context.TODO()
 )
 
-var DefaultBaseSchema = schema.BaseSchema{
-	ID:        bson.NewObjectID(),
-	CreatedAt: time.Now(),
-	UpdatedAt: time.Now(),
-}
-
-var DefaultLogBaseSchema = schema.LogBaseSchema{
-	ID:        bson.NewObjectID(),
-	CreatedAt: time.Now(),
-}
-
 func InitMongo() {
 	client, _ := mongo.Connect(options.Client().ApplyURI(config.SystemConfig.Mongo.URI))
 	err := client.Ping(ctx, nil)
@@ -38,4 +27,19 @@ func InitMongo() {
 	MongoClient = client
 	SystemDB = client.Database("system", nil)
 	LogDB = client.Database("logs", nil)
+}
+
+func CreateDefaultBaseSchema() schema.BaseSchema {
+	return schema.BaseSchema{
+		ID:        bson.NewObjectID(),
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	}
+}
+
+func CreateDefaultLogBaseSchema() schema.LogBaseSchema {
+	return schema.LogBaseSchema{
+		ID:        bson.NewObjectID(),
+		CreatedAt: time.Now(),
+	}
 }

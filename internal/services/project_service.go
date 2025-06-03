@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/schema"
@@ -16,8 +17,9 @@ func CreateProject(projectInfo models.ProjectCreateRequest) error {
 	projectRecord := schema.ProjectSchema{
 		Name:        projectInfo.Name,
 		Description: projectInfo.Description,
-		BaseSchema:  databases.DefaultBaseSchema,
+		BaseSchema:  databases.CreateDefaultBaseSchema(),
 	}
+	fmt.Println(projectRecord)
 	databases.SystemDB.Collection("project", nil).InsertOne(ctx, projectRecord, nil)
 	return nil
 }
