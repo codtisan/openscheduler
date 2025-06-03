@@ -3,11 +3,12 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
 import { statusToColor } from '@/services/color';
 import type { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown } from 'lucide-react';
+import { ArrowUpDown, Eye } from 'lucide-react';
 import type { ITaskRecord } from '@/interfaces/task/task-table';
 import { Label } from '@/components/ui/label';
 import { DataTableOperations } from '@/components/bases/DataTableOperations';
 import { convertDate } from '@/utils/time';
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 
 export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
     {
@@ -24,6 +25,73 @@ export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
         ),
         enableSorting: false,
         enableHiding: false,
+    },
+    {
+        accessorKey: 'detail',
+        header: ({ column }) => {
+            return (
+                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                    Detail
+                </Button>
+            );
+        },
+        cell: ({ row }) => {
+            const statusColor = statusToColor(row.getValue('status'));
+            return (
+                <Drawer direction="right">
+                    <DrawerTrigger asChild>
+                        <Button variant="ghost">
+                            <Eye className="size-6" />
+                        </Button>
+                    </DrawerTrigger>
+                    <DrawerContent>
+                        <div className="mx-auto w-full max-w-sm">
+                            <DrawerHeader>
+                                <DrawerTitle>Detail</DrawerTitle>
+                            </DrawerHeader>
+                            <div className="ml-4 flex flex-col gap-6">
+                                <div className="flex flex-row gap-3">
+                                    <Label>Name</Label>
+                                    <Label>{row.getValue('name')}</Label>
+                                </div>
+                                <div className="flex flex-row gap-3 ">
+                                    <Label>Status</Label>
+                                    <Label
+                                        className={cn(
+                                            'capitalize text-center rounded-2xl h-[2rem] w-20 flex items-center justify-center',
+                                            statusColor
+                                        )}
+                                    >
+                                        {row.getValue('status')}
+                                    </Label>
+                                </div>
+                                <div className="flex flex-row gap-3">
+                                    <Label>Description</Label>
+                                    <Label>{row.getValue('description')}</Label>
+                                </div>
+                                <div className="flex flex-row gap-3">
+                                    <Label>Target</Label>
+                                    <Label>{row.getValue('target')}</Label>
+                                </div>
+                                <div className="flex flex-row gap-3">
+                                    <Label>Interval</Label>
+                                    <Label>{row.getValue('interval')}</Label>
+                                </div>
+                                <div className="flex flex-row gap-3">
+                                    <Label>Retry</Label>
+                                    <Label>{row.getValue('numOfRetry')}</Label>
+                                </div>
+                            </div>
+                            <DrawerFooter className="pt-6">
+                                <DrawerClose asChild>
+                                    <Button variant="outline">Cancel</Button>
+                                </DrawerClose>
+                            </DrawerFooter>
+                        </div>
+                    </DrawerContent>
+                </Drawer>
+            );
+        },
     },
     {
         accessorKey: 'status',
@@ -51,7 +119,7 @@ export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
     },
     {
         accessorKey: 'type',
-        header: 'Description',
+        header: 'Type',
         cell: ({ row }) => {
             return <div className="flex flex-col">{row.getValue('type')}</div>;
         },
