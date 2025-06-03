@@ -1,11 +1,22 @@
 import { DataTableBase } from '@/components/bases/DataTable';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Users } from 'lucide-react';
-import { ProjectDataSample } from '@/constants/project';
 import { ProjectColumns } from './ProjectColumn';
 import { CreateProjectSection } from './CreateProject';
+import { UseGetProjectList } from '@/hooks/use-list-project';
+import { Spinner } from '@/components/ui/spinner';
 
 export function ProjectDataTable() {
+    const { data, isLoading } = UseGetProjectList(10, 0);
+
+    if (isLoading) {
+        return (
+            <div className="h-[80vh] flex items-center justify-center">
+                <Spinner size="lg" className="bg-black dark:bg-white" />
+            </div>
+        );
+    }
+
     return (
         <Tabs defaultValue="project" className="w-[100%]">
             <TabsList className="grid w-[50%] grid-cols-3">
@@ -16,7 +27,7 @@ export function ProjectDataTable() {
             </TabsList>
             <TabsContent value="project">
                 <DataTableBase
-                    tableData={ProjectDataSample}
+                    tableData={data}
                     tableColumns={ProjectColumns}
                     filteredColumnName="name"
                     createRecordElement={<CreateProjectSection />}

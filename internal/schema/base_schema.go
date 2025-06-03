@@ -7,12 +7,12 @@ import (
 )
 
 type BaseSchema struct {
-	ID        bson.ObjectID `bson:"_id"`
-	CreatedAt time.Time     `bson:"created_at"`
-	UpdatedAt time.Time     `bson:"updated_at"`
+	ID        bson.ObjectID `json:"id" bson:"_id"`
+	CreatedAt time.Time     `json:"createdAt" bson:"created_at"`
+	UpdatedAt time.Time     `json:"updatedAt" bson:"updated_at"`
 }
 
 type LogBaseSchema struct {
-	ID        bson.ObjectID `bson:"_id"`
-	CreatedAt time.Time     `bson:"created_at"`
+	ID        bson.ObjectID `json:"id" bson:"_id"`
+	CreatedAt time.Time     `json:"createdAt" bson:"created_at"`
 }

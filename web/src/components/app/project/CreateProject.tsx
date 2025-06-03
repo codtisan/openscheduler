@@ -4,15 +4,18 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { UseCreateServiceAccount } from '@/hooks/use-create-project';
+import { UseGetProjectList } from '@/hooks/use-list-project';
 import { useState } from 'react';
 
 export const CreateProjectSection = () => {
+    const { mutate } = UseGetProjectList(10, 0);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
-    const handleCreateSubmit = () => {
-        const res = UseCreateServiceAccount({ name: name, description: description });
+    const handleCreateSubmit = async () => {
+        const res = await UseCreateServiceAccount({ name: name, description: description });
         console.log(res);
+        await mutate();
     };
 
     return (

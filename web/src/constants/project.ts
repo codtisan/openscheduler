@@ -1,7 +1,8 @@
-export const ProjectDataSample = [
+import type { IProjectData } from '@/interfaces/project-table';
+
+export const ProjectDataSample: IProjectData[] = [
     {
         id: 'proj_001',
-        status: 'Online',
         name: 'E-commerce Platform',
         description: 'A scalable online store with payment integration.',
         createdAt: '2025-01-15T10:30:00Z',
@@ -9,7 +10,6 @@ export const ProjectDataSample = [
     },
     {
         id: 'proj_002',
-        status: 'Offline',
         name: 'Task Manager',
         description: 'A collaborative tool for team task tracking.',
         createdAt: '2024-11-05T09:00:00Z',
@@ -17,7 +17,6 @@ export const ProjectDataSample = [
     },
     {
         id: 'proj_003',
-        status: 'Online',
         name: 'Portfolio Website',
         description: 'A personal portfolio showcasing creative work.',
         createdAt: '2025-02-20T12:15:00Z',
@@ -25,7 +24,6 @@ export const ProjectDataSample = [
     },
     {
         id: 'proj_004',
-        status: 'Offline',
         name: 'Inventory System',
         description: 'A system for managing warehouse stock levels.',
         createdAt: '2024-12-12T11:00:00Z',
@@ -33,7 +31,6 @@ export const ProjectDataSample = [
     },
     {
         id: 'proj_005',
-        status: 'Online',
         name: 'Chat Application',
         description: 'Real-time messaging app with group chat support.',
         createdAt: '2025-03-01T14:00:00Z',
@@ -41,7 +38,6 @@ export const ProjectDataSample = [
     },
     {
         id: 'proj_006',
-        status: 'Online',
         name: 'Event Planner',
         description: 'A tool for organizing and scheduling events.',
         createdAt: '2024-10-10T08:45:00Z',
@@ -49,7 +45,6 @@ export const ProjectDataSample = [
     },
     {
         id: 'proj_007',
-        status: 'Offline',
         name: 'Fitness Tracker',
         description: 'An app to monitor workouts and health metrics.',
         createdAt: '2025-01-25T13:20:00Z',
@@ -57,7 +52,6 @@ export const ProjectDataSample = [
     },
     {
         id: 'proj_008',
-        status: 'Online',
         name: 'Blog Platform',
         description: 'A customizable platform for publishing articles.',
         createdAt: '2024-09-18T15:00:00Z',
@@ -65,7 +59,6 @@ export const ProjectDataSample = [
     },
     {
         id: 'proj_009',
-        status: 'Offline',
         name: 'Budget Planner',
         description: 'A tool for personal finance and budgeting.',
         createdAt: '2025-02-10T10:00:00Z',
@@ -73,7 +66,6 @@ export const ProjectDataSample = [
     },
     {
         id: 'proj_010',
-        status: 'Online',
         name: 'Learning Management System',
         description: 'A platform for online courses and training.',
         createdAt: '2024-08-01T09:30:00Z',

@@ -14,13 +14,36 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import type React from 'react';
+import { UseDelete } from '@/hooks/use-delete-project';
+import { UseGetProjectList } from '@/hooks/use-list-project';
+
+export interface DataTableActionsProps {
+    EditPage: React.ReactNode | null;
+    headerName: string;
+    url: string;
+    id: string;
+}
 
 export interface DataTableEditProps {
     EditPage: React.ReactNode | null;
     headerName: string;
 }
 
-export const DataTableDeleteButton = () => {
+export interface DataTableDeleteProps {
+    url: string;
+    id: string;
+}
+
+export const DataTableDeleteButton = ({ url, id }: DataTableDeleteProps) => {
+    const { mutate } = UseGetProjectList(10, 0);
+
+    const handleDeleteSubmit = async () => {
+        const res = await UseDelete(url, id);
+        console.log(res);
+        if (url === '/project') {
+            await mutate();
+        }
+    };
     return (
         <Tooltip>
             <AlertDialog>
@@ -41,7 +64,7 @@ export const DataTableDeleteButton = () => {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction>Delete</AlertDialogAction>
+                        <AlertDialogAction onClick={handleDeleteSubmit}>Delete</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
@@ -82,11 +105,11 @@ export const DataTableEditButton = ({ EditPage, headerName }: DataTableEditProps
     );
 };
 
-export const DataTableActions = ({ EditPage, headerName }: DataTableEditProps) => {
+export const DataTableActions = ({ EditPage, headerName, url, id }: DataTableActionsProps) => {
     return (
         <div className="flex gap-2">
             <TooltipProvider>
-                <DataTableDeleteButton />
+                <DataTableDeleteButton url={url} id={id} />
                 <DataTableEditButton EditPage={EditPage} headerName={headerName} />
             </TooltipProvider>
         </div>

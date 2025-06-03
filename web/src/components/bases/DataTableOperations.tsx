@@ -51,7 +51,7 @@ export const DataTableOperations = ({ rowData }: EditTaskProps) => {
                         </TooltipContent>
                     </Tooltip>
                 ))}
-            <DataTableDeleteButton />
+            <DataTableDeleteButton url="" id="" />
             <DataTableEditButton EditPage={<EditTaskSection rowData={rowData} />} headerName="Task" />
         </TooltipProvider>
     );

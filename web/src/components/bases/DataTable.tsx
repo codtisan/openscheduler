@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import { flexRender } from '@tanstack/react-table';
 import { ChevronDown } from 'lucide-react';
-import type { ColumnDef, ColumnFiltersState, SortingState, VisibilityState } from '@tanstack/react-table';
+import type { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DatePickerWithRange } from './DatePicker';
+import { UseReactTable } from '@/hooks/use-react-table';
 
 interface DataTableBaseProps<T> {
     tableData: T[];
@@ -17,34 +18,7 @@ interface DataTableBaseProps<T> {
 }
 
 export function DataTableBase<T>({ tableData, tableColumns, filteredColumnName, maxRowPerPage = 10, createRecordElement }: DataTableBaseProps<T>) {
-    const [sorting, setSorting] = React.useState<SortingState>([]);
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-    const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-    const [rowSelection, setRowSelection] = React.useState({});
-
-    const table = useReactTable({
-        data: tableData,
-        columns: tableColumns,
-        onSortingChange: setSorting,
-        onColumnFiltersChange: setColumnFilters,
-        getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-        getSortedRowModel: getSortedRowModel(),
-        getFilteredRowModel: getFilteredRowModel(),
-        onColumnVisibilityChange: setColumnVisibility,
-        onRowSelectionChange: setRowSelection,
-        state: {
-            sorting,
-            columnFilters,
-            columnVisibility,
-            rowSelection,
-        },
-        initialState: {
-            pagination: {
-                pageSize: maxRowPerPage,
-            },
-        },
-    });
+    const table = UseReactTable(tableData, tableColumns, maxRowPerPage);
 
     return (
         <div className="w-full">

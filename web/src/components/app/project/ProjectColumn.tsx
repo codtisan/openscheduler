@@ -1,7 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { cn } from '@/lib/utils';
-import { statusToColor } from '@/services/color';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import { DataTableActions } from '@/components/bases/DataTableActions';
@@ -24,18 +22,6 @@ export const ProjectColumns: ColumnDef<IProjectData>[] = [
         ),
         enableSorting: false,
         enableHiding: false,
-    },
-    {
-        accessorKey: 'status',
-        header: 'Status',
-        cell: ({ row }) => {
-            const statusColor = statusToColor(row.getValue('status'));
-            return (
-                <div className={cn('capitalize text-center rounded-2xl h-[2rem] flex items-center justify-center', statusColor)}>
-                    {row.getValue('status')}
-                </div>
-            );
-        },
     },
     {
         accessorKey: 'name',
@@ -94,10 +80,12 @@ export const ProjectColumns: ColumnDef<IProjectData>[] = [
         header: () => {
             return <div>Actions</div>;
         },
-        cell: ({ row }) => (
-            <div className="lowercase">
-                <DataTableActions EditPage={<EditProjectSection rowData={row} />} headerName="Project" />
-            </div>
-        ),
+        cell: ({ row }) => {
+            return (
+                <div className="lowercase">
+                    <DataTableActions EditPage={<EditProjectSection rowData={row} />} headerName="Project" url="/project" id={row.original.id} />
+                </div>
+            );
+        },
     },
 ];
