@@ -4,30 +4,30 @@ import "go.mongodb.org/mongo-driver/v2/bson"
 
 type AuditLogSchema struct {
 	LogBaseSchema `bson:",inline"`
-	UserAgent     string         `bson:"user_agent"`
-	IP            string         `bson:"ip"`
-	Route         string         `bson:"route"`
-	UserID        string         `bson:"user_id"`
-	Method        string         `bson:"method"`
-	Resource      string         `bson:"resource"`
-	RequestBody   map[string]any `bson:"request_body"`
+	UserAgent     string         `json:"userAgent" bson:"user_agent"`
+	IP            string         `json:"ip" bson:"ip"`
+	Route         string         `json:"route" bson:"route"`
+	UserID        string         `json:"userId" bson:"user_id"`
+	Method        string         `json:"method" bson:"method"`
+	Resource      string         `json:"resource" bson:"resource"`
+	RequestBody   map[string]any `json:"body" bson:"request_body"`
 }
 
 type ResponseLogSchema struct {
 	LogBaseSchema `bson:",inline"`
-	AuditlogID    bson.ObjectID  `bson:"audit_log_id"`
-	Method        string         `bson:"method"`
-	Route         string         `bson:"route"`
-	Resource      string         `bson:"resource"`
-	Latency       int32          `bson:"latency"`
-	Payload       map[string]any `bson:"payload"`
+	AuditlogID    bson.ObjectID  `json:"auditlogId" bson:"audit_log_id"`
+	Method        string         `json:"method" bson:"method"`
+	Route         string         `json:"route" bson:"route"`
+	Resource      string         `json:"resource" bson:"resource"`
+	Latency       int32          `json:"latency" bson:"latency"`
+	Payload       map[string]any `json:"payload" bson:"payload"`
 }
 
 type MetricsLogSchema struct {
 	LogBaseSchema `bson:",inline"`
-	CPUUsage      float64 `bson:"cpu_usage"`
-	RAMUsage      float64 `bson:"ram_usage"`
-	Disk          float64 `bson:"disk"`
-	NetReceived   float64 `bson:"net_received"`
-	NetSent       float64 `bson:"net_sent"`
+	CPUUsage      float64 `json:"cpuUsage" bson:"cpu_usage"`
+	RAMUsage      float64 `json:"ramUsage" bson:"ram_usage"`
+	Disk          float64 `json:"disk" bson:"disk"`
+	NetReceived   float64 `json:"netReceived" bson:"net_received"`
+	NetSent       float64 `json:"netSent" bson:"net_sent"`
 }

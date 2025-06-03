@@ -24,4 +24,6 @@ func NewRoutes(app *fiber.App) {
 	app.Post("project/create", controller.ProjectCreateAPI)
 	app.Delete("project/:project_id", controller.ProjectDeleteAPI)
 	app.Get("project", controller.GetProjectListAPI)
+
+	app.Get("/auditlog", controller.GetAuditLogListAPI)
 }

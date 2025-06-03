@@ -51,7 +51,7 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
                             <div className="ml-4 flex flex-col gap-6">
                                 <div className="flex flex-row gap-3">
                                     <Label>User Agent</Label>
-                                    <Label>{row.getValue('useragent')}</Label>
+                                    <Label>{row.getValue('userAgent')}</Label>
                                 </div>
                                 <div className="flex flex-row gap-3">
                                     <Label>IP Address</Label>
@@ -67,7 +67,7 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
                                 </div>
                                 <div className="flex flex-row gap-3">
                                     <Label>API Route</Label>
-                                    <Label>{row.getValue('api')}</Label>
+                                    <Label>{row.getValue('route')}</Label>
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <Label>Request Body</Label>
@@ -91,7 +91,7 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
         cell: ({ row }) => <div className="capitalize">{row.getValue('userId')}</div>,
     },
     {
-        accessorKey: 'useragent',
+        accessorKey: 'userAgent',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -100,7 +100,7 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('useragent')}</div>,
+        cell: ({ row }) => <div>{row.getValue('userAgent')}</div>,
     },
     {
         accessorKey: 'ip',
@@ -137,7 +137,7 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
         cell: ({ row }) => <div className="lowercase">{row.getValue('method')}</div>,
     },
     {
-        accessorKey: 'api',
+        accessorKey: 'route',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -145,7 +145,7 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('api')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('route')}</div>,
     },
     {
         accessorKey: 'body',
@@ -160,7 +160,7 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger asChild>
-                        <div className="lowercase">{JSON.stringify(row.getValue('body')).slice(0, 20) + ' ...'}</div>
+                        <div className="lowercase">{JSON.stringify(row.getValue('body')).slice(0, 20)}</div>
                     </TooltipTrigger>
                     <TooltipContent>
                         <ReactJson src={row.getValue('body')} theme="pop" name={false} />

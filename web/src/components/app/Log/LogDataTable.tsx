@@ -11,8 +11,20 @@ import type { IAuditlogData } from '@/interfaces/log/auditlog-table';
 import type { IMetricsLogData } from '@/interfaces/log/metricslog-table';
 import type { IResponseLogData } from '@/interfaces/log/responselog-table';
 import { Activity, Cable, Cpu } from 'lucide-react';
+import { Spinner } from '@/components/ui/spinner';
+import { UseGetAuditlogList } from '@/hooks/use-list-auditlog';
 
 export function AuditLogDataTable() {
+    const { data: auditlogData, isLoading } = UseGetAuditlogList(10, 0);
+
+    if (isLoading) {
+        return (
+            <div className="h-[80vh] flex items-center justify-center">
+                <Spinner size="lg" className="bg-black dark:bg-white" />
+            </div>
+        );
+    }
+    console.log(auditlogData);
     return (
         <Tabs defaultValue="audit log" className="w-[100%] py-3">
             <TabsList className="grid w-[50%] grid-cols-3">
@@ -31,7 +43,7 @@ export function AuditLogDataTable() {
             </TabsList>
             <TabsContent value="audit log">
                 <DataTableBase
-                    tableData={AuditLogDataSample}
+                    tableData={auditlogData}
                     tableColumns={AuditLogColumns}
                     filteredColumnName="resource"
                     createRecordElement={<LogDataDownloadMenu<IAuditlogData> tableRows={AuditLogDataSample} />}

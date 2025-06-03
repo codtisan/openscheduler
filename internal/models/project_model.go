@@ -24,9 +24,6 @@ type ProjectUpdateResponse struct {
 	BaseModel
 }
 
-type ProjectListPayloadResponse struct {
-}
-
 type GetProjectListResponse struct {
 	BaseModel
 	Data []schema.ProjectSchema `json:"data"`
