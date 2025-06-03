@@ -1,5 +1,7 @@
 package models
 
+import "open-scheduler/internal/schema"
+
 type ProjectCreateRequest struct {
 	Name        string `json:"name" validate:"required"`
 	Description string `json:"description" validate:"required"`
@@ -20,4 +22,12 @@ type ProjectUpdateRequest struct {
 
 type ProjectUpdateResponse struct {
 	BaseModel
+}
+
+type ProjectListPayloadResponse struct {
+}
+
+type GetProjectListResponse struct {
+	BaseModel
+	Data []schema.ProjectSchema `json:"data"`
 }
