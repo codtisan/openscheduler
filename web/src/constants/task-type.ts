@@ -1,6 +1,6 @@
 export const TaskType = {
     HTTP: 'HTTP',
-    SHELL: 'Shell Script',
+    SHELL: 'Shell',
     REMOTE_SHELL: 'Remote Shell',
     PYTHON: 'Python',
 };

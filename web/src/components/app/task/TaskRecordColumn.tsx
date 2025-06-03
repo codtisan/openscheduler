@@ -50,6 +50,13 @@ export const TaskRecordColumns: ColumnDef<ITaskRecord>[] = [
         cell: ({ row }) => <div className="lowercase">{row.getValue('name')}</div>,
     },
     {
+        accessorKey: 'type',
+        header: 'Description',
+        cell: ({ row }) => {
+            return <div className="flex flex-col">{row.getValue('type')}</div>;
+        },
+    },
+    {
         accessorKey: 'description',
         header: 'Description',
         cell: ({ row }) => {
