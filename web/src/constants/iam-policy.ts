@@ -3,7 +3,7 @@ export type Policy = {
     policies: string[];
 };
 
-interface IAMPolicies {
+interface IIAMPolicies {
     dashboardPolicy: Policy;
     logViewPolicy: Policy;
     workflowPolicy: Policy;
@@ -11,7 +11,7 @@ interface IAMPolicies {
     taskPolicy: Policy;
 }
 
-export const IAMPolicies: IAMPolicies = {
+export const IAMPolicies: IIAMPolicies = {
     dashboardPolicy: {
         name: 'Dashboard',
         policies: ['Read', 'Write', 'Delete', 'Edit'],

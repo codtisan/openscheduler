@@ -115,7 +115,12 @@ export const ServiceAccountColumns: ColumnDef<IServiceAccountData>[] = [
         },
         cell: ({ row }) => (
             <div className="lowercase">
-                <DataTableActions EditPage={<EditServiceAccountSection rowData={row} />} headerName="Service Account" />
+                <DataTableActions
+                    EditPage={<EditServiceAccountSection rowData={row} />}
+                    headerName="Service Account"
+                    url="/serviceaccount"
+                    id={row.original.id}
+                />
             </div>
         ),
     },

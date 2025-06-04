@@ -147,9 +147,9 @@ export const AlertColumns: ColumnDef<IAlertData>[] = [
         header: () => {
             return <div>Delete</div>;
         },
-        cell: () => (
+        cell: ({ row }) => (
             <div className="lowercase">
-                <DataTableDeleteButton />
+                <DataTableDeleteButton url="/alert" id={row.original.id} />
             </div>
         ),
     },

@@ -108,7 +108,7 @@ export const UserColumns: ColumnDef<IUserData>[] = [
         },
         cell: ({ row }) => (
             <div className="lowercase">
-                <DataTableActions EditPage={<EditUserSection rowData={row} />} headerName="User" />
+                <DataTableActions EditPage={<EditUserSection rowData={row} />} headerName="User" url="/user" id={row.original.id} />
             </div>
         ),
     },

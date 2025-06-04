@@ -3,7 +3,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { IAMPolicies, type IIAMPolicy } from '@/constants/iam-policy';
+import { IAMPolicies } from '@/constants/iam-policy';
 
 function CreateRoleSection() {
     return (
@@ -25,7 +25,7 @@ function CreateRoleSection() {
                         <Input id="name" className="col-span-3" />
                     </div>
 
-                    {Object.values(IAMPolicies).map((iamComponent: IIAMPolicy) => {
+                    {Object.values(IAMPolicies).map((iamComponent) => {
                         return (
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="log policy" className="text-right">

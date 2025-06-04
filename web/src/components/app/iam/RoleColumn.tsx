@@ -149,7 +149,7 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
         },
         cell: ({ row }) => (
             <div className="lowercase">
-                <DataTableActions EditPage={<EditRoleSection rowData={row} />} headerName="Role" />
+                <DataTableActions EditPage={<EditRoleSection rowData={row} />} headerName="Role" url="/user" id={row.original.id} />
             </div>
         ),
     },

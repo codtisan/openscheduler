@@ -1,17 +1,28 @@
 import { DataTableBase } from '@/components/bases/DataTable';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { UserDataSample } from '@/constants/user';
 import { UserColumns } from './UserColumn';
-import { ServiceAccountDataSample } from '@/constants/service-account';
 import { ServiceAccountColumns } from './ServiceAccountColumn';
-import { RoleDataSample } from '@/constants/role';
 import { RoleColumns } from './RoleColumn';
 import CreateUserSection from './CreateUser';
 import CreateRoleSection from './CreateRole';
 import CreateServiceAccountSection from './CreateServiceAccount';
 import { Fingerprint, UserRoundPen, Users } from 'lucide-react';
+import { Spinner } from '@/components/ui/spinner';
+import { UseGetRoleList, UseGetServiceAccountList, UseGetUserList } from '@/hooks/use-list-iam';
 
 export function IAMDataTable() {
+    const { data: userData, isLoading: isUserLoading } = UseGetUserList(10, 0);
+    const { data: roleData, isLoading: isRoleLoading } = UseGetRoleList(10, 0);
+    const { data: serviceAccountData, isLoading: isServiceAccountLoading } = UseGetServiceAccountList(10, 0);
+
+    if (isUserLoading || isRoleLoading || isServiceAccountLoading) {
+        return (
+            <div className="h-[80vh] flex items-center justify-center">
+                <Spinner size="lg" className="bg-black dark:bg-white" />
+            </div>
+        );
+    }
+
     return (
         <Tabs defaultValue="user" className="w-[100%] py-3">
             <TabsList className="grid w-[50%] grid-cols-3">
@@ -30,7 +41,7 @@ export function IAMDataTable() {
             </TabsList>
             <TabsContent value="user">
                 <DataTableBase
-                    tableData={UserDataSample}
+                    tableData={userData}
                     tableColumns={UserColumns}
                     filteredColumnName="username"
                     createRecordElement={<CreateUserSection />}
@@ -38,7 +49,7 @@ export function IAMDataTable() {
             </TabsContent>
             <TabsContent value="service account">
                 <DataTableBase
-                    tableData={ServiceAccountDataSample}
+                    tableData={serviceAccountData}
                     tableColumns={ServiceAccountColumns}
                     filteredColumnName="username"
                     createRecordElement={<CreateServiceAccountSection />}
@@ -46,7 +57,7 @@ export function IAMDataTable() {
             </TabsContent>
             <TabsContent value="role">
                 <DataTableBase
-                    tableData={RoleDataSample}
+                    tableData={roleData}
                     tableColumns={RoleColumns}
                     filteredColumnName="name"
                     maxRowPerPage={8}

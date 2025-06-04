@@ -26,7 +26,7 @@ export function AuditLogDataTable() {
             </div>
         );
     }
-    console.log(auditlogData);
+
     return (
         <Tabs defaultValue="audit log" className="w-[100%] py-3">
             <TabsList className="grid w-[50%] grid-cols-3">
