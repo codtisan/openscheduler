@@ -12,12 +12,14 @@ import type { IMetricsLogData } from '@/interfaces/log/metricslog-table';
 import type { IResponseLogData } from '@/interfaces/log/responselog-table';
 import { Activity, Cable, Cpu } from 'lucide-react';
 import { Spinner } from '@/components/ui/spinner';
-import { UseGetAuditlogList } from '@/hooks/use-list-auditlog';
+import { UseGetAuditlogList, UseGetMetricslogList, UseGetResponselogList } from '@/hooks/use-list-auditlog';
 
 export function AuditLogDataTable() {
-    const { data: auditlogData, isLoading } = UseGetAuditlogList(10, 0);
+    const { data: auditlogData, isLoading: isAuditlogLoading } = UseGetAuditlogList(10, 0);
+    const { data: metricslogData, isLoading: isMetricslogLoading } = UseGetMetricslogList(10, 0);
+    const { data: responselogData, isLoading: isResponselogLoading } = UseGetResponselogList(10, 0);
 
-    if (isLoading) {
+    if (isAuditlogLoading || isMetricslogLoading || isResponselogLoading) {
         return (
             <div className="h-[80vh] flex items-center justify-center">
                 <Spinner size="lg" className="bg-black dark:bg-white" />
@@ -51,7 +53,7 @@ export function AuditLogDataTable() {
             </TabsContent>
             <TabsContent value="metrics log">
                 <DataTableBase
-                    tableData={MetricsLogDataSample}
+                    tableData={metricslogData}
                     tableColumns={MetricsLogColumns}
                     filteredColumnName="ramUsage"
                     createRecordElement={<LogDataDownloadMenu<IMetricsLogData> tableRows={MetricsLogDataSample} />}
@@ -59,7 +61,7 @@ export function AuditLogDataTable() {
             </TabsContent>
             <TabsContent value="response log">
                 <DataTableBase
-                    tableData={ResponseLogDataSample}
+                    tableData={responselogData}
                     tableColumns={ResponseLogColumns}
                     filteredColumnName="resource"
                     createRecordElement={<LogDataDownloadMenu<IResponseLogData> tableRows={ResponseLogDataSample} />}

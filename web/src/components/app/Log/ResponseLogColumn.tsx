@@ -175,9 +175,9 @@ export const ResponseLogColumns: ColumnDef<IResponseLogData>[] = [
         header: () => {
             return <div>Delete</div>;
         },
-        cell: () => (
+        cell: ({ row }) => (
             <div className="lowercase">
-                <DataTableDeleteButton />
+                <DataTableDeleteButton url="/responselog" id={row.original.id} />
             </div>
         ),
     },

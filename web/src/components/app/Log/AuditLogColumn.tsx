@@ -188,9 +188,9 @@ export const AuditLogColumns: ColumnDef<IAuditlogData>[] = [
         header: () => {
             return <div>Delete</div>;
         },
-        cell: () => (
+        cell: ({ row }) => (
             <div className="lowercase">
-                <DataTableDeleteButton />
+                <DataTableDeleteButton url="/auditlog" id={row.original.id} />
             </div>
         ),
     },

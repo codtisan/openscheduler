@@ -147,9 +147,9 @@ export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
         header: () => {
             return <div>Delete</div>;
         },
-        cell: () => (
+        cell: ({ row }) => (
             <div className="lowercase">
-                <DataTableDeleteButton />
+                <DataTableDeleteButton url="/metricslog" id={row.original.id} />
             </div>
         ),
     },

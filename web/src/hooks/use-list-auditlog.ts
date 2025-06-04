@@ -14,3 +14,25 @@ export const UseGetAuditlogList = (limit: number, skip: number) => {
         mutate,
     };
 };
+
+export const UseGetMetricslogList = (limit: number, skip: number) => {
+    const { data, isLoading, error, mutate } = useSWR(`${BackendBaseUrl}/metricslog?limit=${limit}&skip=${skip}`, fetcher);
+
+    return {
+        data,
+        isLoading,
+        error,
+        mutate,
+    };
+};
+
+export const UseGetResponselogList = (limit: number, skip: number) => {
+    const { data, isLoading, error, mutate } = useSWR(`${BackendBaseUrl}/responselog?limit=${limit}&skip=${skip}`, fetcher);
+
+    return {
+        data,
+        isLoading,
+        error,
+        mutate,
+    };
+};
