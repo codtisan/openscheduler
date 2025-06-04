@@ -6,6 +6,7 @@ import (
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/services"
 	"open-scheduler/pkg/handler"
+	"strconv"
 
 	"github.com/gofiber/fiber/v3"
 )
@@ -77,6 +78,28 @@ func ServiceAccountUpdateAPI(c fiber.Ctx) error {
 			StatusCode: 200,
 			Message:    "Service account updated successfully",
 		},
+	}
+	return c.Status(200).JSON(response)
+}
+
+func GetServiceAccountListAPI(c fiber.Ctx) error {
+	limitQuery := c.Query("limit")
+	skipQuery := c.Query("skip")
+	limit, err := strconv.ParseInt(limitQuery, 10, 64)
+	skip, err := strconv.ParseInt(skipQuery, 10, 64)
+	if err != nil {
+		return handler.SendHTTPError(c, errors.New("Missing required fields"), fiber.StatusBadRequest)
+	}
+
+	allRecords, err := services.GetServiceAccountList(limit, skip)
+
+	response := models.GetServiceAccountListResponse{
+		BaseModel: models.BaseModel{
+			Status:     "success",
+			StatusCode: 200,
+			Message:    "Get service account list successfully",
+		},
+		Data: allRecords,
 	}
 	return c.Status(200).JSON(response)
 }

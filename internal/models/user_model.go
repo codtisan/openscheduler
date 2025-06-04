@@ -1,5 +1,7 @@
 package models
 
+import "open-scheduler/internal/schema"
+
 type UserLoginRequest struct {
 	Username string `json:"username" validate:"required"`
 	Password string `json:"password" validate:"required,min=8"`
@@ -38,4 +40,9 @@ type UserUpdateRequest struct {
 
 type UserUpdateResponse struct {
 	BaseModel
+}
+
+type GetUserListResponse struct {
+	BaseModel
+	Data []schema.UserSchema `json:"data"`
 }

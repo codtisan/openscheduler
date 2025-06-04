@@ -1,5 +1,7 @@
 package models
 
+import "open-scheduler/internal/schema"
+
 type RoleCreateRequest struct {
 	Name      string   `json:"name" validate:"required"`
 	Dashboard []string `json:"dashboard" validate:"required"`
@@ -15,4 +17,9 @@ type RoleCreateResponse struct {
 
 type RoleDeleteResponse struct {
 	BaseModel
+}
+
+type GetRoleListResponse struct {
+	BaseModel
+	Data []schema.RoleSchema `json:"data"`
 }

@@ -1,5 +1,7 @@
 package models
 
+import "open-scheduler/internal/schema"
+
 type ServiceAccountCreateRequest struct {
 	Email    string `json:"email" validate:"required,email"`
 	Username string `json:"username" validate:"required"`
@@ -28,4 +30,9 @@ type ServiceAccountUpdateRequest struct {
 
 type ServiceAccountUpdateResponse struct {
 	BaseModel
+}
+
+type GetServiceAccountListResponse struct {
+	BaseModel
+	Data []schema.ServiceAccountSchema `json:"data"`
 }

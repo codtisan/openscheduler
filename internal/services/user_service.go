@@ -2,12 +2,14 @@ package services
 
 import (
 	"context"
+	"log"
 	"open-scheduler/internal/models"
 	"open-scheduler/internal/schema"
 	"open-scheduler/pkg/databases"
 	"open-scheduler/pkg/utils"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
+	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
 func CheckUserLogin(userInfo models.UserLoginRequest) (*schema.UserSchema, error) {
@@ -76,4 +78,27 @@ func UpdateUser(userID string, newUserInfo models.UserUpdateRequest) error {
 	}
 	databases.SystemDB.Collection("user", nil).UpdateOne(ctx, updateFilter, update)
 	return nil
+}
+
+func GetUserList(limit int64, skip int64) ([]schema.UserSchema, error) {
+	ctx := context.TODO()
+	var allRecords []schema.UserSchema
+
+	options := options.Find()
+	options.SetLimit(limit)
+	options.SetSkip(skip)
+
+	cur, err := databases.SystemDB.Collection("user", nil).Find(ctx, bson.M{}, options)
+	if err != nil {
+		return nil, err
+	}
+	for cur.Next(context.TODO()) {
+		var record schema.UserSchema
+		err := cur.Decode(&record)
+		if err != nil {
+			log.Fatal(err)
+		}
+		allRecords = append(allRecords, record)
+	}
+	return allRecords, nil
 }
