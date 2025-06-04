@@ -16,6 +16,7 @@ import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerT
 import type React from 'react';
 import { UseDelete } from '@/hooks/use-delete-project';
 import { UseGetProjectList } from '@/hooks/use-list-project';
+import { DisplaySuccessNotification } from './ToastNotification';
 
 export interface DataTableActionsProps {
     EditPage: React.ReactNode | null;
@@ -38,10 +39,14 @@ export const DataTableDeleteButton = ({ url, id }: DataTableDeleteProps) => {
     const { mutate } = UseGetProjectList(10, 0);
 
     const handleDeleteSubmit = async () => {
+        if (url === '/project') {
+            DisplaySuccessNotification('Project is deleting');
+        }
         const res = await UseDelete(url, id);
         console.log(res);
         if (url === '/project') {
             await mutate();
+            DisplaySuccessNotification('Project has been deleted');
         }
     };
     return (

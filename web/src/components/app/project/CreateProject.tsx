@@ -1,3 +1,4 @@
+import { DisplaySuccessNotification } from '@/components/bases/ToastNotification';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -13,9 +14,11 @@ export const CreateProjectSection = () => {
     const [description, setDescription] = useState('');
 
     const handleCreateSubmit = async () => {
+        DisplaySuccessNotification('Project is creating');
         const res = await UseCreateServiceAccount({ name: name, description: description });
         console.log(res);
         await mutate();
+        DisplaySuccessNotification('Project has been created');
     };
 
     return (
