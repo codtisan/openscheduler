@@ -64,7 +64,7 @@ func UpdateServiceAccount(serviceAccountID string, newServiceAccountInfo models.
 
 func GetServiceAccountList(limit int64, skip int64) ([]schema.ServiceAccountSchema, error) {
 	ctx := context.TODO()
-	var allRecords []schema.ServiceAccountSchema
+	allRecords := []schema.ServiceAccountSchema{}
 
 	options := options.Find()
 	options.SetLimit(limit)

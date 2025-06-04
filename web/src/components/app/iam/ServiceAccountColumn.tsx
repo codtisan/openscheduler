@@ -1,8 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { IServiceAccountData } from '@/interfaces/service-acount-table';
-import { cn } from '@/lib/utils';
-import { statusToColor } from '@/services/color';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import { DataTableActions } from '@/components/bases/DataTableActions';
@@ -24,18 +22,6 @@ export const ServiceAccountColumns: ColumnDef<IServiceAccountData>[] = [
         ),
         enableSorting: false,
         enableHiding: false,
-    },
-    {
-        accessorKey: 'status',
-        header: 'Status',
-        cell: ({ row }) => {
-            const statusColor = statusToColor(row.getValue('status'));
-            return (
-                <div className={cn('capitalize text-center rounded-2xl h-[2rem] flex items-center justify-center', statusColor)}>
-                    {row.getValue('status')}
-                </div>
-            );
-        },
     },
     {
         accessorKey: 'email',

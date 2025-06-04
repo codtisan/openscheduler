@@ -1,13 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { IRoleData } from '@/interfaces/role-table';
-import { cn } from '@/lib/utils';
-import { statusToColor } from '@/services/color';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import { DataTableActions } from '@/components/bases/DataTableActions';
 import { EditRoleSection } from './EditRole';
-import { convertDate } from '@/utils/time';
 
 export const RoleColumns: ColumnDef<IRoleData>[] = [
     {
@@ -26,18 +23,6 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: 'status',
-        header: 'Status',
-        cell: ({ row }) => {
-            const statusColor = statusToColor(row.getValue('status'));
-            return (
-                <div className={cn('capitalize text-center rounded-2xl h-[2rem] flex items-center justify-center', statusColor)}>
-                    {row.getValue('status')}
-                </div>
-            );
-        },
-    },
-    {
         accessorKey: 'name',
         header: ({ column }) => {
             return (
@@ -50,12 +35,12 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
         cell: ({ row }) => <div className="lowercase">{row.getValue('name')}</div>,
     },
     {
-        accessorKey: 'logPolicy',
+        accessorKey: 'log',
         header: 'Log Policy',
         cell: ({ row }) => {
             return (
                 <div className="flex flex-col">
-                    {(row.getValue('logPolicy') as string[]).map((item: string) => (
+                    {(row.getValue('log') as string[]).map((item: string) => (
                         <span key={item}>{item}</span>
                     ))}
                 </div>
@@ -63,12 +48,12 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
         },
     },
     {
-        accessorKey: 'dashboardPolicy',
+        accessorKey: 'dashboard',
         header: 'Dashboard Policy',
         cell: ({ row }) => {
             return (
                 <div className="flex flex-col">
-                    {(row.getValue('logPolicy') as string[]).map((item: string) => (
+                    {(row.getValue('dashboard') as string[]).map((item: string) => (
                         <span key={item}>{item}</span>
                     ))}
                 </div>
@@ -76,12 +61,12 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
         },
     },
     {
-        accessorKey: 'workflowPolicy',
+        accessorKey: 'workflow',
         header: 'Workflow Policy',
         cell: ({ row }) => {
             return (
                 <div className="flex flex-col">
-                    {(row.getValue('logPolicy') as string[]).map((item: string) => (
+                    {(row.getValue('workflow') as string[]).map((item: string) => (
                         <span key={item}>{item}</span>
                     ))}
                 </div>
@@ -89,12 +74,12 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
         },
     },
     {
-        accessorKey: 'alertPolicy',
+        accessorKey: 'alert',
         header: 'Alert Policy',
         cell: ({ row }) => {
             return (
                 <div className="flex flex-col">
-                    {(row.getValue('logPolicy') as string[]).map((item: string) => (
+                    {(row.getValue('alert') as string[]).map((item: string) => (
                         <span key={item}>{item}</span>
                     ))}
                 </div>
@@ -102,12 +87,12 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
         },
     },
     {
-        accessorKey: 'taskPolicy',
+        accessorKey: 'task',
         header: 'Task Policy',
         cell: ({ row }) => {
             return (
                 <div className="flex flex-col">
-                    {(row.getValue('logPolicy') as string[]).map((item: string) => (
+                    {(row.getValue('task') as string[]).map((item: string) => (
                         <span key={item}>{item}</span>
                     ))}
                 </div>
@@ -124,8 +109,7 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
             );
         },
         cell: ({ row }) => {
-            const formattedTime: string = convertDate(row.getValue('createdAt'));
-            return <div className="lowercase">{formattedTime}</div>;
+            return <div className="lowercase">{row.getValue('createdAt')}</div>;
         },
     },
     {
@@ -138,8 +122,7 @@ export const RoleColumns: ColumnDef<IRoleData>[] = [
             );
         },
         cell: ({ row }) => {
-            const formattedTime: string = convertDate(row.getValue('updatedAt'));
-            return <div className="lowercase">{formattedTime}</div>;
+            return <div className="lowercase">{row.getValue('updatedAt')}</div>;
         },
     },
     {

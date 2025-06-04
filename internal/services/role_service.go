@@ -64,7 +64,7 @@ func UpdateRole(roleID string, newRoleInfo models.RoleUpdateRequest) error {
 
 func GetRoleList(limit int64, skip int64) ([]schema.RoleSchema, error) {
 	ctx := context.TODO()
-	var allRecords []schema.RoleSchema
+	allRecords := []schema.RoleSchema{}
 
 	options := options.Find()
 	options.SetLimit(limit)

@@ -58,7 +58,7 @@ func UpdateProject(projectID string, newProjectInfo models.ProjectUpdateRequest)
 
 func GetProjectList(limit int64, skip int64) ([]schema.ProjectSchema, error) {
 	ctx := context.TODO()
-	var allRecords []schema.ProjectSchema
+	allRecords := []schema.ProjectSchema{}
 
 	options := options.Find()
 	options.SetLimit(limit)

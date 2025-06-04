@@ -12,7 +12,7 @@ import (
 
 func GetAuditLogList(limit int64, skip int64) ([]schema.AuditLogSchema, error) {
 	ctx := context.TODO()
-	var allRecords []schema.AuditLogSchema
+	allRecords := []schema.AuditLogSchema{}
 
 	options := options.Find()
 	options.SetLimit(limit)
@@ -35,7 +35,7 @@ func GetAuditLogList(limit int64, skip int64) ([]schema.AuditLogSchema, error) {
 
 func GetMetricsLogList(limit int64, skip int64) ([]schema.MetricsLogSchema, error) {
 	ctx := context.TODO()
-	var allRecords []schema.MetricsLogSchema
+	allRecords := []schema.MetricsLogSchema{}
 
 	options := options.Find()
 	options.SetLimit(limit)
@@ -58,7 +58,7 @@ func GetMetricsLogList(limit int64, skip int64) ([]schema.MetricsLogSchema, erro
 
 func GetResponseLogList(limit int64, skip int64) ([]schema.ResponseLogSchema, error) {
 	ctx := context.TODO()
-	var allRecords []schema.ResponseLogSchema
+	allRecords := []schema.ResponseLogSchema{}
 
 	options := options.Find()
 	options.SetLimit(limit)

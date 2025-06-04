@@ -82,7 +82,7 @@ func UpdateUser(userID string, newUserInfo models.UserUpdateRequest) error {
 
 func GetUserList(limit int64, skip int64) ([]schema.UserSchema, error) {
 	ctx := context.TODO()
-	var allRecords []schema.UserSchema
+	allRecords := []schema.UserSchema{}
 
 	options := options.Find()
 	options.SetLimit(limit)
