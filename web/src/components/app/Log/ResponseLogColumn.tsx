@@ -63,7 +63,7 @@ export const ResponseLogColumns: ColumnDef<IResponseLogData>[] = [
                                 </div>
                                 <div className="flex flex-row gap-3">
                                     <Label>API Route</Label>
-                                    <Label>{row.getValue('api')}</Label>
+                                    <Label>{row.getValue('route')}</Label>
                                 </div>
                                 <div className="flex flex-row gap-3">
                                     <Label>Latency</Label>
@@ -113,7 +113,7 @@ export const ResponseLogColumns: ColumnDef<IResponseLogData>[] = [
         cell: ({ row }) => <div className="lowercase">{row.getValue('method')}</div>,
     },
     {
-        accessorKey: 'api',
+        accessorKey: 'route',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -121,7 +121,7 @@ export const ResponseLogColumns: ColumnDef<IResponseLogData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('api')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('route')}</div>,
     },
     {
         accessorKey: 'latency',

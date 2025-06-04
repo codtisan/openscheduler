@@ -56,7 +56,7 @@ export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
                             </div>
                             <div className="flex flex-row gap-3">
                                 <Label>Disk Usage</Label>
-                                <Label>{row.getValue('diskUsage')}</Label>
+                                <Label>{row.getValue('disk')}</Label>
                             </div>
                             <div className="flex flex-row gap-3">
                                 <Label>Network Received</Label>
@@ -95,7 +95,7 @@ export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
         cell: ({ row }) => <div className="lowercase">{row.getValue('ramUsage')}</div>,
     },
     {
-        accessorKey: 'diskUsage',
+        accessorKey: 'disk',
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -104,7 +104,7 @@ export const MetricsLogColumns: ColumnDef<IMetricsLogData>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue('diskUsage')}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('disk')}</div>,
     },
     {
         accessorKey: 'netReceived',

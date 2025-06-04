@@ -7,7 +7,7 @@ import { Toaster } from './components/ui/sonner.tsx';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <Toaster richColors={true} />
+        <Toaster richColors={true} position="bottom-center" />
         <RouterProvider router={router} />
     </StrictMode>
 );

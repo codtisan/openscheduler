@@ -32,6 +32,6 @@ func NewRoutes(app *fiber.App) {
 	app.Put("/project/:project_id", controller.ProjectUpdateAPI)
 
 	app.Get("/auditlog", controller.GetAuditLogListAPI)
-	app.Get("/metricslog", controller.GetAuditLogListAPI)
-	app.Get("/responselog", controller.GetAuditLogListAPI)
+	app.Get("/metricslog", controller.GetMetricsLogListAPI)
+	app.Get("/responselog", controller.GetResponseLogListAPI)
 }
