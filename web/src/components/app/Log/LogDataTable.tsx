@@ -15,9 +15,9 @@ import { Spinner } from '@/components/ui/spinner';
 import { UseGetAuditlogList, UseGetMetricslogList, UseGetResponselogList } from '@/hooks/use-list-auditlog';
 
 export function AuditLogDataTable() {
-    const { data: auditlogData, isLoading: isAuditlogLoading } = UseGetAuditlogList(10, 0);
-    const { data: metricslogData, isLoading: isMetricslogLoading } = UseGetMetricslogList(10, 0);
-    const { data: responselogData, isLoading: isResponselogLoading } = UseGetResponselogList(10, 0);
+    const { data: auditlogData, isLoading: isAuditlogLoading, error: isAuditError } = UseGetAuditlogList(10, 0);
+    const { data: metricslogData, isLoading: isMetricslogLoading, error: isMetricsError } = UseGetMetricslogList(10, 0);
+    const { data: responselogData, isLoading: isResponselogLoading, error: isResponseError } = UseGetResponselogList(10, 0);
 
     if (isAuditlogLoading || isMetricslogLoading || isResponselogLoading) {
         return (
@@ -25,6 +25,9 @@ export function AuditLogDataTable() {
                 <Spinner size="lg" className="bg-black dark:bg-white" />
             </div>
         );
+    }
+    if (isAuditError || isMetricsError || isResponseError) {
+        return <div className="h-[80vh] flex items-center justify-center">Error Occurs</div>;
     }
 
     return (

@@ -7,7 +7,7 @@ import { UseGetProjectList } from '@/hooks/use-list-project';
 import { Spinner } from '@/components/ui/spinner';
 
 export function ProjectDataTable() {
-    const { data, isLoading } = UseGetProjectList(10, 0);
+    const { data, isLoading, error } = UseGetProjectList(10, 0);
 
     if (isLoading) {
         return (
@@ -15,6 +15,9 @@ export function ProjectDataTable() {
                 <Spinner size="lg" className="bg-black dark:bg-white" />
             </div>
         );
+    }
+    if (error) {
+        return <div className="h-[80vh] flex items-center justify-center">Error Occurs</div>;
     }
 
     return (

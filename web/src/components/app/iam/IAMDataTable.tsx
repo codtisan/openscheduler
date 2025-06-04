@@ -11,9 +11,9 @@ import { Spinner } from '@/components/ui/spinner';
 import { UseGetRoleList, UseGetServiceAccountList, UseGetUserList } from '@/hooks/use-list-iam';
 
 export function IAMDataTable() {
-    const { data: userData, isLoading: isUserLoading } = UseGetUserList(10, 0);
-    const { data: roleData, isLoading: isRoleLoading } = UseGetRoleList(10, 0);
-    const { data: serviceAccountData, isLoading: isServiceAccountLoading } = UseGetServiceAccountList(10, 0);
+    const { data: userData, isLoading: isUserLoading, error: isUserError } = UseGetUserList(10, 0);
+    const { data: roleData, isLoading: isRoleLoading, error: isRoleError } = UseGetRoleList(10, 0);
+    const { data: serviceAccountData, isLoading: isServiceAccountLoading, error: isServiceAccountError } = UseGetServiceAccountList(10, 0);
 
     if (isUserLoading || isRoleLoading || isServiceAccountLoading) {
         return (
@@ -21,6 +21,9 @@ export function IAMDataTable() {
                 <Spinner size="lg" className="bg-black dark:bg-white" />
             </div>
         );
+    }
+    if (isUserError || isRoleError || isServiceAccountError) {
+        return <div className="h-[80vh] flex items-center justify-center">Error Occurs</div>;
     }
 
     return (
