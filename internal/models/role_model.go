@@ -19,6 +19,19 @@ type RoleDeleteResponse struct {
 	BaseModel
 }
 
+type RoleUpdateRequest struct {
+	Name      string   `json:"name" validate:"required"`
+	Dashboard []string `json:"dashboard" validate:"required"`
+	Log       []string `json:"log" validate:"required"`
+	Workflow  []string `json:"workflow" validate:"required"`
+	Alert     []string `json:"alert" validate:"required"`
+	Task      []string `json:"task" validate:"required"`
+}
+
+type RoleUpdateResponse struct {
+	BaseModel
+}
+
 type GetRoleListResponse struct {
 	BaseModel
 	Data []schema.RoleSchema `json:"data"`

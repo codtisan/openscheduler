@@ -50,6 +50,34 @@ func RoleDeleteAPI(c fiber.Ctx) error {
 	return c.Status(200).JSON(response)
 }
 
+func RoleUpdateAPI(c fiber.Ctx) error {
+	roleID := c.Params("role_id")
+	if roleID == "" {
+		return handler.SendHTTPError(c, errors.New("Missing required fields"), fiber.StatusBadRequest)
+	}
+	var payload models.RoleUpdateRequest
+	if err := c.Bind().Body(&payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
+
+	if err := config.Validator.Struct(payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusBadRequest)
+	}
+
+	if err := services.UpdateRole(roleID, payload); err != nil {
+		return handler.SendHTTPError(c, err, fiber.StatusInternalServerError)
+	}
+
+	response := models.RoleUpdateResponse{
+		BaseModel: models.BaseModel{
+			Status:     "success",
+			StatusCode: 200,
+			Message:    "Role updated successfully",
+		},
+	}
+	return c.Status(200).JSON(response)
+}
+
 func GetRoleListAPI(c fiber.Ctx) error {
 	limitQuery := c.Query("limit")
 	skipQuery := c.Query("skip")

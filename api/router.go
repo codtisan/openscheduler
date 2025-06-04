@@ -10,8 +10,8 @@ func NewRoutes(app *fiber.App) {
 	app.Get("/", controller.HealthCheckAPI)
 	app.Get("/health", controller.HealthCheckDBAPI)
 
-	app.Get("/user", controller.GetUserListAPI)
 	app.Post("/user/login", controller.UserLoginAPI)
+	app.Get("/user", controller.GetUserListAPI)
 	app.Post("/user/create", controller.UserCreateAPI)
 	app.Delete("/user/:user_id", controller.UserDeleteAPI)
 	app.Put("/user/:user_id", controller.UserUpdateAPI)
@@ -24,10 +24,12 @@ func NewRoutes(app *fiber.App) {
 	app.Get("/role", controller.GetRoleListAPI)
 	app.Post("/role/create", controller.RoleCreateAPI)
 	app.Delete("/role/:role_id", controller.RoleDeleteAPI)
+	app.Put("/role/:role_id", controller.RoleUpdateAPI)
 
 	app.Post("/project/create", controller.ProjectCreateAPI)
 	app.Delete("/project/:project_id", controller.ProjectDeleteAPI)
 	app.Get("/project", controller.GetProjectListAPI)
+	app.Put("/project/:project_id", controller.ProjectUpdateAPI)
 
 	app.Get("/auditlog", controller.GetAuditLogListAPI)
 	app.Get("/metricslog", controller.GetAuditLogListAPI)
