@@ -1,7 +1,31 @@
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import ReactECharts from 'echarts-for-react';
 
 export const Dashboard = () => {
+    const guageOption = {
+        tooltip: {
+            formatter: '{a} <br/>{b} : {c}%',
+        },
+        series: [
+            {
+                name: 'Pressure',
+                type: 'gauge',
+                progress: {
+                    show: true,
+                },
+                detail: {
+                    valueAnimation: true,
+                    formatter: '{value}',
+                },
+                data: [
+                    {
+                        value: 50,
+                        name: 'Average Latency',
+                    },
+                ],
+            },
+        ],
+    };
     const baroption = {
         tooltip: {
             trigger: 'axis',
@@ -219,31 +243,19 @@ export const Dashboard = () => {
             <div className="size-full mt-2 flex gap-6 flex-col">
                 <div className="flex gap-6 flex-col">
                     <div className="flex flex-row gap-6">
-                        <Card className="w-[33%] text-center text-2xl font-bold">
-                            <CardHeader>Average latency</CardHeader>
-                            <CardContent>300 ms</CardContent>
+                        <Card className="w-[50%] text-center text-2xl font-bold">
+                            <ReactECharts option={guageOption} />
                         </Card>
-                        <Card className="w-[33%] text-center text-2xl font-bold">
-                            <CardHeader>Total Failed Tasks</CardHeader>
-                            <CardContent>300</CardContent>
-                        </Card>
-                        <Card className="w-[33%] text-center text-2xl font-bold">
-                            <CardHeader>Total Requests</CardHeader>
-                            <CardContent>300</CardContent>
+                        <Card className="w-[50%] text-center text-2xl font-bold">
+                            <ReactECharts option={guageOption} />
                         </Card>
                     </div>
                     <div className="flex flex-row gap-6">
-                        <Card className="w-[33%] text-center text-2xl font-bold">
-                            <CardHeader>Average CPU Usage</CardHeader>
-                            <CardContent>50 %</CardContent>
+                        <Card className="w-[50%] text-center text-2xl font-bold">
+                            <ReactECharts option={guageOption} />
                         </Card>
-                        <Card className="w-[33%] text-center text-2xl font-bold">
-                            <CardHeader>Average Memory Usage</CardHeader>
-                            <CardContent>60 %</CardContent>
-                        </Card>
-                        <Card className="w-[33%] text-center text-2xl font-bold">
-                            <CardHeader>Uptime Percentage</CardHeader>
-                            <CardContent>98 %</CardContent>
+                        <Card className="w-[50%] text-center text-2xl font-bold">
+                            <ReactECharts option={guageOption} />
                         </Card>
                     </div>
                 </div>
