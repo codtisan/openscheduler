@@ -48,11 +48,18 @@ export const ServiceAccountColumns: ColumnDef<IServiceAccountData>[] = [
         cell: ({ row }) => <div className="lowercase">{row.getValue('username')}</div>,
     },
     {
-        accessorKey: 'token',
+        accessorKey: 'privateKey',
         header: () => {
-            return <div>Token</div>;
+            return <div>Private Key</div>;
         },
-        cell: ({ row }) => <div>{row.getValue('token')}</div>,
+        cell: ({ row }) => <div>{JSON.stringify(row.getValue('privateKey')).slice(0, 30)}</div>,
+    },
+    {
+        accessorKey: 'publicKey',
+        header: () => {
+            return <div>Public Key</div>;
+        },
+        cell: ({ row }) => <div>{JSON.stringify(row.getValue('publicKey')).slice(0, 30)}</div>,
     },
     {
         accessorKey: 'role',

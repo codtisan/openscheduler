@@ -15,7 +15,7 @@ export function IAMDataTable() {
     const { data: roleData, isLoading: isRoleLoading, error: isRoleError } = UseGetRoleList(10, 0);
     const { data: serviceAccountData, isLoading: isServiceAccountLoading, error: isServiceAccountError } = UseGetServiceAccountList(10, 0);
 
-    console.log(userData);
+    console.log(serviceAccountData);
     if (isUserLoading || isRoleLoading || isServiceAccountLoading) {
         return (
             <div className="h-[80vh] flex items-center justify-center">

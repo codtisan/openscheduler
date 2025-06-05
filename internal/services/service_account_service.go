@@ -23,6 +23,7 @@ func CreateServiceAccount(serviceAccountInfo models.ServiceAccountCreateRequest)
 		Email:      serviceAccountInfo.Email,
 		PrivateKey: privateKey,
 		PublicKey:  publicKey,
+		Role:       serviceAccountInfo.Role,
 		BaseSchema: databases.CreateDefaultBaseSchema(),
 	}
 	databases.SystemDB.Collection("service_account", nil).InsertOne(ctx, serviceAccountRecord, nil)

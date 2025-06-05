@@ -3,7 +3,8 @@ export type IServiceAccountData = {
     status: 'pending' | 'processing' | 'success' | 'failed';
     email: string;
     username: string;
-    token: string;
+    privateKey: string;
+    publicKey: string;
     role: string;
     createdAt: string;
     updatedAt: string;
